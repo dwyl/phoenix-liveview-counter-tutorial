@@ -12,6 +12,7 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "oq1rRRs+4fqLuaBxIDEbrV4ALaCpglx6aEZZGKi1JiPuQt1dKKvMww2ghfxGWFFW",
   render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
+  # https://elixirschool.com/blog/live-view-with-pub-sub/
   pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
