@@ -1,0 +1,18 @@
+language: elixir
+elixir:
+  - 1.8
+env:
+  - MIX_ENV=test
+script:
+  - mix deps.get
+  - mix compile
+  - mix test
+  - mix cover
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  # - mix deps.get --only docs
+  # - MIX_ENV=docs mix inch.report
+cache:
+  directories:
+    - _build
+    - deps
