@@ -4,13 +4,7 @@ defmodule LiveViewCounterWeb.CounterLive do
   @topic "live"
 
   def render(assigns) do
-    ~L"""
-    <div>
-      <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
-    </div>
-    """
+    LiveViewCounterWeb.PageView.render("counter.html", assigns)
   end
 
   def mount(_session, socket) do
