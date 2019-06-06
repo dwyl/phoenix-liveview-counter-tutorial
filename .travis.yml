@@ -7,9 +7,9 @@ script:
   - mix deps.get
   - mix compile
   - mix test
-  - mix cover
+  # - mix cover
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  # - bash <(curl -s https://codecov.io/bash)
   # - mix deps.get --only docs
   # - MIX_ENV=docs mix inch.report
 cache:
