@@ -1,4 +1,4 @@
-# LiveViewCounter
+# LiveViewCounter [![Build Status](https://travis-ci.org/dwyl/phoenix-live-view-counter.svg?branch=master)](https://travis-ci.org/dwyl/phoenix-live-view-counter)
 
 To start your Phoenix server:
 
