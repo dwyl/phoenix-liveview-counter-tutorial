@@ -1,4 +1,8 @@
-# LiveViewCounter [![Build Status](https://travis-ci.org/dwyl/phoenix-live-view-counter.svg?branch=master)](https://travis-ci.org/dwyl/phoenix-live-view-counter)
+# Phoenix LiveView Counter Tutorial [![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues) [![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
+<!--
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
+-->
+
 
 To start your Phoenix server:
 
