@@ -343,13 +343,36 @@ end
 ```
 
 
-> 🏁 Snapshot of code at the end of Step 1:
-[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c4072514d0c66cba2c2c21952a76af98be)
+> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+file at the end of Step 2:
+[mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 
 
+#### 2.1 Download the `phoenix_live_view` Dependency
+
+Now that you've added the `phoenix_live_view` to `mix.exs`,
+you need to _download_ the dependencies.
+Run:
+
+```
+mix deps.get
+```
+
+You should see output similar to:
+
+```
+Resolving Hex dependencies...
+Dependency resolution completed:
+Unchanged:
+  cowboy 2.7.0
+  ...
+New:
+  phoenix_live_view 0.8.1
+* Getting phoenix_live_view (Hex package)
+```
 
 
-
+#### Step 3. 
 
 
 
