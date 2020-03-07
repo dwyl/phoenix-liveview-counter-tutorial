@@ -8,7 +8,7 @@
 -->
 
 Build your _first_ App using Phoenix LiveView
-to understand all the basics in 20 minutes or less!
+and understand all the basic concepts in 20 minutes or less!
 
 <div>
   <a href="https://live-view-counter.herokuapp.com/">
@@ -28,19 +28,6 @@ This repository is the **_complete beginner's_ tutorial**
 we _wish_ we had when **learning LiveView**
 and the one _you_ have been looking for!
 
-> Chris McCord the creator of Phoenix and LiveView has an example:
-[https://github.com/chrismccord/phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example/tree/e3966aca18f7d8f4da84d197e3ee22af4050fd5e)
-At the time of writing, we feel that it is not very beginner-friendly.
-Only the default "_start your Phoenix server_" instructions are included,
-and the dependencies have
-[diverged](https://github.com/chrismccord/phoenix_live_view_example/issues/56)
-so the exampled does not _run_.
-We totally understand that Chris is focussing _building_
-Phoenix and LiveView so we decided to fill in the gaps
-and write this tutorial.
-
-
-
 
 
 
@@ -50,7 +37,7 @@ A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with no prior experience necessary.
 
-### LiveView?
+### LiveView?
 
 Phoenix LiveView allows you to build rich interactive web apps
 with realtime reactive UI (_no page refresh when data updates_)
@@ -66,15 +53,19 @@ is loaded on the client for the page to work.
 See: https://github.com/phoenixframework/phoenix_live_view
 
 
-If you are totally new to LiveView (_and have the bandwidth_),
+If you are new to LiveView (_and have the bandwidth_),
 we recommend watching
 James [@knowthen](https://github.com/knowthen) Moore's
-intro to LiveView video where he explains the concepts:
+intro to LiveView where he explains the concepts:
 "_Phoenix LiveView for web developers who don't know Elixir_"
-https://youtu.be/U_Pe8Ru06fM
+[youtu.be/U_Pe8Ru06fM](https://youtu.be/U_Pe8Ru06fM)
+
 [![phoenix-liveview-intro-](https://user-images.githubusercontent.com/194400/76150088-6d1df300-609e-11ea-8b73-67a263fc762b.png)](https://youtu.be/U_Pe8Ru06fM)
 
+Watching the video is _not required_;
+you will be able to follow the tutorial without it.
 
+<br />
 
 
 ## Who? 👤
@@ -112,34 +103,71 @@ You should expect to see output similar to the following:
 ```elixir
 Elixir 1.10.1 (compiled with Erlang/OTP 22)
 ```
-This tells us we are using `Elixir version 1.10.1`
+This informs us we are using `Elixir version 1.10.1`
 which is the _latest_ version at the time of writing.
 
 
-**b.** **`Phoenix` _installed_** on your computer
+**b.** **`Phoenix` _installed_** on your computer.
+see: [hexdocs.pm/phoenix/installation.html](https://hexdocs.pm/phoenix/installation.html)
+
+If you run the following command in your terminal:
+
+```sh
+mix phx.new -v
+```
+
+You should see:
+
+```sh
+Phoenix v1.4.15
+```
+
+If you have a _later_ version of Phoenix,
+and you get _stuck_ at any point,
+_please_
+[open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
+We are here to help!
+
+
+
 
 **c.** **`Node.js` _installed_** on your computer.
+Download it from: https://nodejs.org
 
 If you run the following command in your terminal:
 
 ```sh
 node -v
 ```
+
 You should see:
+
 ```
 v12.16.1
 ```
 
-> Phoenix LiveView only requires Node.js
+> Phoenix LiveView does not require the _latest_ Node.js,
+so if you have a _recent_ version e.g v10, you'll be fine.
 
 
-
-**c.** Familiarity with **basic `Elixir` syntax**.
+**d.** Familiarity with **basic `Elixir` syntax** is highly recommended.
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
 
-
+<br />
 
 ## How? 💻
+
+This tutorial takes you through all the steps
+to build and test a counter in Phoenix LiveView.
+It's a good idea to
+["begin with the end in mind"](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People#2_-_Begin_with_the_end_in_mind)
+so we recommend running the _finished_ app
+on your machine _before_ you write any code.
+
+You can also try the version deployed to Heroku:
+https://live-view-counter.herokuapp.com
+
+<br />
 
 ### Run the App on your `localhost`
 
@@ -156,7 +184,6 @@ On your `localhost`, run the following command to clone the repo:
 ```sh
 git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git && phoenix-liveview-counter-tutorial
 ```
-
 
 #### Download the Dependencies
 
@@ -192,27 +219,60 @@ You should expect to see:
 ![phoenix-liveview-counter-start](https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif)
 
 
+With the _finished_ version of the App running on your machine
+and a clear picture of where we are headed, it's time to build it!
 
+
+### Step 1. Create the App 🆕
+
+
+
+
+
+
+## Recommended Reading
+
++ _Official_ Phoenix LiveView installation instructions:
+https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md
+
+
+<br /><br />
 
 ## Credits 🙌
 
-All credit for this tutorial goes to Dennis Beatty
+All credit for inspiring this tutorial goes to Dennis Beatty
 [@dnsbty](https://github.com/dnsbty)
 for his superb post:
 https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html
-and corresponding video: https://youtu.be/2bipVjOcvdI
+and corresponding video: [youtu.be/2bipVjOcvdI](https://youtu.be/2bipVjOcvdI)
 
 [![dennisbeatty-counter-video](https://user-images.githubusercontent.com/194400/76142652-953e2f80-6067-11ea-95f7-1efdad619b2f.png)](https://youtu.be/2bipVjOcvdI)
 
 We recommend _everyone_ learning `Elixir`
-subscribe to his YouTube channel and watch _all_ his videos
-as they are a _superb_ resource.
+_subscribe_ to his YouTube channel and watch _all_ his videos
+as they are a _superb_ resource!
 
 The 3 key differences
 between this tutorial and Dennis' original post are:
 
 1. **_Complete_ code** commit (snapshot) at the end of each section.
-(_not just snippets of code_).
+(_not just inline snippets of code_).
+We feel that having the _complete_ code
+speeds up learning significantly, especially if we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
 3. ***Test Driven Development*** is followed so _complete_ beginners
 can see how easy it is to write reliable code in a basic example.
+
+
+<br />
+
+Chris McCord (creator of Phoenix and LiveView) has
+[github.com/chrismccord/phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example/tree/e3966aca18f7d8f4da84d197e3ee22af4050fd5e)
+We feel that it is not very beginner-friendly (_at the time of writing_).
+Only the default "_start your Phoenix server_" instructions are included,
+and the
+[dependencies have diverged](https://github.com/chrismccord/phoenix_live_view_example/issues/56)
+so the app does not _run_.
+We understand/love that Chris is focussed _building_
+Phoenix and LiveView so we decided to fill in the gaps
+and write this tutorial.
