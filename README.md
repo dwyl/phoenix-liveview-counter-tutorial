@@ -37,6 +37,7 @@ A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with no prior experience necessary.
 
+
 ### LiveView?
 
 Phoenix LiveView allows you to build rich interactive web apps
@@ -53,17 +54,7 @@ is loaded on the client for the page to work.
 See: https://github.com/phoenixframework/phoenix_live_view
 
 
-If you are new to LiveView (_and have the bandwidth_),
-we recommend watching
-James [@knowthen](https://github.com/knowthen) Moore's
-intro to LiveView where he explains the concepts:
-"_Phoenix LiveView for web developers who don't know Elixir_"
-[youtu.be/U_Pe8Ru06fM](https://youtu.be/U_Pe8Ru06fM)
 
-[![phoenix-liveview-intro-](https://user-images.githubusercontent.com/194400/76150088-6d1df300-609e-11ea-8b73-67a263fc762b.png)](https://youtu.be/U_Pe8Ru06fM)
-
-Watching the video is _not required_;
-you will be able to follow the tutorial without it.
 
 <br />
 
@@ -75,7 +66,7 @@ never built _anything_ in Phoenix or LiveView.
 
 If you get stuck at any point
 while following the tutorial
-or you have any feedback/questions/suggestions,
+or you have any feedback/questions,
 _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 
@@ -86,7 +77,7 @@ this tutorial will be the _fastest_ way to learn LiveView.
 
 ### Prerequisites 📝
 
-Before you start working through this tutorial,
+Before you start working through the tutorial,
 you will need:
 
 **a.** **`Elixir` installed** on your computer.
@@ -153,6 +144,7 @@ so if you have a _recent_ version e.g v10, you'll be fine.
 **d.** Familiarity with **basic `Elixir` syntax** is highly recommended.
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
 
+
 <br />
 
 ## How? 💻
@@ -169,7 +161,7 @@ https://live-view-counter.herokuapp.com
 
 <br />
 
-### Run the App on your `localhost`
+### Run the _Finished_ Counter App on your `localhost`
 
 Before you attempt to _build_ the counter,
 we suggest that you clone and _run_
@@ -222,8 +214,9 @@ You should expect to see:
 With the _finished_ version of the App running on your machine
 and a clear picture of where we are headed, it's time to _build_ it!
 
+<br />
 
-### Step 1. Create the App 🆕
+### Step 1: Create the App 🆕
 
 In your terminal run the following `mix` command
 to generate the new Phoenix app:
@@ -242,11 +235,11 @@ When you see the following prompt:
 Fetch and install dependencies? [Yn]
 ```
 
-Type `Y` and `[Enter]`.
-That will download all the dependencies.
+Type `Y` followed by the `[Enter]` key.
+That will download all the necessary dependencies.
 
 
-#### Checkpoint: _Run_ the _Tests_!
+#### Checkpoint 1: _Run_ the _Tests_!
 
 
 In your terminal, run the following `mix` command:
@@ -268,7 +261,7 @@ Finished in 0.02 seconds
 3 tests, 0 failures
 ```
 
-#### Checkpoint: _Run_ the New Phoenix App!
+#### Checkpoint 1: _Run_ the New Phoenix App!
 
 Run the server by executing this command:
 
@@ -283,10 +276,68 @@ in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
-
-
-> Snapshot of code at the end of Step 1:
+> 🏁 Snapshot of code at the end of Step 1:
 [phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c4072514d0c66cba2c2c21952a76af98be)
+
+
+<br />
+
+
+
+### Step 2: Add LiveView to `deps` in `mix.exs` File
+
+Now that we have a working basic Phoenix App,
+it's time to add `phoenix_live_view` to our `deps`.
+Open the `mix.exs` file and locate the `deps` list,
+e.g:
+
+```elixir
+defp deps do
+  [
+    {:phoenix, "~> 1.4.15"},
+    {:phoenix_pubsub, "~> 1.1"},
+    {:phoenix_html, "~> 2.11"},
+    {:phoenix_live_reload, "~> 1.2", only: :dev},
+    {:gettext, "~> 0.11"},
+    {:jason, "~> 1.0"},
+    {:plug_cowboy, "~> 2.0"}
+  ]
+end
+
+```
+
+Append the following line to the end of the list:
+
+```
+{:phoenix_live_view, "~> 0.8.1"},
+```
+
+The `deps` definition should now look likes this:
+
+```elixir
+defp deps do
+  [
+    {:phoenix, "~> 1.4.15"},
+    {:phoenix_pubsub, "~> 1.1"},
+    {:phoenix_html, "~> 2.11"},
+    {:phoenix_live_reload, "~> 1.2", only: :dev},
+    {:gettext, "~> 0.11"},
+    {:jason, "~> 1.0"},
+    {:plug_cowboy, "~> 2.0"}
+    {:phoenix_live_view, "~> 0.8.1"},
+  ]
+end
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -324,6 +375,19 @@ speeds up learning significantly, especially if (when) we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
 3. ***Test Driven Development*** is followed so _complete_ beginners
 can see how _easy_ it is to write reliable code in a basic example.
+
+### Phoenix LiveView for Web Developers Who Don't know Elixir
+
+If you are new to LiveView (_and have the bandwidth_),
+we recommend watching
+James [@knowthen](https://github.com/knowthen) Moore's
+intro to LiveView where he explains the concepts:
+[youtu.be/U_Pe8Ru06fM](https://youtu.be/U_Pe8Ru06fM)
+
+[![phoenix-liveview-intro-](https://user-images.githubusercontent.com/194400/76150088-6d1df300-609e-11ea-8b73-67a263fc762b.png)](https://youtu.be/U_Pe8Ru06fM)
+
+Watching the video is _not required_;
+you will be able to follow the tutorial without it.
 
 
 <br />
