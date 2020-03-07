@@ -25,11 +25,39 @@ and write this tutorial.
 
 
 
+
+
+
 ## What? 💭
 
 A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with no prior experience necessary.
+
+### LiveView?
+
+Phoenix LiveView allows you to build rich interactive web apps
+with realtime reactive UI (_no page refresh when data updates_)
+without having to write any `JavaScript`!
+This allows developers to build _incredible_ user experiences
+with considerably less code.
+
+LiveView pages load instantly because they are rendered on the Server
+and they require considerably less bandwidth than a similar
+React, Vue.js, Angular, etc. because only the _bare minimum_
+is loaded on the client for the page to work.
+
+See: https://github.com/phoenixframework/phoenix_live_view
+
+
+If you are totally new to LiveView (_and have the bandwidth_),
+we recommend watching
+James [@knowthen](https://github.com/knowthen) Moore's
+intro to LiveView video where he explains the concepts:
+"_Phoenix LiveView for web developers who don't know Elixir_"
+https://youtu.be/U_Pe8Ru06fM
+[![phoenix-liveview-intro-](https://user-images.githubusercontent.com/194400/76150088-6d1df300-609e-11ea-8b73-67a263fc762b.png)](https://youtu.be/U_Pe8Ru06fM)
+
 
 
 
@@ -38,33 +66,111 @@ with no prior experience necessary.
 This tutorial is aimed at people who have
 never built _anything_ in Phoenix or LiveView.
 
+If you get stuck at any point
+while following the tutorial
+or you have any feedback/questions/suggestions,
+_please_
+[open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 
+If you don't have a lot of time or bandwidth to watch videos,
+this tutorial will be the _fastest_ way to learn LiveView.
+
+
+
+### Prerequisites 📝
+
+Before you start working through this tutorial,
+you will need:
+
+**a.** **`Elixir` installed** on your computer.
+See: [learn-elixir#**installation**](https://github.com/dwyl/learn-elixir#installation) <br />
+
+When you run the command:
+
+```sh
+elixir -v
+```
+
+You should expect to see output similar to the following:
+
+```elixir
+Elixir 1.10.1 (compiled with Erlang/OTP 22)
+```
+This tells us we are using `Elixir version 1.10.1`
+which is the _latest_ version at the time of writing.
+
+
+**b.** **`Phoenix` _installed_** on your computer
+
+**c.** **`Node.js` _installed_** on your computer.
+
+If you run the following command in your terminal:
+
+```sh
+node -v
+```
+You should see:
+```
+v12.16.1
+```
+
+> Phoenix LiveView only requires Node.js
+
+
+
+**c.** Familiarity with **basic `Elixir` syntax**.
+See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
 
 
 
 ## How? 💻
 
+### Run the App on your `localhost`
+
+Before you attempt to _build_ the counter,
+we suggest that you clone and _run_
+the complete app on your `localhost`.
+That way you _know_ it's working
+without much effort/time expended.
+
+#### Clone the Repository
+
+On your `localhost`, run the following command to clone the repo:
+
+```sh
+git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git && phoenix-liveview-counter-tutorial
+```
 
 
+#### Download the Dependencies
+
+Install `Elixir` dependencies by running the command:
+
+```sh
+mix deps.get
+```
+
+Install the `Node.js` dependencies with:
+
+```sh
+npm install --prefix assets
+```
+
+#### Run the App
+
+Start the Phoenix server by running the command:
+
+```sh
+mix phx.server
+```
+
+Now you can visit
+[`localhost:4000`](http://localhost:4000)
+in your web browser.
+
+You should expect to see:
 
 
-To start your Phoenix server:
-
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install --prefix assets`
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
 
 
 
@@ -87,7 +193,7 @@ The 3 key differences
 between this tutorial and Dennis' original post are:
 
 1. **_Complete_ code** commit (snapshot) at the end of each section.
-(_not just snippets of code_)
+(_not just snippets of code_).
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
 3. ***Test Driven Development*** is followed so _complete_ beginners
 can see how easy it is to write reliable code in a basic example.
