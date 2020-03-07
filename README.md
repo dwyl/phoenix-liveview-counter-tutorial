@@ -211,7 +211,7 @@ Now you can visit
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
 
-> 💡 If you open a _second_ browser window (_e.g. incognito mode_),
+> 💡 Open a _second_ browser window (_e.g. incognito mode_),
 you will see the the counter updating in both places like magic!
 
 You should expect to see:
@@ -220,17 +220,45 @@ You should expect to see:
 
 
 With the _finished_ version of the App running on your machine
-and a clear picture of where we are headed, it's time to build it!
+and a clear picture of where we are headed, it's time to _build_ it!
 
 
 ### Step 1. Create the App 🆕
 
+In your terminal run the following `mix` command
+to generate the new Phoenix app:
+
+```sh
+mix phx.new live_view_counter --no-ecto
+```
+
+The `--no-ecto` flag tells `mix phx.new` to create an App without a Database.
+This keeps our counter as simple as possible.
+We can always add a Database to store the counter later.
+
+When you see the following prompt:
+
+```sh
+Fetch and install dependencies? [Yn]
+```
+
+Type `Y` and `[Enter]`.
+
+That will download all the dependencies.
 
 
 
 
 
-## Recommended Reading
+
+
+
+
+
+
+<br /><br />
+
+## Recommended Reading 📚
 
 + _Official_ Phoenix LiveView installation instructions:
 https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md
@@ -255,19 +283,19 @@ as they are a _superb_ resource!
 The 3 key differences
 between this tutorial and Dennis' original post are:
 
-1. **_Complete_ code** commit (snapshot) at the end of each section.
-(_not just inline snippets of code_).
+1. **_Complete_ code** commit (snapshot) at the end of each section
+(_not just inline snippets of code_). <br />
 We feel that having the _complete_ code
-speeds up learning significantly, especially if we get _stuck_.
+speeds up learning significantly, especially if (when) we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
 3. ***Test Driven Development*** is followed so _complete_ beginners
-can see how easy it is to write reliable code in a basic example.
+can see how _easy_ it is to write reliable code in a basic example.
 
 
 <br />
 
 Chris McCord (creator of Phoenix and LiveView) has
-[github.com/chrismccord/phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example/tree/e3966aca18f7d8f4da84d197e3ee22af4050fd5e)
+[github.com/chrismccord/phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example/tree/e3966aca18f7d8f4da84d197e3ee22af4050fd5e) <br />
 We feel that it is not very beginner-friendly (_at the time of writing_).
 Only the default "_start your Phoenix server_" instructions are included,
 and the
