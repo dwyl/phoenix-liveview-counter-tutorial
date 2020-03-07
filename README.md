@@ -131,7 +131,7 @@ If you run the following command in your terminal:
 node -v
 ```
 
-You should see:
+You should see output similar to:
 
 ```
 v12.16.1
@@ -141,7 +141,9 @@ v12.16.1
 so if you have a _recent_ version e.g v10, you'll be fine.
 
 
-**d.** Familiarity with **basic `Elixir` syntax** is highly recommended.
+**d.** Familiarity with **basic `Elixir` syntax** is recommended
+but not essential; you can pick it up as you go
+and ask questions if you get stuck!
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
 
 
@@ -150,18 +152,18 @@ See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-el
 ## How? 💻
 
 This tutorial takes you through all the steps
-to build and test a counter in Phoenix LiveView.
-It's a good idea to
+to build and test a counter in Phoenix LiveView. <br />
+We always
 ["begin with the end in mind"](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People#2_-_Begin_with_the_end_in_mind)
 so we recommend running the _finished_ app
-on your machine _before_ you write any code.
+on your machine _before_ writing any code.
 
-You can also try the version deployed to Heroku:
+> 💡 You can also try the version deployed to Heroku:
 https://live-view-counter.herokuapp.com
 
 <br />
 
-### Run the _Finished_ Counter App on your `localhost`
+### Run the _Finished_ Counter App on your `localhost` 🏃‍
 
 Before you attempt to _build_ the counter,
 we suggest that you clone and _run_
@@ -171,15 +173,18 @@ without much effort/time expended.
 
 #### Clone the Repository
 
-On your `localhost`, run the following command to clone the repo:
+On your `localhost`,
+run the following command to clone the repo
+and change into the directory:
 
 ```sh
-git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git && phoenix-liveview-counter-tutorial
+git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git
+cd phoenix-liveview-counter-tutorial
 ```
 
 #### Download the Dependencies
 
-Install `Elixir` dependencies by running the command:
+Install the `Elixir` dependencies by running the command:
 
 ```sh
 mix deps.get
@@ -225,7 +230,8 @@ to generate the new Phoenix app:
 mix phx.new live_view_counter --no-ecto
 ```
 
-The `--no-ecto` flag tells `mix phx.new` to create an App without a Database.
+The `--no-ecto` flag tells `mix phx.new`
+to create an App without a Database. <br />
 This keeps our counter as simple as possible.
 We can always add a Database to store the counter later.
 
@@ -238,6 +244,7 @@ Fetch and install dependencies? [Yn]
 Type `Y` followed by the `[Enter]` key.
 That will download all the necessary dependencies.
 
+<br />
 
 #### Checkpoint 1: _Run_ the _Tests_!
 
@@ -261,7 +268,13 @@ Finished in 0.02 seconds
 3 tests, 0 failures
 ```
 
-#### Checkpoint 1: _Run_ the New Phoenix App!
+Tests all pass.
+This is _expected_ with a new app.
+It's a good way to confirm everything is working.
+
+<br />
+
+#### Checkpoint 1b: _Run_ the New Phoenix App!
 
 Run the server by executing this command:
 
@@ -323,13 +336,15 @@ defp deps do
     {:phoenix_live_reload, "~> 1.2", only: :dev},
     {:gettext, "~> 0.11"},
     {:jason, "~> 1.0"},
-    {:plug_cowboy, "~> 2.0"}
+    {:plug_cowboy, "~> 2.0"},
     {:phoenix_live_view, "~> 0.8.1"},
   ]
 end
 ```
 
 
+> 🏁 Snapshot of code at the end of Step 1:
+[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c4072514d0c66cba2c2c21952a76af98be)
 
 
 
