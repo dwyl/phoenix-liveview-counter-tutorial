@@ -372,8 +372,63 @@ New:
 ```
 
 
-#### Step 3. 
+### Step 3. Configure `signing_salt`
 
+Phoenix LiveView uses a cryptographic salt
+to secure communications
+between client and server. 🔐
+You don't need to know what this is,
+just follow the instructions below and you'll be fine,
+but if you are curious,
+read: https://en.wikipedia.org/wiki/Salt_(cryptography)
+
+In your terminal run the following command:
+
+```
+mix phx.gen.secret 32
+```
+
+You should see output similar to the following:
+
+```
+iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c
+```
+
+> 💡 This is a random string generator
+that generates a 32 letter string of alphanumeric characters,
+so the result will be different each time you run it.
+
+Copy the string into your computer's clipboard.
+
+
+Open your `config/config.exs` file
+and locate the line that begins with
+`live_view:`
+
+In this case it is the last line in the "Configures the endpoint" block:
+
+```elixir
+# Configures the endpoint
+config :live_view_counter, LiveViewCounterWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "K73oqZVIRIAck+a4sNK0V/hPujAYLeXGrKwax57JXFKMb8z64kgTaMF0Ys/Ikhrm",
+  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "dUvMl2Sn"]
+```
+
+Replace the String value for `signing_salt`
+with the one you generated in your terminal:
+
+```elixir
+# Configures the endpoint
+config :live_view_counter, LiveViewCounterWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "K73oqZVIRIAck+a4sNK0V/hPujAYLeXGrKwax57JXFKMb8z64kgTaMF0Ys/Ikhrm",
+  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
+```
 
 
 
