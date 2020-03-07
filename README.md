@@ -243,16 +243,50 @@ Fetch and install dependencies? [Yn]
 ```
 
 Type `Y` and `[Enter]`.
-
 That will download all the dependencies.
 
 
+#### Checkpoint: _Run_ the _Tests_!
+
+
+In your terminal, run the following `mix` command:
+
+```sh
+mix test
+```
+
+You should see:
+
+```
+Generated phoenix app
+==> live_view_counter
+Compiling 14 files (.ex)
+Generated live_view_counter app
+...
+
+Finished in 0.02 seconds
+3 tests, 0 failures
+```
+
+#### Checkpoint: _Run_ the New Phoenix App!
+
+Run the server by executing this command:
+
+```sh
+mix phx.server
+```
+
+
+Visit
+[`localhost:4000`](http://localhost:4000)
+in your web browser.
+
+![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 
 
-
-
-
+> Snapshot of code at the end of Step 1:
+[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c4072514d0c66cba2c2c21952a76af98be)
 
 
 
