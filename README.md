@@ -1,7 +1,23 @@
-# Phoenix LiveView Counter Tutorial [![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues) [![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
+<div align="center">
+
+# Phoenix LiveView Counter Tutorial
+
+[![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues) [![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
 <!--
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 -->
+
+Build your _first_ App using Phoenix LiveView
+to understand all the basics in 20 minutes or less!
+
+<div>
+  <a href="https://live-view-counter.herokuapp.com/">
+    <img src="https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif">
+  </a>
+</div>
+
+</div>
+<br />
 
 ## Why? 🤷
 
@@ -168,9 +184,12 @@ Now you can visit
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
 
+> 💡 If you open a _second_ browser window (_e.g. incognito mode_),
+you will see the the counter updating in both places like magic!
+
 You should expect to see:
 
-
+![phoenix-liveview-counter-start](https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif)
 
 
 
