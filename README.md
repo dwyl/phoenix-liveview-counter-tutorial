@@ -611,7 +611,30 @@ so that it now looks like this:
 ```
 
 > 🏁 Changes made in Step 7:
-[`lib/live_view_counter_web/endpoint.ex#L13-L14`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/lib/live_view_counter_web/endpoint.ex#L13-L14)
+[`assets/package.json#L11`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/bb6c60b3f8743bfabff24e27f8da85282b48e51b/assets/package.json#L11)
+
+<br />
+
+#### 7.1 Install the NPM Dependency
+
+Once you've added the line to the `package.json` file,
+you will need to run the following command to _install_ the dependency:
+
+```sh
+npm install --prefix assets
+```
+
+You should expect to see output similar to the following:
+
+```sh
+added 1 package from 1 contributor and audited 8438 packages in 4.257s
+```
+
+<br />
+
+### Step 8:
+
+
 
 
 
