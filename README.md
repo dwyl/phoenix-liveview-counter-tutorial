@@ -467,7 +467,16 @@ file at the end of Step 2:
 
 ### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
 
-Replace the regular Phoenix flash plug with the LiveView flash plug.
+
+At the top of the file you should see the line
+`use LiveViewCounterWeb, :router`
+add the following import statement below it:
+`import Phoenix.LiveView.Router`
+
+
+Next we need to
+replace the regular Phoenix flash plug
+with the LiveView flash plug.
 
 Open the
 [`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/b1f4fada6ae6d1a62a8c53ed7cb5f86aa4854171/lib/live_view_counter_web/router.ex#L4-L10)
@@ -498,12 +507,13 @@ pipeline :browser do
 end
 ```
 
-That will ensure that flash messages (_e.g: "not connected to network")
+That will ensure that flash messages (_e.g: "not connected to network"_)
 are displayed in the client when the LiveView App is running.
 
-> 🏁 The [`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
-file at the end of Step 4:
-[`router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+> 🏁 At the end of Step 4, the
+[`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/31ec2f68c3dd939fabe1e164bdc72b60980d25fb/lib/live_view_counter_web/router.ex#L7)
+should look like:
+[`router.ex#L7`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/31ec2f68c3dd939fabe1e164bdc72b60980d25fb/lib/live_view_counter_web/router.ex#L7)
 
 
 
@@ -559,6 +569,8 @@ between this tutorial and Dennis' original post are:
 We feel that having the _complete_ code
 speeds up learning significantly, especially if (when) we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
+A few updates have been made to LiveView setup,
+these are reflected in our tutorial which uses the latest release.
 3. ***Test Driven Development*** is followed so _complete_ beginners
 can see how _easy_ it is to write reliable code in a basic example.
 
