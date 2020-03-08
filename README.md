@@ -515,7 +515,7 @@ should look like:
 
 <br />
 
-### Step 5:
+### Step 5: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
 
 
 Open the
@@ -547,8 +547,11 @@ def router do
 end
 ```
 
-
-
+> 🏁 Changes made in Step 5: <br />
+**Before**:
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
+***After***:
+[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
 
 
 
