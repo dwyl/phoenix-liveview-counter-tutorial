@@ -650,10 +650,12 @@ _above_ the `app.js` script tag:
 ```
 
 
+> 🏁 Line of code added in Step 8:
+[`lib/live_view_counter_web/templates/layout/app.html.eex#L29`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/9d648ade3eaeb91a2de87cc4f822bc907776e667/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
 
+<br />
 
-
-
+### Step 9: 
 
 
 
