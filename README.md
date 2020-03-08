@@ -367,7 +367,7 @@ The _last_ line in the code block is the important one.
 
 > 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 file at the end of Step 2:
-[mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L44)
 
 <br />
 
@@ -467,7 +467,7 @@ file at the end of Step 2:
 
 
 At the top of the file you should see the line
-`use LiveViewCounterWeb, :router`
+`use LiveViewCounterWeb, :router` <br />
 add the following import statement below it:
 [`import Phoenix.LiveView.Router`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L3)
 
@@ -632,7 +632,24 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8:
+### Step 8: Add CSRF meta tag to Layout
+
+In order to ensure that the Client can communicate with the LiveView
+server we need to ensure that the `csrf_meta_tag()`
+is included in the `<head>` tag of the layout template.
+
+Open the
+[`lib/live_view_counter_web/templates/layout/app.html.eex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/bb6c60b3f8743bfabff24e27f8da85282b48e51b/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
+file,
+and add `<%= csrf_meta_tag() %>`
+_above_ the `app.js` script tag:
+
+```html
+<%= csrf_meta_tag() %>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+```
+
+
 
 
 
@@ -695,11 +712,14 @@ you will be able to follow the tutorial without it.
 
 Chris McCord (creator of Phoenix and LiveView) has
 [github.com/chrismccord/phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example/tree/e3966aca18f7d8f4da84d197e3ee22af4050fd5e) <br />
-We feel that it is not very beginner-friendly (_at the time of writing_).
+![chris-phoenix-live-view-example-rainbow](https://user-images.githubusercontent.com/194400/76169589-9ce9fb00-6171-11ea-9238-2c72287b0eed.png)
+It's a great collection of examples for people who already understand LiveView.
+However we feel that it is not very beginner-friendly
+(_at the time of writing_).
 Only the default "_start your Phoenix server_" instructions are included,
 and the
 [dependencies have diverged](https://github.com/chrismccord/phoenix_live_view_example/issues/56)
-so the app does not _compile/run_.
+so the app does not _compile/run_ for some people.
 We understand/love that Chris is focussed _building_
 Phoenix and LiveView so we decided to fill in the gaps
-and write this tutorial.
+and write this _beginner-focussed_ tutorial.
