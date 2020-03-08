@@ -577,13 +577,41 @@ socket "/live", Phoenix.LiveView.Socket,
 
 This exposes a socket in the `/live` namespace for the LiveView updates.
 
-> 🏁 Changes made in Step 5:
+> 🏁 Changes made in Step 6:
+[`lib/live_view_counter_web/endpoint.ex#L13-L14`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/lib/live_view_counter_web/endpoint.ex#L13-L14)
 
+<br />
 
+### Step 7: Add `phoenix_live_view` to Node.js Dependencies in `package.json`
 
+In order for the LiveView client to work in the web browser,
+we need to add the LiveView NPM dependency to the
+`dependencies` in the
+[`assets/package.json`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/assets/package.json#L8-L11)
+file.
 
+Locate the `"dependencies"` section:
 
+```js
+"dependencies": {
+  "phoenix": "file:../deps/phoenix",
+  "phoenix_html": "file:../deps/phoenix_html"
+},
+```
 
+Add the line: `"phoenix_live_view": "file:../deps/phoenix_live_view"`
+so that it now looks like this:
+
+```js
+"dependencies": {
+  "phoenix": "file:../deps/phoenix",
+  "phoenix_html": "file:../deps/phoenix_html",
+  "phoenix_live_view": "file:../deps/phoenix_live_view"
+}
+```
+
+> 🏁 Changes made in Step 7:
+[`lib/live_view_counter_web/endpoint.ex#L13-L14`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/lib/live_view_counter_web/endpoint.ex#L13-L14)
 
 
 
