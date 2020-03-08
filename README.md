@@ -310,7 +310,7 @@ the payoff is worth it!
 
 > 💡 This tutorial follows and _expands_
 on the _official_ Phoenix LiveView installation instructions:
-https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md
+[github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
 We always prefer _more_ detailed instructions when learning
 so we have added more detail to each step.
 Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
