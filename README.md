@@ -524,25 +524,25 @@ file
 and add the relevant `Phoenix.LiveView` import statements
 for each of the `controller`, `view` and `router` blocks.
 
-```elixir
+```diff
 def controller do
   quote do
     ...
-    import Phoenix.LiveView.Controller
+++    import Phoenix.LiveView.Controller
   end
 end
 
 def view do
   quote do
     ...
-    import Phoenix.LiveView.Helpers
+++    import Phoenix.LiveView.Helpers
   end
 end
 
 def router do
   quote do
     ...
-    import Phoenix.LiveView.Router
+++    import Phoenix.LiveView.Router
   end
 end
 ```
@@ -553,7 +553,9 @@ end
 ***After***:
 [`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
 
+<br />
 
+### Step 6:
 
 
 
