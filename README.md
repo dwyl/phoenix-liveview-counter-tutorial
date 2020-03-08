@@ -560,9 +560,24 @@ and
 
 <br />
 
-### Step 6:
+### Step 6: Create the `/live` Socket in `endpoint.ex`
 
+In order to allow the client(s)
+to communicate with the server,
+we need to open a socket.
+Open the
+[`lib/live_view_counter_web/endpoint.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web/endpoint.ex)
+file
+and add the following lines to it:
 
+```elixir
+socket "/live", Phoenix.LiveView.Socket,
+  websocket: [connect_info: [session: @session_options]]
+```
+
+This exposes a socket in the `/live` namespace for the LiveView updates.
+
+> 🏁 Changes made in Step 5:
 
 
 
