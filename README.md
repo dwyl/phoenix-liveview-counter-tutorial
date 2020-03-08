@@ -173,7 +173,7 @@ the complete app on your `localhost`.
 That way you _know_ it's working
 without much effort/time expended.
 
-
+<br />
 
 #### Clone the Repository
 
@@ -296,10 +296,7 @@ in your web browser.
 > 🏁 Snapshot of code at the end of Step 1:
 [phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/0d94a1c4072514d0c66cba2c2c21952a76af98be)
 
-
 <br />
-
-
 
 ### Step 2: Add LiveView to `deps` in `mix.exs` File
 
@@ -372,6 +369,7 @@ The _last_ line in the code block is the important one.
 file at the end of Step 2:
 [mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 
+<br />
 
 #### 2.1 Download the `phoenix_live_view` Dependency
 
@@ -396,6 +394,7 @@ New:
 * Getting phoenix_live_view (Hex package)
 ```
 
+<br />
 
 ### Step 3. Configure `signing_salt` in `config.exs`
 
@@ -462,8 +461,7 @@ The _last_ line in the code block is the important one.
 file at the end of Step 2:
 [mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 
-
-
+<br />
 
 ### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
 
@@ -507,7 +505,7 @@ pipeline :browser do
 end
 ```
 
-That will ensure that flash messages (_e.g: "not connected to network"_)
+That ensures flash messages (_e.g: "not connected to network"_)
 are displayed in the client when the LiveView App is running.
 
 > 🏁 At the end of Step 4, the
@@ -515,10 +513,39 @@ are displayed in the client when the LiveView App is running.
 should look like:
 [`router.ex#L8`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
 
+<br />
+
+### Step 5:
 
 
+Open the
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
+file
+and add the relevant `Phoenix.LiveView` import statements
+for each of the `controller`, `view` and `router` blocks.
 
+```elixir
+def controller do
+  quote do
+    ...
+    import Phoenix.LiveView.Controller
+  end
+end
 
+def view do
+  quote do
+    ...
+    import Phoenix.LiveView.Helpers
+  end
+end
+
+def router do
+  quote do
+    ...
+    import Phoenix.LiveView.Router
+  end
+end
+```
 
 
 
