@@ -685,7 +685,21 @@ liveSocket.connect()
 
 ### Step 10: Import the `live_view.css` in `app.css`
 
+In order to display the "connecting" and "offline" UI in our counter,
+we need to import the `live_view.css` file in our `app.css`.
 
+Open the
+[`assets/css/app.css`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/80ef56d9234f9006c35b0b43aeab953b5dc4c5de/assets/css/app.css#L3)
+file and append the following line:
+
+```css
+@import "../../deps/phoenix_live_view/assets/css/live_view.css";
+```
+
+> 🏁 The line of code added in Step 10 is:
+[`/assets/css/app.css#L4`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/eb7d33c44e9ac0ec1dc1f6b8462c6c96f8e1f677/assets/css/app.css#L4)
+
+<br />
 
 
 
