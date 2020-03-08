@@ -73,9 +73,9 @@ _please_
 If you don't have a lot of time or bandwidth to watch videos,
 this tutorial will be the _fastest_ way to learn LiveView.
 
+<br />
 
-
-### Prerequisites 📝
+### Prerequisites: What you Need _Before_ You Start 📝
 
 Before you start working through the tutorial,
 you will need:
@@ -98,7 +98,7 @@ This informs us we are using `Elixir version 1.10.1`
 which is the _latest_ version at the time of writing.
 
 
-**b.** **`Phoenix` _installed_** on your computer.
+**b.** **`Phoenix` installed** on your computer.
 see: [hexdocs.pm/phoenix/installation.html](https://hexdocs.pm/phoenix/installation.html)
 
 If you run the following command in your terminal:
@@ -122,7 +122,7 @@ We are here to help!
 
 
 
-**c.** **`Node.js` _installed_** on your computer.
+**c.** **`Node.js` installed** on your computer.
 Download it from: https://nodejs.org
 
 If you run the following command in your terminal:
@@ -138,12 +138,14 @@ v12.16.1
 ```
 
 > Phoenix LiveView does not require the _latest_ Node.js,
-so if you have a _recent_ version e.g v10, you'll be fine.
+so if you have a _recent_ version e.g `v10`, you will be fine.
 
 
 **d.** Familiarity with **basic `Elixir` syntax** is recommended
 but not essential; you can pick it up as you go
-and ask questions if you get stuck!
+and
+[ask questions](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
+if you get stuck!
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
 
 
@@ -292,7 +294,7 @@ in your web browser.
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 > 🏁 Snapshot of code at the end of Step 1:
-[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c4072514d0c66cba2c2c21952a76af98be)
+[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/0d94a1c4072514d0c66cba2c2c21952a76af98be)
 
 
 <br />
@@ -362,6 +364,8 @@ defp deps do
   ]
 end
 ```
+
+The _last_ line in the code block is the important one.
 
 
 > 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
@@ -451,15 +455,55 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
 ```
 
+The _last_ line in the code block is the important one.
+
+
+> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+file at the end of Step 2:
+[mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+
+
+
 
 ### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
 
+Replace the regular Phoenix flash plug with the LiveView flash plug.
 
+Open the
+[`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/b1f4fada6ae6d1a62a8c53ed7cb5f86aa4854171/lib/live_view_counter_web/router.ex#L4-L10)
+file and locate the `pipeline :browser do` block.
+e.g:
 
+```elixir
+pipeline :browser do
+  plug :accepts, ["html"]
+  plug :fetch_session
+  plug :fetch_flash
+  plug :protect_from_forgery
+  plug :put_secure_browser_headers
+end
+```
 
+Replace the line `plug :fetch_flash`
+with `plug :fetch_live_flash`
+such that it now looks like this:
 
+```elixir
+pipeline :browser do
+  plug :accepts, ["html"]
+  plug :fetch_session
+  plug :fetch_live_flash
+  plug :protect_from_forgery
+  plug :put_secure_browser_headers
+end
+```
 
+That will ensure that flash messages (_e.g: "not connected to network")
+are displayed in the client when the LiveView App is running.
 
+> 🏁 The [`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+file at the end of Step 4:
+[`router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 
 
 
