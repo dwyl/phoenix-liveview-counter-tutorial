@@ -163,13 +163,15 @@ https://live-view-counter.herokuapp.com
 
 <br />
 
-### Run the _Finished_ Counter App on your `localhost` 🏃‍
+### Step 0: Run the _Finished_ Counter App on your `localhost` 🏃‍
 
 Before you attempt to _build_ the counter,
 we suggest that you clone and _run_
 the complete app on your `localhost`.
 That way you _know_ it's working
 without much effort/time expended.
+
+
 
 #### Clone the Repository
 
@@ -300,7 +302,26 @@ in your web browser.
 ### Step 2: Add LiveView to `deps` in `mix.exs` File
 
 Now that we have a working basic Phoenix App,
-it's time to add `phoenix_live_view` to our `deps`.
+it's time to setup `phoenix_live_view` to work with our App.
+There are quite a few steps
+but they only take a couple of minutes to complete;
+don't be put off by the configuration,
+the payoff is worth it!
+
+
+> 💡 This tutorial follows and _expands_
+on the _official_ Phoenix LiveView installation instructions:
+https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md
+We always prefer _more_ detailed instructions when learning
+so we have added more detail to each step.
+Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
+because the counter works in the finished example.
+If you followed the instructions in "Step 0"
+to run the finished app on your `localhost`
+_before_ diving into building it,
+you also know they work for _you_. ✅
+
+
 Open the `mix.exs` file and locate the `deps` list,
 e.g:
 
@@ -372,11 +393,11 @@ New:
 ```
 
 
-### Step 3. Configure `signing_salt`
+### Step 3. Configure `signing_salt` in `config.exs`
 
 Phoenix LiveView uses a cryptographic salt
 to secure communications
-between client and server. 🔐
+between client and server. 🔐 <br />
 You don't need to know what this is,
 just follow the instructions below and you'll be fine,
 but if you are curious,
@@ -394,9 +415,9 @@ You should see output similar to the following:
 iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c
 ```
 
-> 💡 This is a random string generator
-that generates a 32 letter string of alphanumeric characters,
-so the result will be different each time you run it.
+> 💡 This is a **random** string generator
+that generates a **32 character string** of alphanumeric data, <br />
+so the result will be **different each time** you run the command.
 
 Copy the string into your computer's clipboard.
 
@@ -429,6 +450,34 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
 ```
+
+
+### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -491,7 +540,7 @@ We feel that it is not very beginner-friendly (_at the time of writing_).
 Only the default "_start your Phoenix server_" instructions are included,
 and the
 [dependencies have diverged](https://github.com/chrismccord/phoenix_live_view_example/issues/56)
-so the app does not _run_.
+so the app does not _compile/run_.
 We understand/love that Chris is focussed _building_
 Phoenix and LiveView so we decided to fill in the gaps
 and write this tutorial.
