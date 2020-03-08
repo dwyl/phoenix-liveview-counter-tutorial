@@ -7,8 +7,8 @@
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 -->
 
-Build your _first_ App using Phoenix LiveView
-and understand all the basic concepts in 20 minutes or less!
+**Build your _first_ App** using **Phoenix LiveView**
+and _understand_ all the basic concepts in **20 minutes** or _less_!
 
 <div>
   <a href="https://live-view-counter.herokuapp.com/">
@@ -35,7 +35,7 @@ and the one _you_ have been looking for!
 
 A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
-with no prior experience necessary.
+with **no prior experience** necessary.
 
 
 ### LiveView?
@@ -142,8 +142,8 @@ so if you have a _recent_ version e.g `v10`, you will be fine.
 
 
 **d.** Familiarity with **basic `Elixir` syntax** is recommended
-but not essential; you can pick it up as you go
-and
+but not essential; <br />
+you can pick it up as you go and
 [ask questions](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 if you get stuck!
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
@@ -169,11 +169,10 @@ https://live-view-counter.herokuapp.com
 
 Before you attempt to _build_ the counter,
 we suggest that you clone and _run_
-the complete app on your `localhost`.
+the complete app on your `localhost`. <br />
 That way you _know_ it's working
 without much effort/time expended.
 
-<br />
 
 #### Clone the Repository
 
@@ -186,7 +185,7 @@ git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git
 cd phoenix-liveview-counter-tutorial
 ```
 
-#### Download the Dependencies
+#### _Download_ the Dependencies
 
 Install the `Elixir` dependencies by running the command:
 
@@ -200,7 +199,13 @@ Install the `Node.js` dependencies with:
 npm install --prefix assets
 ```
 
-#### Run the App
+It will take a few seconds to download the dependencies
+depending on the speed of your internet connection;
+be
+[patient](https://user-images.githubusercontent.com/194400/76169853-58139380-6174-11ea-8e03-4011815758d0.png).
+😉
+
+#### _Run_ the App
 
 Start the Phoenix server by running the command:
 
@@ -655,7 +660,24 @@ _above_ the `app.js` script tag:
 
 <br />
 
-### Step 9: 
+### Step 9: Add LiveView code to `app.js`
+
+In order for the client to connect to LiveView,
+we need to add some lines of code to `app.js`. <br />
+Open the
+[`assets/js/app.js`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/assets/js/app.js)
+file and add the lines:
+
+```js
+import {Socket} from "phoenix"
+import LiveSocket from "phoenix_live_view"
+
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}});
+liveSocket.connect()
+```
+
+
 
 
 
