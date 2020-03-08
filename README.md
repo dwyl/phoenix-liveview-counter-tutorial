@@ -471,7 +471,7 @@ file at the end of Step 2:
 At the top of the file you should see the line
 `use LiveViewCounterWeb, :router`
 add the following import statement below it:
-`import Phoenix.LiveView.Router`
+[`import Phoenix.LiveView.Router`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L3)
 
 
 Next we need to
@@ -511,9 +511,9 @@ That will ensure that flash messages (_e.g: "not connected to network"_)
 are displayed in the client when the LiveView App is running.
 
 > 🏁 At the end of Step 4, the
-[`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/31ec2f68c3dd939fabe1e164bdc72b60980d25fb/lib/live_view_counter_web/router.ex#L7)
+[`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
 should look like:
-[`router.ex#L7`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/31ec2f68c3dd939fabe1e164bdc72b60980d25fb/lib/live_view_counter_web/router.ex#L7)
+[`router.ex#L8`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
 
 
 
