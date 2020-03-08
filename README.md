@@ -677,6 +677,14 @@ let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToke
 liveSocket.connect()
 ```
 
+> 🏁 Code added in Step 9:
+[`assets/js/app.js#L19-L24`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/1bbef516da6b3ccb2b3f5b2a510edb6665300e76/assets/js/app.js#L19-L24)
+
+<br />
+
+
+### Step 10: Import the `live_view.css` in `app.css`
+
 
 
 
