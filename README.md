@@ -528,21 +528,21 @@ for each of the `controller`, `view` and `router` blocks.
 def controller do
   quote do
     ...
-++    import Phoenix.LiveView.Controller
+++  import Phoenix.LiveView.Controller
   end
 end
 
 def view do
   quote do
     ...
-++    import Phoenix.LiveView.Helpers
+++  import Phoenix.LiveView.Helpers
   end
 end
 
 def router do
   quote do
     ...
-++    import Phoenix.LiveView.Router
+++  import Phoenix.LiveView.Router
   end
 end
 ```
