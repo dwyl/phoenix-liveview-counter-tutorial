@@ -1145,7 +1145,8 @@ socket:
 ```
 The `new_state.assigns` is a Map
 that includes the key `val`
-where the value is `1`.
+where the value is `1`
+(_after we clicked on the increment button_).
 
 The _fourth_ update is to the
 `"dec"` version of
@@ -1171,18 +1172,47 @@ def handle_info(msg, socket) do
 end
 ```
 
-`handle_info/2` handles `Elixir` process messages
-where the `msg` is the received message
-and `socket` is the `Phoenix.Socket` it was
+[`handle_info/2`](https://hexdocs.pm/phoenix/Phoenix.Channel.html#c:handle_info/2)
+handles `Elixir` process messages
+where `msg` is the received message
+and `socket` is the `Phoenix.Socket`. <br />
 The line `{:noreply, assign(socket, msg.payload)}`
 just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
+> 🏁 At the end of Step 13 the `counter.ex` file should match:
+[`lib/live_view_counter_web/live/counter.ex#L4`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+
+<br />
+
+#### Checkpoint: Run It!
+
+Now that
+[`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+has been update to broadcast the count to all connected clients,
+let's _run_ the app in a few web browsers to show it in _action_!
+
+In your terminal, run:
+
+```
+mix phx.server
+```
+
+Open
+[`localhost:4000`](http://localhost:4000)
+in as many web browsers as you have
+and test the increment/decrement buttons!
+
+You should see the count increasing/decreasing in all browsers simultaneously!
+
+![phoenix-liveview-counter-four-windows](https://user-images.githubusercontent.com/194400/76265954-d26c1280-625d-11ea-90df-bcd6db60ccf5.gif)
 
 
 
 
+<br />
 
+### Step 14: Use a LiveView Template
 
 
 
