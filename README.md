@@ -1038,20 +1038,11 @@ We can share the counter state
 between multiple clients by updating the `counter.ex` file
 with the following code:
 
-
-TODO: Broadcast the Inc/Dec Signal!
-
-https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/20bea0b36f0a6a054b4398c5f69fe4a1583282c4/lib/live_view_counter_web/live/counter_live.ex
-
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
   @topic "live"
-
-  def render(assigns) do
-    LiveViewCounterWeb.PageView.render("counter.html", assigns)
-  end
 
   def mount(_session, socket) do
     LiveViewCounterWeb.Endpoint.subscribe(@topic)
@@ -1072,6 +1063,16 @@ defmodule LiveViewCounterWeb.Counter do
 
   def handle_info(msg, socket) do
     {:noreply, assign(socket, msg.payload)}
+  end
+
+  def render(assigns) do
+    ~L"""
+    <div>
+      <h1>The count is: <%= @val %></h1>
+      <button phx-click="dec">-</button>
+      <button phx-click="inc">+</button>
+    </div>
+    """
   end
 end
 ```
