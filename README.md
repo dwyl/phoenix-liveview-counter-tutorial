@@ -639,7 +639,8 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 ### Step 8: Add CSRF meta tag to Layout
 
-In order to ensure that the Client can communicate with the LiveView
+In order to ensure that the Client
+can securely communicate with the LiveView
 server we need to ensure that the `csrf_meta_tag()`
 is included in the `<head>` tag of the layout template.
 
@@ -750,7 +751,7 @@ end
 ```
 
 The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
-This just means that we will need to implement certain functions
+This loads just means that we will need to implement certain functions
 for our live view to work.
 
 The first function is `mount/3` which,
@@ -835,11 +836,59 @@ end
 > 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
 [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
 
+
+#### 12.1 Update the Failing Test Assertion
+
+Since we have replaced the
+`get "/", PageController, :index` route in `router.ex`
+in the previous step, the test in
+`test/live_view_counter_web/controllers/page_controller_test.exs`
+will now _fail_:
+
+```sh
+Compiling 1 file (.ex)
+..
+
+  1) test GET / (LiveViewCounterWeb.PageControllerTest)
+     test/live_view_counter_web/controllers/page_controller_test.exs:4
+     Assertion with =~ failed
+     code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\"/>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n    <title>LiveViewCounter · Phoenix Framework</title>\n  
+     </head>\n  <body>\n    <header>\n      <section class=\"container\">\n        <a href=\"https://phoenixframework.org/\" class=\"phx-logo\">\n          <img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/>\n        </a>\n      </section>\n    </header>\n    <main role=\"main\" class=\"container\">\n      <p class=\"alert alert-info\" role=\"alert\"></p>\n      <p class=\"alert alert-danger\" role=\"alert\"></p>\n<div data-phx-main=\"true\"
+     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n  <button phx-click=\"inc\">+</button>\n</div>\n</div>    
+     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n  </body>\n</html>\n"
+     right: "Welcome to Phoenix!"
+     stacktrace:
+       test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
+
+Finished in 0.1 seconds
+3 tests, 1 failure
+```
+This just tells us that the test is looking for the string
+`"Welcome to Phoenix!"` in the page and did not find it.
+
+
+To fix the broken test, open the
+`test/live_view_counter_web/controllers/page_controller_test.exs`
+file and locate the line:
+```elixir
+assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+```
+Update the string `"Welcome to Phoenix!"`
+to something we _know_ is present on the page,
+e.g:
+`"The count is"`
+
+
+
+
+
+
 <br />
 
-## _Run_ It!!
+#### Checkpoint: Run Counter App!
 
-Now that all the code for the counter is written,
+Now that all the code for the `counter.ex` is written,
 run the Phoenix app with the following command:
 
 ```
@@ -857,6 +906,78 @@ You should expect to see a fully functioning LiveView counter:
 
 <br />
 
+#### Recap: Working Counter Without a JavaScript Framework
+
+Once the initial installation and configuration of LiveView
+(_Steps 1 - 10 of this tutorial_) were complete,
+the creation of the actual counter was
+
+
+
+
+<br />
+
+One important detail is missing:
+the counter only works in a single browser.
+
+Try opening a second browser window (_e.g: "incognito mode")
+and notice how the counter only updates in one window at a time:
+
+![phoenix-liveview-counter-two-windows-independent-count](https://user-images.githubusercontent.com/194400/76204729-de6dbb00-61f0-11ea-9e72-5c67f8aa6598.gif)
+
+
+
+TODO: Broadcast the Inc/Dec Signal!
+
+https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/20bea0b36f0a6a054b4398c5f69fe4a1583282c4/lib/live_view_counter_web/live/counter_live.ex
+
+```elixir
+defmodule LiveViewCounterWeb.Counter do
+  use Phoenix.LiveView
+
+  @topic "live"
+
+  def render(assigns) do
+    LiveViewCounterWeb.PageView.render("counter.html", assigns)
+  end
+
+  def mount(_session, socket) do
+    LiveViewCounterWeb.Endpoint.subscribe(@topic)
+    {:ok, assign(socket, :val, 0)}
+  end
+
+  def handle_event("inc", _value, socket) do
+    new_state = update(socket, :val, &(&1 + 1))
+    LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
+    {:noreply, new_state}
+  end
+
+  def handle_event("dec", _, socket) do
+    new_state = update(socket, :val, &(&1 - 1))
+    LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
+    {:noreply, update(socket, :val, &(&1 - 1))}
+  end
+
+  def handle_info(msg, socket) do
+    {:noreply, assign(socket, msg.payload)}
+  end
+end
+```
+
+
+
+`lib/live_view_counter_web/templates/page/counter.html.leex`
+
+```elixir
+<div>
+  <h1>The count is: <%= @val %></h1>
+  <button phx-click="dec">-</button>
+  <button phx-click="inc">+</button>
+</div>
+```
+
+
+
 
 
 <br /><br />
@@ -871,7 +992,7 @@ https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introdu
 
 ## Credits 🙌
 
-All credit for inspiring this tutorial goes to Dennis Beatty
+Credit for inspiring this tutorial goes to Dennis Beatty
 [@dnsbty](https://github.com/dnsbty)
 for his superb post:
 https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html
@@ -893,8 +1014,10 @@ speeds up learning significantly, especially if (when) we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
 A few updates have been made to LiveView setup,
 these are reflected in our tutorial which uses the latest release.
-3. ***Test Driven Development*** is followed so _complete_ beginners
-can see how _easy_ it is to write reliable code in a basic example.
+3. ***Broadcast updates*** to all connected clients.
+So when the counter is incremented/decremented in one client,
+all others see the update.
+This is the true power and "wow moment" of LiveView!
 
 ### Phoenix LiveView for Web Developers Who Don't know Elixir
 

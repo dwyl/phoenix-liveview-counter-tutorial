@@ -3,6 +3,6 @@ defmodule LiveViewCounterWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Get Started"
+    assert html_response(conn, 200) =~ "The count is"
   end
 end
