@@ -835,6 +835,7 @@ end
 > 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
 [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
 
+<br />
 
 ## _Run_ It!!
 
@@ -852,6 +853,9 @@ in your web browser.
 You should expect to see a fully functioning LiveView counter:
 
 ![phoenix-liveview-counter-single-windowl](https://user-images.githubusercontent.com/194400/76174551-d6395f80-619f-11ea-8e8d-ab9441d15b6d.gif)
+
+
+<br />
 
 
 
