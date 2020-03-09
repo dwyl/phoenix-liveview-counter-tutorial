@@ -843,6 +843,7 @@ end
 > 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
 [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
 
+<br />
 
 #### 12.1 Update the Failing Test Assertion
 
@@ -860,10 +861,20 @@ Compiling 1 file (.ex)
      test/live_view_counter_web/controllers/page_controller_test.exs:4
      Assertion with =~ failed
      code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
-     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\"/>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n    <title>LiveViewCounter · Phoenix Framework</title>\n  
-     </head>\n  <body>\n    <header>\n      <section class=\"container\">\n        <a href=\"https://phoenixframework.org/\" class=\"phx-logo\">\n          <img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/>\n        </a>\n      </section>\n    </header>\n    <main role=\"main\" class=\"container\">\n      <p class=\"alert alert-info\" role=\"alert\"></p>\n      <p class=\"alert alert-danger\" role=\"alert\"></p>\n<div data-phx-main=\"true\"
-     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n  <button phx-click=\"inc\">+</button>\n</div>\n</div>    
-     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n  </body>\n</html>\n"
+     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  
+     <head>\n <meta charset=\"utf-8\"/>\n
+     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/>\n
+     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n
+     <title>LiveViewCounter · Phoenix Framework</title>\n  
+     </head>\n  <body>\n <header>\n <section class=\"container\">\n
+     <a href=\"https://phoenixframework.org/\" class=\"phx-logo\">\n
+     <img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/>\n </a>\n
+     </section>\n </header>\n <main role=\"main\" class=\"container\">\n
+     <div data-phx-main=\"true\"
+     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n  
+     <button phx-click=\"inc\">+</button>\n</div>\n</div>    
+     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n  
+     </body>\n</html>\n"
      right: "Welcome to Phoenix!"
      stacktrace:
        test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
