@@ -829,7 +829,7 @@ end
 ```
 
 `handle_event("dec", _, socket)` pattern matches the `"dec"` String
-and _decrements_ the counter using the same syntax as before.
+and _decrements_ the counter using the `&(&1 - 1)` syntax.
 
 > In `Elixir` we can have multiple
 similar functions with the _same_ function name
@@ -839,13 +839,13 @@ For more detail on Functions in Elixir,
 see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
 
 
-_Finally_ the _third_ function `render/1` which
-receives it's state as the `assigns` argument
-and renders the template.
+_Finally_ the _third_ function `render/1`
+receives the `assigns` argument which contains the `:val` state
+and renders the template using the `@val` template variable.
 
 The `render/1` function renders the template included in the function.
 The `~L"""` syntax just means
-"_treat this multiline string as a LiveView tempalte_"
+"_treat this multiline string as a LiveView template_"
 The `~L` [sigil](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
@@ -853,8 +853,10 @@ at the top of the file.
 LiveView will invoke the `mount/3` function
 and will pass the result of `mount/3` to `render/1` behind the scenes.
 
-Each time an update happens in the form of the `handle_event/3`
-the `render/1` function will be executed.
+Each time an update happens (e.g: `handle_event/3`)
+the `render/1` function will be executed
+and updated data (_in our case the `:val` count_)
+is sent to the client.
 
 
 > 🏁 At the end of Step 11 you should have a file similar to:
