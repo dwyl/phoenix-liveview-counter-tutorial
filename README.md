@@ -897,8 +897,25 @@ to something we _know_ is present on the page,
 e.g:
 `"The count is"`
 
+> 🏁 The `page_controller_test.exs` file should now look like this:
+[`test/live_view_counter_web/controllers/page_controller_test.exs#L6`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3f1e34942396ecbb51e0a5241380176e86be389/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
 
 
+Confirm the tests pass again by running:
+
+```sh
+mix test
+```
+
+You should see output similar to:
+
+```
+Generated live_view_counter app
+...
+
+Finished in 0.05 seconds
+3 tests, 0 failures
+```
 
 
 
@@ -928,21 +945,30 @@ You should expect to see a fully functioning LiveView counter:
 
 Once the initial installation and configuration of LiveView
 (_Steps 1 - 10 of this tutorial_) were complete,
-the creation of the actual counter was
+the creation of the actual counter was remarkably simple.
+We created a _single_ new file
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+that contains all the code required to
+initialise, render and update the counter.
+Then we set the `live("/", Counter)` route to invoke the `Counter` module
+in `router.ex`.
 
-
-
+In total our counter App is 25 lines of code.
 
 <br />
 
-One important detail is missing:
-the counter only works in a single browser.
+One important thing to note is that
+the counter only maintains state for a single web browser.
 
-Try opening a second browser window (_e.g: "incognito mode")
+Try opening a second browser window (_e.g: in "incognito mode"_)
 and notice how the counter only updates in one window at a time:
 
 ![phoenix-liveview-counter-two-windows-independent-count](https://user-images.githubusercontent.com/194400/76204729-de6dbb00-61f0-11ea-9e72-5c67f8aa6598.gif)
 
+If we want to _share_ the counter between multiple clients,
+we need to add a bit more code.
+
+### Step
 
 
 TODO: Broadcast the Inc/Dec Signal!
