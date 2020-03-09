@@ -1050,13 +1050,13 @@ defmodule LiveViewCounterWeb.Counter do
     {:ok, assign(socket, :val, 0)}
   end
 
-  def handle_event("inc", _value, socket) do
+  def handle_event("inc", _msg, socket) do
     new_state = update(socket, :val, &(&1 + 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
     {:noreply, new_state}
   end
 
-  def handle_event("dec", _, socket) do
+  def handle_event("dec", _msg, socket) do
     new_state = update(socket, :val, &(&1 - 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
     {:noreply, new_state}
@@ -1081,14 +1081,16 @@ end
 #### Code Explanation
 
 The first change is on
-[Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/48c1c292176e0393cb61cdfc009151c8c7430d00/lib/live_view_counter_web/live/counter.ex#L4)
+[Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
 `@topic "live"` defines a module attribute
 (_think of it as a global constant_),
 that lets us to reference `@topic` anywhere in the file.
 
 The second change is on
-[Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/48c1c292176e0393cb61cdfc009151c8c7430d00/lib/live_view_counter_web/live/counter.ex#L4)
-where the `mount/3` function now creates a subscription to the topic:
+[Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L7)
+where the
+[`mount/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L6)
+function now creates a subscription to the topic:
 
 ```elixir
 LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel topic
@@ -1102,11 +1104,11 @@ This uses Phoenix's built-in channels (WebSocket) system.
 
 
 Next we update the first
-`handle_event/3`
+[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L11)
 function which handles the `"inc"` event:
 
 ```elixir
-def handle_event("inc", _value, socket) do
+def handle_event("inc", _msg, socket) do
   new_state = update(socket, :val, &(&1 + 1))
   LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
   {:noreply, new_state}
@@ -1146,10 +1148,11 @@ that includes the key `val`
 where the value is `1`.
 
 The _fourth_ update is to the
-`"dec"` version of `handle_event/3`
+`"dec"` version of
+[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L17)
 
 ```elixir
-def handle_event("dec", _, socket) do
+def handle_event("dec", _msg, socket) do
   new_state = update(socket, :val, &(&1 - 1))
   LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
   {:noreply, new_state}
@@ -1157,7 +1160,25 @@ end
 ```
 
 The only difference from the `"inc"`
-version is the
+version is the `&(&1 - 1)`
+and "dec" in the `broadcast_from`.
+
+The _final_ change is the implementation of the `handle_info/2` function:
+
+```elixir
+def handle_info(msg, socket) do
+  {:noreply, assign(socket, msg.payload)}
+end
+```
+
+`handle_info/2` handles `Elixir` process messages
+where the `msg` is the received message
+and `socket` is the `Phoenix.Socket` it was
+The line `{:noreply, assign(socket, msg.payload)}`
+just means "don't send this message to the socket again"
+(_which would cause a recursive loop of updates_).
+
+
 
 
 

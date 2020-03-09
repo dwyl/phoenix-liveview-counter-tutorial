@@ -3,7 +3,7 @@ defmodule LiveViewCounterWeb.Counter do
 
   @topic "live"
 
-  def mount(_session, socket) do
+  def mount(_session, _params, socket) do
     LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
     {:ok, assign(socket, :val, 0)}
   end
