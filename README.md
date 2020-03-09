@@ -466,6 +466,12 @@ The _last_ line in the code block is the important one.
 file at the end of Step 2:
 [mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 
+> 💡**Note**: in a _real world_ App,
+we would use an environment variable
+for the `signing_salt`
+to ensure it is kept secret.
+
+
 <br />
 
 ### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
