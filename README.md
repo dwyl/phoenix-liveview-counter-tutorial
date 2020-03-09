@@ -703,6 +703,158 @@ file and append the following line:
 
 
 
+We are _finally_ finished setting up our Counter App to use LiveView!
+Now we get to the _fun_ part: creating the counter!! 🎉
+
+
+
+### Step 11: Create the `counter.ex` File
+
+In the `lib/live_view_counter_web` directory,
+create a new directory called `live`:
+
+```
+mkdir lib/live_view_counter_web/live
+```
+Then create a new file with the path:
+`lib/live_view_counter_web/live/counter.ex`
+
+And add the following code to it:
+
+```elixir
+defmodule LiveViewCounterWeb.Counter do
+  use Phoenix.LiveView
+
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, :val, 0)}
+  end
+
+  def handle_event("inc", _, socket) do
+    {:noreply, update(socket, :val, &(&1 + 1))}
+  end
+
+  def handle_event("dec", _, socket) do
+    {:noreply, update(socket, :val, &(&1 - 1))}
+  end
+
+  def render(assigns) do
+    ~L"""
+    <div>
+      <h1>The count is: <%= @val %></h1>
+      <button phx-click="dec">-</button>
+      <button phx-click="inc">+</button>
+    </div>
+    """
+  end
+end
+```
+
+The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
+This just means that we will need to implement certain functions
+for our live view to work.
+
+The first function is `mount/3` which,
+as it's name suggests, mounts the module
+with the `session` and `socket` arguments.
+In our case we are _ignoring_ the session,
+hence the underscore prepended
+to the function parameter `_session`.
+If we were using sessions user management,
+we would need to check the `session` variable,
+but in this simple counter example we just ignore it.
+
+The second function is `handle_event/3`
+which handles the incoming events received.
+In the case of the _first_ declaration of
+`handle_event("inc", _, socket)`
+it pattern matches the string `"inc"`
+and _increments_ the counter.
+
+> In `Elixir` we can have multiple
+similar functions with the _same_ function name
+but different matches on the arguments
+or different "arity" (_number of arguments_). <br />
+For more detail on Functions in Elixir,
+see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
+
+The _third_ function definition is the _twin_ of the second.
+`handle_event("dec", _, socket)` pattern matches the `"dec"` String
+and _decrements_ the counter.
+
+_Finally_ we have the _third_ function `render/1` which
+receives it's state as the `assigns` argument.
+LiveView will invoke the `mount/3` function
+and will pass the result of `mount/3` to `render/1` behind the scenes.
+
+Each time an update happens in the form of the `handle_event/3`
+the `render/1` function will be executed.
+
+The `render/1` function renders the template included in the function.
+The `~L"""` syntax just means
+"_treat this multiline string as a LiveView tempalte_"
+The `~L` [sigil](https://elixir-lang.org/getting-started/sigils.html)
+is a macro included when the `use Phoenix.LiveView` is invoked
+at the top of the file.
+
+
+> 🏁 At the end of Step 11 you should have a file similar to:
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+
+<br />
+
+
+### Step 12: Create the `live` Route in `router.ex`
+
+Now that we have created our Live handler function in Step 11,
+it's time to tell Phoenix how to invoke it.
+
+Open the
+`lib/live_view_counter_web/router.ex`
+file and locate the block of code
+that starts with `scope "/", LiveViewCounterWeb do`:
+
+```elixir
+scope "/", LiveViewCounterWeb do
+  pipe_through :browser
+
+  get "/", PageController, :index
+end
+```
+
+Replace the line `get "/", PageController, :index`
+with `live("/", Counter)`. So you end up with:
+
+```elixir
+scope "/", LiveViewCounterWeb do
+  pipe_through :browser
+
+  live("/", Counter)
+end
+```
+
+> 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
+[`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
+
+
+## _Run_ It!!
+
+Now that all the code for the counter is written,
+run the Phoenix app with the following command:
+
+```
+mix phx.server
+```
+
+Vist
+[`localhost:4000`](http://localhost:4000)
+in your web browser.
+
+You should expect to see a fully functioning LiveView counter:
+
+![phoenix-liveview-counter-single-windowl](https://user-images.githubusercontent.com/194400/76174551-d6395f80-619f-11ea-8e8d-ab9441d15b6d.gif)
+
+
+
 <br /><br />
 
 ## Recommended Reading 📚
