@@ -1,7 +1,7 @@
 defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
-  def mount(_session, socket) do
+  def mount(_params, _session, socket) do
     {:ok, assign(socket, :val, 0)}
   end
 
