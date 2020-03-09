@@ -757,19 +757,40 @@ defmodule LiveViewCounterWeb.Counter do
 end
 ```
 
+#### _Explanation_ of the Code
+
 The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
 This loads just means that we will need to implement certain functions
 for our live view to work.
 
 The first function is `mount/3` which,
 as it's name suggests, mounts the module
-with the `session` and `socket` arguments.
-In our case we are _ignoring_ the session,
+with the `_params`, `_session` and `socket` arguments:
+
+```elixir
+def mount(_params, _session, socket) do
+  {:ok, assign(socket, :val, 0)}
+end
+```
+
+In our case we are _ignoring_ the `_params` and `_session`,
 hence the underscore prepended
-to the function parameter `_session`.
+to the parameters.
 If we were using sessions user management,
 we would need to check the `session` variable,
 but in this simple counter example we just ignore it.
+
+`mount/3` returns a
+[tuple](https://elixir-lang.org/getting-started/basic-types.html#tuples):
+`{:ok, assign(socket, :val, 0)}`
+which uses the
+[`assign/3`](https://hexdocs.pm/phoenix/Phoenix.Socket.html#assign/3)
+function to assign the `:val` key a value of `0` on the `socket`.
+That just means the socket will now have a `:val`
+which is initialised to `0`.
+
+<br />
+
 
 The second function is `handle_event/3`
 which handles the incoming events received.
@@ -778,6 +799,38 @@ In the case of the _first_ declaration of
 it pattern matches the string `"inc"`
 and _increments_ the counter.
 
+```elixir
+def handle_event("inc", _, socket) do
+  {:noreply, update(socket, :val, &(&1 + 1))}
+end
+```
+`handle_event/3` ("inc")
+returns a tuple of:
+`{:noreply, update(socket, :val, &(&1 + 1))}`
+where the `:noreply` just means
+"do not send any further messages to the caller of this function".
+`update(socket, :val, &(&1 + 1))` as it's name suggests,
+will _update_ the value of `:val` on the `socket`
+to the
+`&(&1 + 1)` is a shorthand way of writing `fn val -> val + 1 end`.
+the `&()` is the same as `fn ... end`
+(_where the `...` is the function definition_).
+If this inline anonymous function syntax is unfamiliar to you,
+please read:
+https://elixir-lang.org/crash-course.html#partials-and-function-captures-in-elixir
+
+The _third_ function is _almost identical_ to the one above,
+the key difference is that it decrements the `:val`.
+
+```elixir
+def handle_event("dec", _, socket) do
+  {:noreply, update(socket, :val, &(&1 - 1))}
+end
+```
+
+`handle_event("dec", _, socket)` pattern matches the `"dec"` String
+and _decrements_ the counter.
+
 > In `Elixir` we can have multiple
 similar functions with the _same_ function name
 but different matches on the arguments
@@ -785,17 +838,10 @@ or different "arity" (_number of arguments_). <br />
 For more detail on Functions in Elixir,
 see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
 
-The _third_ function definition is the _twin_ of the second.
-`handle_event("dec", _, socket)` pattern matches the `"dec"` String
-and _decrements_ the counter.
 
-_Finally_ we have the _third_ function `render/1` which
-receives it's state as the `assigns` argument.
-LiveView will invoke the `mount/3` function
-and will pass the result of `mount/3` to `render/1` behind the scenes.
-
-Each time an update happens in the form of the `handle_event/3`
-the `render/1` function will be executed.
+_Finally_ the _third_ function `render/1` which
+receives it's state as the `assigns` argument
+and renders the template.
 
 The `render/1` function renders the template included in the function.
 The `~L"""` syntax just means
@@ -803,6 +849,12 @@ The `~L"""` syntax just means
 The `~L` [sigil](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
+
+LiveView will invoke the `mount/3` function
+and will pass the result of `mount/3` to `render/1` behind the scenes.
+
+Each time an update happens in the form of the `handle_event/3`
+the `render/1` function will be executed.
 
 
 > 🏁 At the end of Step 11 you should have a file similar to:
@@ -892,7 +944,7 @@ file and locate the line:
 ```elixir
 assert html_response(conn, 200) =~ "Welcome to Phoenix!"
 ```
-Update the string `"Welcome to Phoenix!"`
+Update the string from `"Welcome to Phoenix!"`
 to something we _know_ is present on the page,
 e.g:
 `"The count is"`
@@ -959,16 +1011,30 @@ In total our counter App is 25 lines of code.
 
 One important thing to note is that
 the counter only maintains state for a single web browser.
-
 Try opening a second browser window (_e.g: in "incognito mode"_)
 and notice how the counter only updates in one window at a time:
 
 ![phoenix-liveview-counter-two-windows-independent-count](https://user-images.githubusercontent.com/194400/76204729-de6dbb00-61f0-11ea-9e72-5c67f8aa6598.gif)
 
-If we want to _share_ the counter between multiple clients,
+If we want to _share_ the counter state between multiple clients,
 we need to add a bit more code.
 
-### Step
+<br />
+
+
+### Step 13: Share State Between Clients!
+
+One of the biggest selling points
+of using Phoenix to build web apps
+is the built-in support for WebSockets
+in the form of "channels".
+Phoenix Channels allow us to
+effortlessly sync data between
+clients and servers with minimal overhead.
+
+We can share the counter state
+between multiple clients by updating the `counter.ex` file
+with the following code:
 
 
 TODO: Broadcast the Inc/Dec Signal!
