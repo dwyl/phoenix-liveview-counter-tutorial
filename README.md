@@ -462,9 +462,10 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 The _last_ line in the code block is the important one.
 
 
-> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
-file at the end of Step 2:
-[mix.exs#L33-L46](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+> 🏁 At the end of Step 3 the
+[`config.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+file should look like this:
+[config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/6b48e6e52a7e935985a473a8cd4b32d7bbcfff39/config/config.exs#L16)
 
 > 💡**Note**: in a _real world_ App,
 we would use an environment variable
