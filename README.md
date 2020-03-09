@@ -757,7 +757,7 @@ defmodule LiveViewCounterWeb.Counter do
 end
 ```
 
-#### _Explanation_ of the Code
+#### _Explanation_ of the Code
 
 The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
 This loads just means that we will need to implement certain functions
@@ -829,7 +829,7 @@ end
 ```
 
 `handle_event("dec", _, socket)` pattern matches the `"dec"` String
-and _decrements_ the counter.
+and _decrements_ the counter using the same syntax as before.
 
 > In `Elixir` we can have multiple
 similar functions with the _same_ function name
