@@ -17,7 +17,7 @@ defmodule LiveViewCounterWeb.Counter do
   def handle_event("dec", _, socket) do
     new_state = update(socket, :val, &(&1 - 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
-    {:noreply, update(socket, :val, &(&1 - 1))}
+    {:noreply, new_state}
   end
 
   def handle_info(msg, socket) do

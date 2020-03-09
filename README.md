@@ -1007,7 +1007,7 @@ initialise, render and update the counter.
 Then we set the `live("/", Counter)` route to invoke the `Counter` module
 in `router.ex`.
 
-In total our counter App is 25 lines of code.
+In total our counter App is **25 lines** of code.
 
 <br />
 
@@ -1035,8 +1035,9 @@ effortlessly sync data between
 clients and servers with minimal overhead.
 
 We can share the counter state
-between multiple clients by updating the `counter.ex` file
-with the following code:
+between multiple clients by updating the
+[`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+file with the following code:
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
@@ -1058,7 +1059,7 @@ defmodule LiveViewCounterWeb.Counter do
   def handle_event("dec", _, socket) do
     new_state = update(socket, :val, &(&1 - 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
-    {:noreply, update(socket, :val, &(&1 - 1))}
+    {:noreply, new_state}
   end
 
   def handle_info(msg, socket) do
@@ -1076,6 +1077,91 @@ defmodule LiveViewCounterWeb.Counter do
   end
 end
 ```
+
+#### Code Explanation
+
+The first change is on
+[Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/48c1c292176e0393cb61cdfc009151c8c7430d00/lib/live_view_counter_web/live/counter.ex#L4)
+`@topic "live"` defines a module attribute
+(_think of it as a global constant_),
+that lets us to reference `@topic` anywhere in the file.
+
+The second change is on
+[Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/48c1c292176e0393cb61cdfc009151c8c7430d00/lib/live_view_counter_web/live/counter.ex#L4)
+where the `mount/3` function now creates a subscription to the topic:
+
+```elixir
+LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel topic
+```
+
+Each client connected to the App
+subscribes to `@topic`
+so when the count is updated on any of the clients,
+all the other clients see the same value.
+This uses Phoenix's built-in channels (WebSocket) system.
+
+
+Next we update the first
+`handle_event/3`
+function which handles the `"inc"` event:
+
+```elixir
+def handle_event("inc", _value, socket) do
+  new_state = update(socket, :val, &(&1 + 1))
+  LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
+  {:noreply, new_state}
+end
+```
+
+Assign the result of the `update` invocation to `new_state`
+so that we can use it on the next two lines.
+Invoking
+`LiveViewCounterWeb.Endpoint.broadcast_from`
+sends a message from the current process `self()`
+on the `@topic`, the key is "inc"
+and the _value_ is the `new_state.assigns` Map.
+
+In case you are curious (_like we are_),
+`new_state` is an instance of the
+[`Phoenix.LiveView.Socket`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Socket.html)
+socket:
+```elixir
+#Phoenix.LiveView.Socket<
+  assigns: %{
+    flash: %{},
+    live_view_action: nil,
+    live_view_module: LiveViewCounterWeb.Counter,
+    val: 1
+  },
+  changed: %{val: true},
+  endpoint: LiveViewCounterWeb.Endpoint,
+  id: "phx-Ffq41_T8jTC_3gED",
+  parent_pid: nil,
+  view: LiveViewCounterWeb.Counter,
+  ...
+}
+```
+The `new_state.assigns` is a Map
+that includes the key `val`
+where the value is `1`.
+
+The _fourth_ update is to the
+`"dec"` version of `handle_event/3`
+
+```elixir
+def handle_event("dec", _, socket) do
+  new_state = update(socket, :val, &(&1 - 1))
+  LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
+  {:noreply, new_state}
+end
+```
+
+The only difference from the `"inc"`
+version is the
+
+
+
+
 
 
 
