@@ -810,7 +810,8 @@ defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0)}
+    {:ok, assign(socket, :val, 0),
+      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
   end
 
   def handle_event("inc", _, socket) do
@@ -845,7 +846,8 @@ with the `_params`, `_session` and `socket` arguments:
 
 ```elixir
 def mount(_params, _session, socket) do
-  {:ok, assign(socket, :val, 0)}
+  {:ok, assign(socket, :val, 0)
+    layout: {LiveViewCounterWeb.LayoutView, "app.html"} }
 end
 ```
 
@@ -864,6 +866,8 @@ which uses the
 function to assign the `:val` key a value of `0` on the `socket`.
 That just means the socket will now have a `:val`
 which is initialised to `0`.
+Specifying the `layout` template as `app.html`
+is needed for Phoenix LiveView to know which template file to use.
 
 <br />
 
@@ -936,7 +940,7 @@ is sent to the client.
 
 
 > 🏁 At the end of Step 11 you should have a file similar to:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/06bca4152a32026a56ed9ee26a52fe17422a0d5b/lib/live_view_counter_web/live/counter.ex)
 
 <br />
 
@@ -1121,25 +1125,26 @@ defmodule LiveViewCounterWeb.Counter do
 
   @topic "live"
 
-  def mount(_session, socket) do
-    LiveViewCounterWeb.Endpoint.subscribe(@topic)
-    {:ok, assign(socket, :val, 0)}
+  def mount(_session, _params, socket) do
+    LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
+    {:ok, assign(socket, :val, 0),
+      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
   end
 
-  def handle_event("inc", _msg, socket) do
+  def handle_event("inc", _value, socket) do
     new_state = update(socket, :val, &(&1 + 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
     {:noreply, new_state}
   end
 
-  def handle_event("dec", _msg, socket) do
+  def handle_event("dec", _, socket) do
     new_state = update(socket, :val, &(&1 - 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
     {:noreply, new_state}
   end
 
   def handle_info(msg, socket) do
-    {:noreply, assign(socket, msg.payload)}
+    {:noreply, assign(socket, val: msg.payload.val)}
   end
 
   def render(assigns) do
