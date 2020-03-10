@@ -685,7 +685,7 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8: Rename Layout File from `app.html.eex` to `app.html.leex`
+### Step 8: Rename Layout Template File from `app.html.eex` to `app.html.leex`
 
 In order to render the layout template
 as a "live" view, we need to rename it.
@@ -696,7 +696,8 @@ file and _rename_ it to:
 (_we just changed the extension from `.eex` to `leex`
   which stands for "liveview embedded elixir" template_).
 
-Once you have renamed the file, replace it's contents
+Once you have renamed the file,
+replace the contents of the file
 with the following code:
 
 ```html
@@ -735,7 +736,7 @@ see:
 
 <br />
 
-#### Summary of Code Changes
+#### Summary of Code Changes made to `app.html.leex` Template
 
 + replace all instances of `@conn` with `@socket`.
 + replace `get_flash(@conn` with `live_flash(@flash`
