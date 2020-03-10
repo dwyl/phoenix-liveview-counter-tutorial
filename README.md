@@ -685,27 +685,61 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8: Add CSRF meta tag to Layout
+### Step 8: Rename Layout File from `app.html.eex` to `app.html.leex`
 
-In order to ensure that the Client
-can securely communicate with the LiveView
-server we need to ensure that the `csrf_meta_tag()`
-is included in the `<head>` tag of the layout template.
+In order to render the layout template
+as a "live" view, we need to rename it.
+In your project, locate the
+`lib/live_view_counter_web/templates/layout/app.html.eex`
+file and _rename_ it to:
+`app.html.leex`
+(_we just changed the extension from `.eex` to `leex`
+  which stands for "liveview embedded elixir" template_).
 
-Open the
-[`lib/live_view_counter_web/templates/layout/app.html.eex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/bb6c60b3f8743bfabff24e27f8da85282b48e51b/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
-file,
-and add `<%= csrf_meta_tag() %>`
-_above_ the `app.js` script tag:
+Once you have renamed the file, replace it's contents
+with the following code:
 
 ```html
-<%= csrf_meta_tag() %>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= assigns[:page_title] || "LiveViewCounter · Phoenix Framework" %></title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/app.css") %>"/>
+    <%= csrf_meta_tag() %>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@socket, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>
+      </section>
+    </header>
+    <main role="main" class="container">
+      <p class="alert alert-info" role="alert"><%= live_flash(@flash, :notice) %></p>
+      <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
+      <%= @inner_content %>
+    </main>
+    <%= csrf_meta_tag() %>
+    <script type="text/javascript" src="<%= Routes.static_path(@socket, "/js/app.js") %>"></script>
+  </body>
+</html>
 ```
 
+> 🏁  For the full side-by-side view of the changes made in this step,
+see:
+[commit/031e034](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/031e0342041483a4a1c91c65abfff0a0d08db005)
 
-> 🏁 Line of code added in Step 8:
-[`lib/live_view_counter_web/templates/layout/app.html.eex#L29`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/9d648ade3eaeb91a2de87cc4f822bc907776e667/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
+<br />
+
+#### Summary of Code Changes
+
++ replace all instances of `@conn` with `@socket`.
++ replace `get_flash(@conn` with `live_flash(@flash`
++ replace `render @view_module, @view_template, assigns` with `@inner_content`
 
 <br />
 
