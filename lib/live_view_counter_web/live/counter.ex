@@ -26,12 +26,6 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
-    <div>
-      <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
-    </div>
-    """
+    LiveViewCounterWeb.PageView.render("counter.html", assigns)
   end
 end

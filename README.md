@@ -1261,8 +1261,8 @@ The line `{:noreply, assign(socket, msg.payload)}`
 just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
-> 🏁 At the end of Step 13 the `counter.ex` file should match:
-[`lib/live_view_counter_web/live/counter.ex#L4`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+> 🏁 The changes made in Step 13 are:
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/f2df2ddad97f8621365dcf455a218b1b59362a59)
 
 <br />
 
