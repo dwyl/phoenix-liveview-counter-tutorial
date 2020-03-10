@@ -609,7 +609,7 @@ and reference `@session_options` in the `plug` configuration:
 @session_options [
   store: :cookie,
   key: "_my_app_key",
-  signing_salt: "somesigningsalt"
+  signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"
 ]
 
 plug Plug.Session, @session_options
