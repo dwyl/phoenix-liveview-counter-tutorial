@@ -1,7 +1,17 @@
 defmodule LiveViewCounterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :live_view_counter
 
-  socket "/live", Phoenix.LiveView.Socket
+  # The session will be stored in the cookie and signed,
+  # this means its contents can be read but not tampered with.
+  # Set :encryption_salt if you would also like to encrypt it.
+  @session_options [
+    store: :cookie,
+    key: "_live_view_counter_key",
+    signing_salt: "Q1/NxB8e"
+  ]
+
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
 
   socket "/socket", LiveViewCounterWeb.UserSocket,
     websocket: true,
@@ -26,7 +36,7 @@ defmodule LiveViewCounterWeb.Endpoint do
   end
 
   plug Plug.RequestId
-  plug Plug.Logger
+  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
@@ -35,14 +45,6 @@ defmodule LiveViewCounterWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
-  # The session will be stored in the cookie and signed,
-  # this means its contents can be read but not tampered with.
-  # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_live_view_counter_key",
-    signing_salt: "Z7yXasVE"
-
+  plug Plug.Session, @session_options
   plug LiveViewCounterWeb.Router
 end
