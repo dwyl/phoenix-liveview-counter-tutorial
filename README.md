@@ -1358,7 +1358,7 @@ end
 ```
 
 > 🏁 At the end of Step 14 your `counter.ex` file should resemble:
-[lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/5981c1c2c93560e2f1ee0440579bc15543a83db7/lib/live_view_counter_web/live/counter.ex#L28)
+[lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f6a5be51a7f7acc3c0df63595ec6f9716a603e12/lib/live_view_counter_web/live/counter.ex#L29)
 
 Re-run your app using `mix phx.server` and confirm everything still works:
 
