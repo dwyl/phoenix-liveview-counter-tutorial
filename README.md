@@ -488,7 +488,7 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 ### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
 
 
-At the top of the file you should see the line
+At the top of the [router.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3a5e5dd73c325ef609203e597cd0f80ac06198f8/lib/live_view_counter_web/router.ex#L2) file  you should see the line
 `use LiveViewCounterWeb, :router` <br />
 add the following import statement below it:
 [`import Phoenix.LiveView.Router`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L3)
