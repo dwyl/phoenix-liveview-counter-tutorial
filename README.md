@@ -714,7 +714,7 @@ file and append the following line:
 We are _finally_ finished setting up our Counter App to use LiveView!
 Now we get to the _fun_ part: creating the counter!! 🎉
 
-
+<br />
 
 ### Step 11: Create the `counter.ex` File
 
@@ -1207,18 +1207,46 @@ You should see the count increasing/decreasing in all browsers simultaneously!
 
 ![phoenix-liveview-counter-four-windows](https://user-images.githubusercontent.com/194400/76265954-d26c1280-625d-11ea-90df-bcd6db60ccf5.gif)
 
+<br />
 
+# Congratulations! 🎉
+
+You just built a real-time counter
+that seamlessly updates all connected clients
+using Phoenix LiveView
+in less than 40 lines of code!
 
 
 <br />
 
-### Step 14: Use a LiveView Template
+### Step 14: Use a LiveView Template (Optional)
 
-
-
-`lib/live_view_counter_web/templates/page/counter.html.leex`
+At present the
+[`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L27-L34)
+function in
+[`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+has an inline template:
 
 ```elixir
+def render(assigns) do
+  ~L"""
+  <div>
+    <h1>The count is: <%= @val %></h1>
+    <button phx-click="dec">-</button>
+    <button phx-click="inc">+</button>
+  </div>
+  """
+```
+
+This is _fine_ when the template is small like in this counter,
+but it's a good idea to split the template into a _separate_ file
+to make it easier to read and maintain.
+
+Create a new file called `counter.html.leex` in the
+`lib/live_view_counter_web/templates/page/` directory
+and add the following code to it:
+
+```html
 <div>
   <h1>The count is: <%= @val %></h1>
   <button phx-click="dec">-</button>
@@ -1226,21 +1254,49 @@ You should see the count increasing/decreasing in all browsers simultaneously!
 </div>
 ```
 
+> 🏁 Your `counter.html.leex` should look like this:
+[lib/live_view_counter_web/templates/page/counter.html.leex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/5981c1c2c93560e2f1ee0440579bc15543a83db7/lib/live_view_counter_web/templates/page/counter.html.leex#L1-L5)
+
+That template is identical to the one we had in the
+[`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L27-L34)
+function; that's the point: we just want it in a separate file.
+
+<br />
+
+Now open the
+[`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+file and locate the
+[`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L27-L34)
+function.
+Update the code to:
+
+```elixir
+def render(assigns) do
+  LiveViewCounterWeb.PageView.render("counter.html", assigns)
+end
+```
+
+> 🏁 At the end of Step 14 your `counter.ex` file should resemble:
+[lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/5981c1c2c93560e2f1ee0440579bc15543a83db7/lib/live_view_counter_web/live/counter.ex#L28)
+
+Re-run your app using `mix phx.server` and confirm everything still works:
 
 
-
+![phoenix-liveview-counter-42](https://user-images.githubusercontent.com/194400/76267885-14985280-6264-11ea-8e6d-52d5166aacd9.gif)
 
 <br /><br />
 
-## Recommended Reading 📚
+# _Done_!
 
-+ _Official_ Phoenix LiveView installation instructions:
-https://github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md
+That's it for this tutorial. <br />
+We hope you enjoyed learning with us! <br />
+If you found this useful, please ⭐️and _share_ the GitHub repo
+so we know you like it!
 
 
-<br /><br />
+<br /><br /><br />
 
-## Credits 🙌
+## Credits & Thanks! 🙌
 
 Credit for inspiring this tutorial goes to Dennis Beatty
 [@dnsbty](https://github.com/dnsbty)
@@ -1269,6 +1325,8 @@ So when the counter is incremented/decremented in one client,
 all others see the update.
 This is the true power and "wow moment" of LiveView!
 
+<br />
+
 ### Phoenix LiveView for Web Developers Who Don't know Elixir
 
 If you are new to LiveView (_and have the bandwidth_),
@@ -1281,7 +1339,6 @@ intro to LiveView where he explains the concepts:
 
 Watching the video is _not required_;
 you will be able to follow the tutorial without it.
-
 
 <br />
 
@@ -1298,3 +1355,23 @@ so the app does not _compile/run_ for some people.
 We understand/love that Chris is focussed _building_
 Phoenix and LiveView so we decided to fill in the gaps
 and write this _beginner-focussed_ tutorial.
+
+<br />
+
+If you haven't watched Chris' Keynote from ElixirConf EU 2019,
+we _highly_ recommend watching it:
+[youtu.be/8xJzHq8ru0M](https://youtu.be/8xJzHq8ru0M)
+
+[![chris-keynote-elixirconf-eu-2019](https://user-images.githubusercontent.com/194400/59027797-dd6ac000-8851-11e9-82b9-b53c48f7e1b9.png)](https://youtu.be/8xJzHq8ru0M)
+
+<br />
+
+Sophie DeBenedetto's ElixirConf 2019 talk "Beyond LiveView:
+Building Real-Time features with Phoenix LiveView, PubSub,
+Presence and Channels (Hooks) is worth watching:
+[youtu.be/AbNAuOQ8wBE](https://youtu.be/AbNAuOQ8wBE)
+
+[![Sophie-DeBenedetto-elixir-conf-2019-talk](https://user-images.githubusercontent.com/194400/76205486-3a850f00-61f2-11ea-9503-aec19ee666b5.png)](https://youtu.be/AbNAuOQ8wBE)
+
+
+Related blog post: https://elixirschool.com/blog/live-view-live-component/
