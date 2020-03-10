@@ -574,13 +574,44 @@ and
 
 ### Step 6: Create the `/live` Socket in `endpoint.ex`
 
+
+
+
 In order to allow the client(s)
 to communicate with the server,
 we need to open a socket.
 Open the
 [`lib/live_view_counter_web/endpoint.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web/endpoint.ex)
-file
-and add the following lines to it:
+file and locate the `plug Plug.Session` block:
+
+```elixir
+plug Plug.Session
+  store: :cookie,
+  key: "_my_app_key",
+  signing_salt: "somesigningsalt"
+```
+
+Replace it with the following `@session_options` module attribute
+at the top of the file
+and reference `@session_options` in the `plug` configuration:
+
+```
+@session_options [
+  store: :cookie,
+  key: "_my_app_key",
+  signing_salt: "somesigningsalt"
+]
+
+plug Plug.Session, @session_options
+```
+
+see:
+[`endpoint.ex#L7-L11`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/lib/live_view_counter_web/endpoint.ex#L7-L11)
+and
+[`endpoint.ex#L48`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f618a3b1214f6c26c2547fd7e6e6517fc72bd4d2/lib/live_view_counter_web/endpoint.ex#L48)
+
+Next add the following lines to the
+[`endpoint.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web/endpoint.ex):
 
 ```elixir
 socket "/live", Phoenix.LiveView.Socket,
