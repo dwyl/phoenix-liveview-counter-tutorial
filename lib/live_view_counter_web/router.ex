@@ -19,9 +19,4 @@ defmodule LiveViewCounterWeb.Router do
 
     live("/", Counter)
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LiveViewCounterWeb do
-  #   pipe_through :api
-  # end
 end
