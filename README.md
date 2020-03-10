@@ -461,7 +461,6 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 
 The _last_ line in the code block is the important one.
 
-
 > 🏁 At the end of Step 3 the
 [`config.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
 file should look like this:
@@ -471,6 +470,17 @@ file should look like this:
 we would use an environment variable
 for the `signing_salt`
 to ensure it is kept secret.
+
+If your the config in your `config.exs` file
+does not _have_ a `live_view:` line,
+create a new config block at the end of your file:
+
+```elixir
+config :live_view_counter, LiveViewCounterWeb.Endpoint,
+   live_view: [
+     signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"
+   ]
+```
 
 
 <br />
@@ -573,9 +583,6 @@ and
 <br />
 
 ### Step 6: Create the `/live` Socket in `endpoint.ex`
-
-
-
 
 In order to allow the client(s)
 to communicate with the server,
