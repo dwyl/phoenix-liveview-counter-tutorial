@@ -1,6 +1,5 @@
 defmodule LiveViewCounterWeb.Router do
   use LiveViewCounterWeb, :router
-  import Phoenix.LiveView.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
