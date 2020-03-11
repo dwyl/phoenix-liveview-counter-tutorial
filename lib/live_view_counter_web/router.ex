@@ -1,6 +1,5 @@
 defmodule LiveViewCounterWeb.Router do
   use LiveViewCounterWeb, :router
-  import Phoenix.LiveView.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -19,9 +18,4 @@ defmodule LiveViewCounterWeb.Router do
 
     live("/", Counter)
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LiveViewCounterWeb do
-  #   pipe_through :api
-  # end
 end

@@ -2,7 +2,10 @@
 
 # Phoenix LiveView Counter Tutorial
 
-[![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues) [![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
+[![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial)
+[![Hex pm](http://img.shields.io/hexpm/v/phoenix_live_view.svg?style=flat-square)](https://hex.pm/packages/phoenix_live_view)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
+[![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
 <!--
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 -->
@@ -347,7 +350,7 @@ end
 Append the following line to the end of the list:
 
 ```
-{:phoenix_live_view, "~> 0.8.1"},
+{:phoenix_live_view, "~> 0.9.0"},
 ```
 
 The `deps` definition should now look likes this:
@@ -362,7 +365,7 @@ defp deps do
     {:gettext, "~> 0.11"},
     {:jason, "~> 1.0"},
     {:plug_cowboy, "~> 2.0"},
-    {:phoenix_live_view, "~> 0.8.1"},
+    {:phoenix_live_view, "~> 0.9.0"},
   ]
 end
 ```
@@ -370,9 +373,9 @@ end
 The _last_ line in the code block is the important one.
 
 
-> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L33-46)
 file at the end of Step 2:
-[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L44)
+[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L44)
 
 <br />
 
@@ -395,7 +398,7 @@ Unchanged:
   cowboy 2.7.0
   ...
 New:
-  phoenix_live_view 0.8.1
+  phoenix_live_view 0.9.0
 * Getting phoenix_live_view (Hex package)
 ```
 
@@ -485,17 +488,54 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 
 <br />
 
-### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
+### Step 4: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
+
+Open the
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
+file
+and add the relevant `Phoenix.LiveView` import statements
+for each of the `controller`, `view` and `router` blocks.
+
+```diff
+def controller do
+  quote do
+    ...
++   import Phoenix.LiveView.Controller
+  end
+end
+
+def view do
+  quote do
+    ...
++   import Phoenix.LiveView.Helpers
+  end
+end
+
+def router do
+  quote do
+    ...
++   import Phoenix.LiveView.Router
+  end
+end
+```
+
+> 🏁 Changes made in Step 4: <br />
+**Before**:
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
+***After***:
+[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
+The relevant lines are
+[`27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27),
+[`46`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L46)
+and
+[`55`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L55).
+
+<br />
+
+### Step 5: Add `:fetch_live_flash` Plug to Browser Pipeline
 
 
-At the top of the [router.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3a5e5dd73c325ef609203e597cd0f80ac06198f8/lib/live_view_counter_web/router.ex#L2) file  you should see the line
-`use LiveViewCounterWeb, :router` <br />
-add the following import statement below it:
-[`import Phoenix.LiveView.Router`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L3)
-
-
-Next we need to
-replace the regular Phoenix flash plug
+Replace the regular Phoenix flash plug
 with the LiveView flash plug.
 
 Open the
@@ -530,55 +570,10 @@ end
 That ensures flash messages (_e.g: "not connected to network"_)
 are displayed in the client when the LiveView App is running.
 
-> 🏁 At the end of Step 4, the
+> 🏁 At the end of Step 5, the
 [`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
 should look like:
 [`router.ex#L8`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
-
-<br />
-
-### Step 5: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
-
-
-Open the
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
-file
-and add the relevant `Phoenix.LiveView` import statements
-for each of the `controller`, `view` and `router` blocks.
-
-```diff
-def controller do
-  quote do
-    ...
-+   import Phoenix.LiveView.Controller
-  end
-end
-
-def view do
-  quote do
-    ...
-+   import Phoenix.LiveView.Helpers
-  end
-end
-
-def router do
-  quote do
-    ...
-+   import Phoenix.LiveView.Router
-  end
-end
-```
-
-> 🏁 Changes made in Step 5: <br />
-**Before**:
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
-***After***:
-[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
-The relevant lines are
-[`27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27),
-[`46`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L46)
-and
-[`55`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L55).
 
 <br />
 
@@ -606,7 +601,7 @@ and reference `@session_options` in the `plug` configuration:
 @session_options [
   store: :cookie,
   key: "_my_app_key",
-  signing_salt: "somesigningsalt"
+  signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"
 ]
 
 plug Plug.Session, @session_options
@@ -682,27 +677,62 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8: Add CSRF meta tag to Layout
+### Step 8: Rename Layout Template File from `app.html.eex` to `app.html.leex`
 
-In order to ensure that the Client
-can securely communicate with the LiveView
-server we need to ensure that the `csrf_meta_tag()`
-is included in the `<head>` tag of the layout template.
+In order to render the layout template
+as a "live" view, we need to rename it.
+In your project, locate the
+`lib/live_view_counter_web/templates/layout/app.html.eex`
+file and _rename_ it to:
+`app.html.leex`
+(_we just changed the extension from `.eex` to `leex`
+  which stands for "liveview embedded elixir" template_).
 
-Open the
-[`lib/live_view_counter_web/templates/layout/app.html.eex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/bb6c60b3f8743bfabff24e27f8da85282b48e51b/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
-file,
-and add `<%= csrf_meta_tag() %>`
-_above_ the `app.js` script tag:
+Once you have renamed the file,
+replace the contents of the file
+with the following code:
 
 ```html
-<%= csrf_meta_tag() %>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= assigns[:page_title] || "LiveViewCounter · Phoenix Framework" %></title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/app.css") %>"/>
+    <%= csrf_meta_tag() %>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@socket, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>
+      </section>
+    </header>
+    <main role="main" class="container">
+      <p class="alert alert-info" role="alert"><%= live_flash(@flash, :notice) %></p>
+      <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
+      <%= @inner_content %>
+    </main>
+    <%= csrf_meta_tag() %>
+    <script type="text/javascript" src="<%= Routes.static_path(@socket, "/js/app.js") %>"></script>
+  </body>
+</html>
 ```
 
+> 🏁  For the full side-by-side view of the changes made in this step,
+see:
+[commit/031e034](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/031e0342041483a4a1c91c65abfff0a0d08db005)
 
-> 🏁 Line of code added in Step 8:
-[`lib/live_view_counter_web/templates/layout/app.html.eex#L29`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/9d648ade3eaeb91a2de87cc4f822bc907776e667/lib/live_view_counter_web/templates/layout/app.html.eex#L29)
+<br />
+
+#### Summary of Code Changes made to `app.html.leex` Template
+
++ replace all instances of `@conn` with `@socket`.
++ replace `get_flash(@conn` with `live_flash(@flash`
++ replace `render @view_module, @view_template, assigns` with `@inner_content`
 
 <br />
 
@@ -772,7 +802,8 @@ defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0)}
+    {:ok, assign(socket, :val, 0),
+      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
   end
 
   def handle_event("inc", _, socket) do
@@ -807,7 +838,8 @@ with the `_params`, `_session` and `socket` arguments:
 
 ```elixir
 def mount(_params, _session, socket) do
-  {:ok, assign(socket, :val, 0)}
+  {:ok, assign(socket, :val, 0)
+    layout: {LiveViewCounterWeb.LayoutView, "app.html"} }
 end
 ```
 
@@ -826,6 +858,8 @@ which uses the
 function to assign the `:val` key a value of `0` on the `socket`.
 That just means the socket will now have a `:val`
 which is initialised to `0`.
+Specifying the `layout` template as `app.html`
+is needed for Phoenix LiveView to know which template file to use.
 
 <br />
 
@@ -898,7 +932,7 @@ is sent to the client.
 
 
 > 🏁 At the end of Step 11 you should have a file similar to:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/06bca4152a32026a56ed9ee26a52fe17422a0d5b/lib/live_view_counter_web/live/counter.ex)
 
 <br />
 
@@ -1083,25 +1117,26 @@ defmodule LiveViewCounterWeb.Counter do
 
   @topic "live"
 
-  def mount(_session, socket) do
-    LiveViewCounterWeb.Endpoint.subscribe(@topic)
-    {:ok, assign(socket, :val, 0)}
+  def mount(_session, _params, socket) do
+    LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
+    {:ok, assign(socket, :val, 0),
+      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
   end
 
-  def handle_event("inc", _msg, socket) do
+  def handle_event("inc", _value, socket) do
     new_state = update(socket, :val, &(&1 + 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", new_state.assigns)
     {:noreply, new_state}
   end
 
-  def handle_event("dec", _msg, socket) do
+  def handle_event("dec", _, socket) do
     new_state = update(socket, :val, &(&1 - 1))
     LiveViewCounterWeb.Endpoint.broadcast_from(self(), @topic, "dec", new_state.assigns)
     {:noreply, new_state}
   end
 
   def handle_info(msg, socket) do
-    {:noreply, assign(socket, msg.payload)}
+    {:noreply, assign(socket, val: msg.payload.val)}
   end
 
   def render(assigns) do
@@ -1218,8 +1253,8 @@ The line `{:noreply, assign(socket, msg.payload)}`
 just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
-> 🏁 At the end of Step 13 the `counter.ex` file should match:
-[`lib/live_view_counter_web/live/counter.ex#L4`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+> 🏁 The changes made in Step 13 are:
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/f2df2ddad97f8621365dcf455a218b1b59362a59)
 
 <br />
 
@@ -1315,7 +1350,7 @@ end
 ```
 
 > 🏁 At the end of Step 14 your `counter.ex` file should resemble:
-[lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/5981c1c2c93560e2f1ee0440579bc15543a83db7/lib/live_view_counter_web/live/counter.ex#L28)
+[lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f6a5be51a7f7acc3c0df63595ec6f9716a603e12/lib/live_view_counter_web/live/counter.ex#L29)
 
 Re-run your app using `mix phx.server` and confirm everything still works:
 

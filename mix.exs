@@ -4,7 +4,7 @@ defmodule LiveViewCounter.MixProject do
   def project do
     [
       app: :live_view_counter,
-      version: "0.1.0",
+      version: "0.9.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -41,7 +41,7 @@ defmodule LiveViewCounter.MixProject do
       {:plug_cowboy, "~> 2.0"},
 
       # LiveView
-      {:phoenix_live_view, "~> 0.8.1"},
+      {:phoenix_live_view, "~> 0.9.0"},
     ]
   end
 end
