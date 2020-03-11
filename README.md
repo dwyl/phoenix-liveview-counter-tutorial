@@ -350,7 +350,7 @@ end
 Append the following line to the end of the list:
 
 ```
-{:phoenix_live_view, "~> 0.8.1"},
+{:phoenix_live_view, "~> 0.9.0"},
 ```
 
 The `deps` definition should now look likes this:
