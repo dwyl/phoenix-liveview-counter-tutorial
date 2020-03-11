@@ -488,7 +488,51 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 
 <br />
 
-### Step 4: Add `:fetch_live_flash` Plug to Browser Pipeline
+### Step 4: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
+
+Open the
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
+file
+and add the relevant `Phoenix.LiveView` import statements
+for each of the `controller`, `view` and `router` blocks.
+
+```diff
+def controller do
+  quote do
+    ...
++   import Phoenix.LiveView.Controller
+  end
+end
+
+def view do
+  quote do
+    ...
++   import Phoenix.LiveView.Helpers
+  end
+end
+
+def router do
+  quote do
+    ...
++   import Phoenix.LiveView.Router
+  end
+end
+```
+
+> 🏁 Changes made in Step 4: <br />
+**Before**:
+[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
+***After***:
+[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
+The relevant lines are
+[`27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27),
+[`46`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L46)
+and
+[`55`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L55).
+
+<br />
+
+### Step 5: Add `:fetch_live_flash` Plug to Browser Pipeline
 
 
 Replace the regular Phoenix flash plug
@@ -526,55 +570,10 @@ end
 That ensures flash messages (_e.g: "not connected to network"_)
 are displayed in the client when the LiveView App is running.
 
-> 🏁 At the end of Step 4, the
+> 🏁 At the end of Step 5, the
 [`lib/live_view_counter_web/router.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
 should look like:
 [`router.ex#L8`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3b562348100ce0048da3f1f4e81c036d94e6463e/lib/live_view_counter_web/router.ex#L8)
-
-<br />
-
-### Step 5: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
-
-
-Open the
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
-file
-and add the relevant `Phoenix.LiveView` import statements
-for each of the `controller`, `view` and `router` blocks.
-
-```diff
-def controller do
-  quote do
-    ...
-+   import Phoenix.LiveView.Controller
-  end
-end
-
-def view do
-  quote do
-    ...
-+   import Phoenix.LiveView.Helpers
-  end
-end
-
-def router do
-  quote do
-    ...
-+   import Phoenix.LiveView.Router
-  end
-end
-```
-
-> 🏁 Changes made in Step 5: <br />
-**Before**:
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
-***After***:
-[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
-The relevant lines are
-[`27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27),
-[`46`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L46)
-and
-[`55`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L55).
 
 <br />
 
