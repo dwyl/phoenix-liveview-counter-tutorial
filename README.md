@@ -373,9 +373,9 @@ end
 The _last_ line in the code block is the important one.
 
 
-> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
+> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L33-46)
 file at the end of Step 2:
-[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L44)
+[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L44)
 
 <br />
 
