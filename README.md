@@ -200,6 +200,7 @@ Install the `Node.js` dependencies with:
 
 ```sh
 npm install --prefix assets
+# or `cd assets && npm install && cd ..` for Windows users if --prefix doesn't work
 ```
 
 It will take a few seconds to download the dependencies
@@ -667,6 +668,7 @@ you will need to run the following command to _install_ the dependency:
 
 ```sh
 npm install --prefix assets
+# or `cd assets && npm install && cd ..` for Windows users if --prefix doesn't work
 ```
 
 You should expect to see output similar to the following:
