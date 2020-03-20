@@ -95,9 +95,9 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.10.1 (compiled with Erlang/OTP 22)
+Elixir 1.10.2 (compiled with Erlang/OTP 22)
 ```
-This informs us we are using `Elixir version 1.10.1`
+This informs us we are using `Elixir version 1.10.2`
 which is the _latest_ version at the time of writing.
 
 
@@ -113,7 +113,7 @@ mix phx.new -v
 You should see:
 
 ```sh
-Phoenix v1.4.15
+Phoenix v1.4.16
 ```
 
 If you have a _later_ version of Phoenix,
@@ -336,7 +336,7 @@ e.g:
 ```elixir
 defp deps do
   [
-    {:phoenix, "~> 1.4.15"},
+    {:phoenix, "~> 1.4.16"},
     {:phoenix_pubsub, "~> 1.1"},
     {:phoenix_html, "~> 2.11"},
     {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -351,7 +351,7 @@ end
 Append the following line to the end of the list:
 
 ```
-{:phoenix_live_view, "~> 0.9.0"},
+{:phoenix_live_view, "~> 0.10.0"},
 ```
 
 The `deps` definition should now look likes this:
@@ -359,14 +359,14 @@ The `deps` definition should now look likes this:
 ```elixir
 defp deps do
   [
-    {:phoenix, "~> 1.4.15"},
+    {:phoenix, "~> 1.4.16"},
     {:phoenix_pubsub, "~> 1.1"},
     {:phoenix_html, "~> 2.11"},
     {:phoenix_live_reload, "~> 1.2", only: :dev},
     {:gettext, "~> 0.11"},
     {:jason, "~> 1.0"},
     {:plug_cowboy, "~> 2.0"},
-    {:phoenix_live_view, "~> 0.9.0"},
+    {:phoenix_live_view, "~> 0.10.0"},
   ]
 end
 ```
