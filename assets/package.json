@@ -1,6 +1,7 @@
 {
   "repository": {},
   "license": "MIT",
+  "description": "My Amazing First Phoenix LiveView App!",
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch"
