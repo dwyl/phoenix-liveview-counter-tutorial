@@ -4,12 +4,15 @@ defmodule LiveViewCounter.MixProject do
   def project do
     [
       app: :live_view_counter,
-      version: "0.1.0",
+      version: "0.10.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test,
+      "coveralls.json": :test, "coveralls.post": :test, "coveralls.html": :test]
     ]
   end
 
@@ -42,6 +45,10 @@ defmodule LiveViewCounter.MixProject do
 
       # LiveView
       {:phoenix_live_view, "~> 0.10.0"},
+      {:floki, ">= 0.0.0", only: :test},
+
+      # Test Code Coverage:
+      {:excoveralls, "~> 0.12.2", only: :test}
     ]
   end
 end
