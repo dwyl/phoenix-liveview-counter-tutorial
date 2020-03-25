@@ -26,12 +26,5 @@ defmodule LiveViewCounterWeb.CounterTest do
     msg = %{payload: %{ val: 1 }}
     result = send(view.pid, msg)
     assert result == msg
-
   end
-  # test "handle_info/2", %{conn: conn} do
-  #   msg = %{payload: %{ val: 1 }}
-  #   {:noreply, result} = LiveViewCounterWeb.Counter.handle_info(msg, conn)
-  #   # IO.inspect(result, label: "result")
-  #   assert result == %{val: 1}
-  # end
 end
