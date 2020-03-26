@@ -8,14 +8,14 @@ defmodule LiveViewCounterWeb.CounterTest do
   end
 
   test "Increment", %{conn: conn} do
-    {:ok, view, _html} = live(conn, "/")
-    # assert html_response(conn, 200) =~ "The count is"
+    {:ok, view, html} = live(conn, "/")
+    assert html =~ "Count: 0"
     assert render_click(view, :inc) =~ "Count: 1"
   end
 
   test "Decrement", %{conn: conn} do
-    {:ok, view, _html} = live(conn, "/")
-    # assert html_response(conn, 200) =~ "The count is"
+    {:ok, view, html} = live(conn, "/")
+    assert html =~ "Count: 0"
     assert render_click(view, :dec) =~ "Count: -1"
   end
 

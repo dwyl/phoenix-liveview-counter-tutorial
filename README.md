@@ -1437,6 +1437,9 @@ we _highly_ recommend watching it:
 
 [![chris-keynote-elixirconf-eu-2019](https://user-images.githubusercontent.com/194400/59027797-dd6ac000-8851-11e9-82b9-b53c48f7e1b9.png)](https://youtu.be/8xJzHq8ru0M)
 
+Also read the original announcement for LiveView to understand the hype! <br />:
+https://dockyard.com/blog/2018/12/12/phoenix-liveview-interactive-real-time-apps-no-need-to-write-javascript
+
 <br />
 
 Sophie DeBenedetto's ElixirConf 2019 talk "Beyond LiveView:
