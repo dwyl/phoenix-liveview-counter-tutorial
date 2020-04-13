@@ -7,6 +7,7 @@
     <title><%= assigns[:page_title] || "LiveViewCounter · Phoenix Framework" %></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <%= csrf_meta_tag() %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
     <header>
@@ -21,7 +22,5 @@
       <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
       <%= @inner_content %>
     </main>
-    <%= csrf_meta_tag() %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
