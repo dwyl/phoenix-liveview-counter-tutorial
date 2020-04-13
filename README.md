@@ -715,7 +715,7 @@ template file and replace the contents with the following code:
 
 Essentially in Phoenix LiveView there are 2 layout templates you care about: the root layout and the LiveView layout. The root layout is what gets rendered on the initial request of the application. The LiveView layout is what gets rendered as a part of the LiveView life-cycle. You can read more about [`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts) in the Hex documentation.
 
-There are a couple of things happening in our code changes that are specific to LiveView.
+There are a couple of things happening in our code changes that are specific to the LiveView life-cycle.
   - `<%= csrf_meta_tag() %>` : This gives the Client access to securely communicate with the LiveView server. This needs to be defined in the `<head>` tag _before_ the `app.js` script.
   - `<%= @inner_content %>` : Renders the `LiveView` layout. This will be our `render/1` function we'll define later in Step 11.
 
