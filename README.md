@@ -677,23 +677,53 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8: Add the CSRF meta tag to the App Layout
+### Step 8: Define the App Layout
 
-We want to give the Client access to securely communicate with the LiveView server so we need to add the `csrf_meta_tag()` in the `<head>` tag of the app layout template.
+In your project, locate the
+`lib/live_view_counter_web/templates/layout/app.html.eex`
+template file and replace the contents with the following code:
 
-Open the
-[`lib/live_view_counter_web/templates/layout/app.html.eex`](lib/live_view_counter_web/templates/layout/app.html.eex#L9)
-file,
-and add `<%= csrf_meta_tag() %>`
-_above_ the `app.js` script tag:
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= assigns[:page_title] || "LiveViewCounter · Phoenix Framework" %></title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <%= csrf_meta_tag() %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>
+      </section>
+    </header>
+    <main role="main" class="container">
+      <p class="alert alert-info" role="alert"><%= live_flash(@flash, :notice) %></p>
+      <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
+      <%= @inner_content %>
+    </main>
+  </body>
+</html>
 
-```html
-<%= csrf_meta_tag() %>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 ```
 
-> 🏁 Line of code added in Step 8:
-[`lib/live_view_counter_web/templates/layout/app.html.eex#L9`](lib/live_view_counter_web/templates/layout/app.html.eex#L9)
+Essentially in Phoenix LiveView there are 2 layout templates you care about: the root layout and the LiveView layout. The root layout is what gets rendered on the initial request of the application. The LiveView layout is what gets rendered as a part of the LiveView life-cycle. You can read more about [`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts) in the Hex documentation.
+
+There are a few things happening in our code changes that are specific to LiveView.
+  - `<%= csrf_meta_tag() %>` : This gives the Client access to securely communicate with the LiveView server. This needs to be defined in the `<head>` tag _before_ the `app.js` script.
+  - `<%= @inner_content %>` : Renders the `LiveView` layout. This will be our `render/1` function we'll define later in Step 11.
+
+
+> 🏁  Your app layout should now look like this:
+[`lib/live_view_counter_web/templates/layout/app.html.eex`](lib/live_view_counter_web/templates/layout/app.html.eex)
+
+<br />
 
 ### Step 9: Add LiveView code to `app.js`
 
@@ -921,15 +951,10 @@ scope "/", LiveViewCounterWeb do
 end
 ```
 
-Here we're also telling LiveView how to define our root layout, `layout: {LiveViewCounterWeb.LayoutView, "app.html"}`. We need to do this since LiveView no longer uses the default app layout on the initial render of the application and needs to know which template file to use. Meaning that without these steps the application will never render! If you want to read more about the [`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts), the Hex documenation gives a good overview.
+Here we're also telling LiveView how to define our root layout, `layout: {LiveViewCounterWeb.LayoutView, "app.html"}`. We need to do this since LiveView no longer uses the default app layout on the initial render of the application and needs to know which template file to use. Meaning that without these steps the application will never render!
 
-The last thing we need to do for our root layout is use the `@inner_content` tag so we can have access to our render function that we defined in step 11.
-
-Open the `lib/live_view_counter_web/templates/layout/app.html.eex` again and make sure `<%= render(@view_module, @view_template, assigns) %>` is replaced with `<%= @inner_content %>` at the end of the `<main>` tag.
-
-> 🏁 At the end of Step 12 you should have your `router.ex` and `app.html.eex` files similar to:
-[`lib/live_view_counter_web/router.ex#L19`](lib/live_view_counter_web/router.ex#L19) and [`lib/live_view_counter_web/templates/layout/app.html.eex#L23`](lib/live_view_counter_web/templates/layout/app.html.eex#L23)
-
+> 🏁 At the end of Step 12 you should have your `router.ex` file similar to:
+[`lib/live_view_counter_web/router.ex#L19`](lib/live_view_counter_web/router.ex#L19)
 
 <br />
 
