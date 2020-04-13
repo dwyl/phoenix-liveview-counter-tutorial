@@ -16,6 +16,6 @@ defmodule LiveViewCounterWeb.Router do
   scope "/", LiveViewCounterWeb do
     pipe_through :browser
 
-    live("/", Counter)
+    live("/", Counter, layout: {LiveViewCounterWeb.LayoutView, "app.html"})
   end
 end
