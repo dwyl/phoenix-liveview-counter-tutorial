@@ -677,20 +677,11 @@ added 1 package from 1 contributor and audited 8438 packages in 4.257s
 
 <br />
 
-### Step 8: Rename Layout Template File from `app.html.eex` to `app.html.leex`
+### Step 8: Define the App Layout
 
-In order to render the layout template
-as a "live" view, we need to rename it.
 In your project, locate the
 `lib/live_view_counter_web/templates/layout/app.html.eex`
-file and _rename_ it to:
-`app.html.leex`
-(_we just changed the extension from `.eex` to `leex`
-  which stands for "liveview embedded elixir" template_).
-
-Once you have renamed the file,
-replace the contents of the file
-with the following code:
+template file and replace the contents with the following code:
 
 ```html
 <!DOCTYPE html>
@@ -700,14 +691,15 @@ with the following code:
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><%= assigns[:page_title] || "LiveViewCounter · Phoenix Framework" %></title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <%= csrf_meta_tag() %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
     <header>
       <section class="container">
         <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@socket, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
         </a>
       </section>
     </header>
@@ -716,23 +708,26 @@ with the following code:
       <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
       <%= @inner_content %>
     </main>
-    <%= csrf_meta_tag() %>
-    <script type="text/javascript" src="<%= Routes.static_path(@socket, "/js/app.js") %>"></script>
   </body>
 </html>
+
 ```
 
-> 🏁  For the full side-by-side view of the changes made in this step,
-see:
-[commit/031e034](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/031e0342041483a4a1c91c65abfff0a0d08db005)
+Essentially in Phoenix LiveView there are 2 layout templates you care about:
+the root layout and the LiveView layout.
+The root layout is what gets rendered on the initial request of the application.
+The LiveView layout is what gets rendered as a part of the LiveView life-cycle.
+You can read more about
+[`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts)
+in the Hex documentation.
 
-<br />
+There are a couple of things happening in our code changes that are specific to the LiveView life-cycle.
+  - `<%= csrf_meta_tag() %>` : This gives the Client access to securely communicate with the LiveView server. This needs to be defined in the `<head>` tag _before_ the `app.js` script.
+  - `<%= @inner_content %>` : Renders the `LiveView` layout. This will be our `render/1` function we'll define later in Step 11.
 
-#### Summary of Code Changes made to `app.html.leex` Template
 
-+ replace all instances of `@conn` with `@socket`.
-+ replace `get_flash(@conn` with `live_flash(@flash`
-+ replace `render @view_module, @view_template, assigns` with `@inner_content`
+> 🏁  Your app layout should now look like this:
+[`lib/live_view_counter_web/templates/layout/app.html.eex`](lib/live_view_counter_web/templates/layout/app.html.eex)
 
 <br />
 
@@ -802,8 +797,7 @@ defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0),
-      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
+    {:ok, assign(socket, :val, 0)}
   end
 
   def handle_event("inc", _, socket) do
@@ -838,8 +832,7 @@ with the `_params`, `_session` and `socket` arguments:
 
 ```elixir
 def mount(_params, _session, socket) do
-  {:ok, assign(socket, :val, 0)
-    layout: {LiveViewCounterWeb.LayoutView, "app.html"} }
+  {:ok, assign(socket, :val, 0)}
 end
 ```
 
@@ -858,8 +851,6 @@ which uses the
 function to assign the `:val` key a value of `0` on the `socket`.
 That just means the socket will now have a `:val`
 which is initialised to `0`.
-Specifying the `layout` template as `app.html`
-is needed for Phoenix LiveView to know which template file to use.
 
 <br />
 
@@ -937,7 +928,7 @@ is sent to the client.
 <br />
 
 
-### Step 12: Create the `live` Route in `router.ex`
+### Step 12: Create the `live` route in `router.ex` and define the root layout
 
 Now that we have created our Live handler function in Step 11,
 it's time to tell Phoenix how to invoke it.
@@ -956,18 +947,25 @@ end
 ```
 
 Replace the line `get "/", PageController, :index`
-with `live("/", Counter)`. So you end up with:
+with `live("/", Counter, layout: {LiveViewCounterWeb.LayoutView, "app.html"})`. So you end up with:
 
 ```elixir
 scope "/", LiveViewCounterWeb do
   pipe_through :browser
 
-  live("/", Counter)
+  live("/", Counter, layout: {LiveViewCounterWeb.LayoutView, "app.html"})
 end
 ```
 
-> 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
-[`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
+Here we're also telling LiveView how to define our root layout,
+`layout:{LiveViewCounterWeb.LayoutView, "app.html"}`.
+We need to do this since LiveView no longer uses
+the default app layout on the initial render of the application
+and needs to know which template file to use.
+Meaning that without these steps the application will never render!
+
+> 🏁 At the end of Step 12 you should have your `router.ex` file similar to:
+[`lib/live_view_counter_web/router.ex#L19`](lib/live_view_counter_web/router.ex#L19)
 
 <br />
 
@@ -987,19 +985,19 @@ Compiling 1 file (.ex)
      test/live_view_counter_web/controllers/page_controller_test.exs:4
      Assertion with =~ failed
      code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
-     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  
+     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n
      <head>\n <meta charset=\"utf-8\"/>\n
      <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/>\n
      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n
-     <title>LiveViewCounter · Phoenix Framework</title>\n  
+     <title>LiveViewCounter · Phoenix Framework</title>\n
      </head>\n  <body>\n <header>\n <section class=\"container\">\n
      <a href=\"https://phoenixframework.org/\" class=\"phx-logo\">\n
      <img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/>\n </a>\n
      </section>\n </header>\n <main role=\"main\" class=\"container\">\n
      <div data-phx-main=\"true\"
-     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n  
-     <button phx-click=\"inc\">+</button>\n</div>\n</div>    
-     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n  
+     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n
+     <button phx-click=\"inc\">+</button>\n</div>\n</div>
+     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n
      </body>\n</html>\n"
      right: "Welcome to Phoenix!"
      stacktrace:
@@ -1119,8 +1117,7 @@ defmodule LiveViewCounterWeb.Counter do
 
   def mount(_session, _params, socket) do
     LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
-    {:ok, assign(socket, :val, 0),
-      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
+    {:ok, assign(socket, :val, 0)}
   end
 
   def handle_event("inc", _value, socket) do

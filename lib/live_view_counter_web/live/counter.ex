@@ -5,8 +5,7 @@ defmodule LiveViewCounterWeb.Counter do
 
   def mount(_session, _params, socket) do
     LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
-    {:ok, assign(socket, :val, 0),
-      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
+    {:ok, assign(socket, :val, 0)}
   end
 
   def handle_event("inc", _value, socket) do
