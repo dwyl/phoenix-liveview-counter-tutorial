@@ -713,7 +713,13 @@ template file and replace the contents with the following code:
 
 ```
 
-Essentially in Phoenix LiveView there are 2 layout templates you care about: the root layout and the LiveView layout. The root layout is what gets rendered on the initial request of the application. The LiveView layout is what gets rendered as a part of the LiveView life-cycle. You can read more about [`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts) in the Hex documentation.
+Essentially in Phoenix LiveView there are 2 layout templates you care about:
+the root layout and the LiveView layout.
+The root layout is what gets rendered on the initial request of the application.
+The LiveView layout is what gets rendered as a part of the LiveView life-cycle.
+You can read more about
+[`Live Layouts`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-live-layouts)
+in the Hex documentation.
 
 There are a couple of things happening in our code changes that are specific to the LiveView life-cycle.
   - `<%= csrf_meta_tag() %>` : This gives the Client access to securely communicate with the LiveView server. This needs to be defined in the `<head>` tag _before_ the `app.js` script.
@@ -951,7 +957,12 @@ scope "/", LiveViewCounterWeb do
 end
 ```
 
-Here we're also telling LiveView how to define our root layout, `layout: {LiveViewCounterWeb.LayoutView, "app.html"}`. We need to do this since LiveView no longer uses the default app layout on the initial render of the application and needs to know which template file to use. Meaning that without these steps the application will never render!
+Here we're also telling LiveView how to define our root layout,
+`layout:{LiveViewCounterWeb.LayoutView, "app.html"}`.
+We need to do this since LiveView no longer uses
+the default app layout on the initial render of the application
+and needs to know which template file to use.
+Meaning that without these steps the application will never render!
 
 > 🏁 At the end of Step 12 you should have your `router.ex` file similar to:
 [`lib/live_view_counter_web/router.ex#L19`](lib/live_view_counter_web/router.ex#L19)
