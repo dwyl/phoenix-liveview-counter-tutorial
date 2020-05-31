@@ -322,7 +322,7 @@ in your web browser.
 <br />
 
 
-### Step 3. Configure `signing_salt` in `config.exs`
+### Step 2. Configure `signing_salt` in `config.exs`
 
 Phoenix LiveView uses a cryptographic salt
 to secure communications
@@ -361,10 +361,10 @@ In this case it is the last line in the "Configures the endpoint" block:
 # Configures the endpoint
 config :live_view_counter, LiveViewCounterWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "K73oqZVIRIAck+a4sNK0V/hPujAYLeXGrKwax57JXFKMb8z64kgTaMF0Ys/Ikhrm",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "dUvMl2Sn"]
+  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
+  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: LiveViewCounter.PubSub,
+  live_view: [signing_salt: "tT2envDD"]
 ```
 
 Replace the String value for `signing_salt`
@@ -374,17 +374,15 @@ with the one you generated in your terminal:
 # Configures the endpoint
 config :live_view_counter, LiveViewCounterWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "K73oqZVIRIAck+a4sNK0V/hPujAYLeXGrKwax57JXFKMb8z64kgTaMF0Ys/Ikhrm",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
+  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
+  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: LiveViewCounter.PubSub,
   live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
 ```
 
 The _last_ line in the code block is the important one.
 
-> 🏁 At the end of Step 3 the
-[`config.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/79d149c89655a6ddd452c93187e638b487aaf375/mix.exs#L33-L46)
-file should look like this:
+> 🏁 At the end of Step 3 the file should look like this:
 [config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/6b48e6e52a7e935985a473a8cd4b32d7bbcfff39/config/config.exs#L16)
 
 > 💡**Note**: in a _real world_ App,

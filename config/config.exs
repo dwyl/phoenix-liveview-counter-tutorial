@@ -13,7 +13,7 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
   render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "tT2envDD"]
+  live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
 
 # Configures Elixir's Logger
 config :logger, :console,
