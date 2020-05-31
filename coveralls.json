@@ -7,7 +7,7 @@
     "lib/live_view_counter_web.ex",
     "lib/live_view_counter_web/views/error_helpers.ex",
     "lib/live_view_counter_web/router.ex",
-    "lib/live_view_counter_web/controllers/page_controller.ex",
+    "lib/live_view_counter_web/live/page_live.ex",
     "test/"
   ]
 }

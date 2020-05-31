@@ -418,40 +418,14 @@ end
 
 <br />
 
-### Step 4: Import the `live_view.css` in `app.css`
-
-In order to display the "connecting" and "offline" UI in our counter,
-we need to import the `live_view.css` file in our `app.css`.
-
-Open the
-[`assets/css/app.css`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/80ef56d9234f9006c35b0b43aeab953b5dc4c5de/assets/css/app.css#L3)
-file and append the following line:
-
-```css
-@import "../../deps/phoenix_live_view/assets/css/live_view.css";
-```
-
-> 🏁 The line of code added in Step 10 is:
-[`/assets/css/app.css#L4`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/eb7d33c44e9ac0ec1dc1f6b8462c6c96f8e1f677/assets/css/app.css#L4)
-
-<br />
-
-
-
-We are _finally_ finished setting up our Counter App to use LiveView!
+We are finished setting up our Phoenix App to use LiveView!
 Now we get to the _fun_ part: creating the counter!! 🎉
 
 <br />
 
-### Step 11: Create the `counter.ex` File
+### Step 4: Create the `counter.ex` File
 
-In the `lib/live_view_counter_web` directory,
-create a new directory called `live`:
-
-```
-mkdir lib/live_view_counter_web/live
-```
-Then create a new file with the path:
+Create a new file with the path:
 `lib/live_view_counter_web/live/counter.ex`
 
 And add the following code to it:
@@ -497,15 +471,14 @@ with the `_params`, `_session` and `socket` arguments:
 
 ```elixir
 def mount(_params, _session, socket) do
-  {:ok, assign(socket, :val, 0)
-    layout: {LiveViewCounterWeb.LayoutView, "app.html"} }
+  {:ok, assign(socket, :val, 0) }
 end
 ```
 
 In our case we are _ignoring_ the `_params` and `_session`,
 hence the underscore prepended
 to the parameters.
-If we were using sessions user management,
+If we were using sessions for user management,
 we would need to check the `session` variable,
 but in this simple counter example we just ignore it.
 
@@ -535,6 +508,7 @@ def handle_event("inc", _, socket) do
   {:noreply, update(socket, :val, &(&1 + 1))}
 end
 ```
+
 `handle_event/3` ("inc")
 returns a tuple of:
 `{:noreply, update(socket, :val, &(&1 + 1))}`
@@ -590,13 +564,13 @@ and updated data (_in our case the `:val` count_)
 is sent to the client.
 
 
-> 🏁 At the end of Step 11 you should have a file similar to:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/06bca4152a32026a56ed9ee26a52fe17422a0d5b/lib/live_view_counter_web/live/counter.ex)
+> 🏁 At the end of Step 4 you should have a file similar to:
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
 
 <br />
 
 
-### Step 12: Create the `live` Route in `router.ex`
+### Step 5: Create the `live` Route in `router.ex`
 
 Now that we have created our Live handler function in Step 11,
 it's time to tell Phoenix how to invoke it.
@@ -615,7 +589,8 @@ end
 ```
 
 Replace the line `get "/", PageController, :index`
-with `live("/", Counter)`. So you end up with:
+with `live("/", Counter)`.
+So you end up with:
 
 ```elixir
 scope "/", LiveViewCounterWeb do
@@ -625,12 +600,12 @@ scope "/", LiveViewCounterWeb do
 end
 ```
 
-> 🏁 At the end of Step 12 you should have a `router.ex` file similar to:
+> 🏁 At the end of Step 5 you should have a `router.ex` file similar to:
 [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
 
 <br />
 
-#### 12.1 Update the Failing Test Assertion
+#### 5.1 Update the Failing Test Assertion
 
 Since we have replaced the
 `get "/", PageController, :index` route in `router.ex`
@@ -642,48 +617,40 @@ will now _fail_:
 Compiling 1 file (.ex)
 ..
 
-  1) test GET / (LiveViewCounterWeb.PageControllerTest)
-     test/live_view_counter_web/controllers/page_controller_test.exs:4
-     Assertion with =~ failed
-     code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
-     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  
-     <head>\n <meta charset=\"utf-8\"/>\n
-     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/>\n
-     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n
-     <title>LiveViewCounter · Phoenix Framework</title>\n  
-     </head>\n  <body>\n <header>\n <section class=\"container\">\n
-     <a href=\"https://phoenixframework.org/\" class=\"phx-logo\">\n
-     <img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/>\n </a>\n
-     </section>\n </header>\n <main role=\"main\" class=\"container\">\n
-     <div data-phx-main=\"true\"
-     <h1>The count is: 0</h1>\n  <button phx-click=\"dec\">-</button>\n  
-     <button phx-click=\"inc\">+</button>\n</div>\n</div>    
-     </main> <script type=\"text/javascript\" src=\"/js/app.js\"></script>\n  
-     </body>\n</html>\n"
-     right: "Welcome to Phoenix!"
-     stacktrace:
-       test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
+1) test disconnected and connected render (LiveViewCounterWeb.PageLiveTest)
+   test/live_view_counter_web/live/page_live_test.exs:6
+   Assertion with =~ failed
+   code:  assert disconnected_html =~ "Welcome to Phoenix!"
+   left:  "<html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/><meta charset=\"UTF-8\" content=\"IHQLHHISBjZlWTskHjAmHBETKCFnGWUloYSOGMkDRhaSvIBtkycvQNUF\" csrf-param=\"_csrf_token\" method-param=\"_method\" name=\"csrf-token\"/><title data-suffix=\" · Phoenix Framework\">LiveViewCounter · Phoenix Framework</title><link phx-track-static=\"phx-track-static\" rel=\"stylesheet\" href=\"/css/app.css\"/><script defer=\"defer\" phx-track-static=\"phx-track-static\" type=\"text/javascript\" src=\"/js/app.js\"></script></head><body><header><section class=\"container\"><nav role=\"navigation\"><ul><li><a href=\"https://hexdocs.pm/phoenix/overview.html\">Get Started</a></li><li><a href=\"/dashboard\">LiveDashboard</a></li></ul></nav><a href=\"https://phoenixframework.org/\" class=\"phx-logo\"><img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/></a></section></header><div data-phx-main=\"true\" data-phx-session=\"SFMyNTY" data-phx-view=\"Counter\" id=\"phx-FhQ9AJF6KACJPAEm\"><div><h1>The count is: 0</h1><button phx-click=\"dec\">-</button><button phx-click=\"inc\">+</button></div></div></body></html>"
+   right: "Welcome to Phoenix!"
+   stacktrace:
+     test/live_view_counter_web/live/page_live_test.exs:8: (test)
+
 
 Finished in 0.1 seconds
 3 tests, 1 failure
 ```
+
 This just tells us that the test is looking for the string
 `"Welcome to Phoenix!"` in the page and did not find it.
 
 
 To fix the broken test, open the
-`test/live_view_counter_web/controllers/page_controller_test.exs`
-file and locate the line:
+`test/live_view_counter_web/live/page_live_test.exs`
+file and locate the lines:
+
 ```elixir
-assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+assert disconnected_html =~ "Welcome to Phoenix!"
+assert render(page_live) =~ "Welcome to Phoenix!"
 ```
+
 Update the string from `"Welcome to Phoenix!"`
 to something we _know_ is present on the page,
 e.g:
 `"The count is"`
 
-> 🏁 The `page_controller_test.exs` file should now look like this:
-[`test/live_view_counter_web/controllers/page_controller_test.exs#L6`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3f1e34942396ecbb51e0a5241380176e86be389/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
+> 🏁 The `page_live_test.exs` file should now look like this:
+[`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/8b12dd70f6b1693a4f39a1cb53f8fc1b4ced33f1/test/live_view_counter_web/live/page_live_test.exs#L8-L9)
 
 
 Confirm the tests pass again by running:
@@ -728,15 +695,15 @@ You should expect to see a fully functioning LiveView counter:
 
 #### Recap: Working Counter Without a JavaScript Framework
 
-Once the initial installation and configuration of LiveView
-(_Steps 1 - 10 of this tutorial_) were complete,
+Once the initial installation
+and configuration of LiveView was complete,
 the creation of the actual counter was remarkably simple.
 We created a _single_ new file
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/live_view_counter_web/live/counter.ex#L1)
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
 that contains all the code required to
 initialise, render and update the counter.
-Then we set the `live("/", Counter)` route to invoke the `Counter` module
-in `router.ex`.
+Then we set the `live("/", Counter)` route
+to invoke the `Counter` module in `router.ex`.
 
 In total our counter App is **25 lines** of code.
 
@@ -755,7 +722,7 @@ we need to add a bit more code.
 <br />
 
 
-### Step 13: Share State Between Clients!
+### Step 6: Share State Between Clients!
 
 One of the biggest selling points
 of using Phoenix to build web apps
@@ -778,8 +745,7 @@ defmodule LiveViewCounterWeb.Counter do
 
   def mount(_session, _params, socket) do
     LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
-    {:ok, assign(socket, :val, 0),
-      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
+    {:ok, assign(socket, :val, 0)}
   end
 
   def handle_event("inc", _value, socket) do
