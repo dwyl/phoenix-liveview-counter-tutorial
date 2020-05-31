@@ -382,69 +382,38 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 
 The _last_ line in the code block is the important one.
 
-> 🏁 At the end of Step 3 the file should look like this:
-[config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/6b48e6e52a7e935985a473a8cd4b32d7bbcfff39/config/config.exs#L16)
+> 🏁 At the end of Step 2 the file should look like this:
+[config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/c8f175eaa90352cec37eb1db070b652a763265cb/config/config.exs#L16)
 
 > 💡**Note**: in a _real world_ App,
 we would use an environment variable
 for the `signing_salt`
 to ensure it is kept secret.
 
-If your the config in your `config.exs` file
-does not _have_ a `live_view:` line,
-create a new config block at the end of your file:
-
-```elixir
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
-   live_view: [
-     signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"
-   ]
-```
-
 
 <br />
 
-### Step 4: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
+### Step 3: Add `Phoenix.LiveView` Helpers to `live_view_counter_web.ex`
 
-Open the
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex)
-file
+Open the `lib/live_view_counter_web.ex` file
 and add the relevant `Phoenix.LiveView` import statements
 for each of the `controller`, `view` and `router` blocks.
 
 ```diff
 def controller do
   quote do
-    ...
+    use Phoenix.Controller, namespace: LiveViewCounterWeb
+
+    import Plug.Conn
+    import LiveViewCounterWeb.Gettext
+    alias LiveViewCounterWeb.Router.Helpers, as: Routes
+
 +   import Phoenix.LiveView.Controller
-  end
-end
-
-def view do
-  quote do
-    ...
-+   import Phoenix.LiveView.Helpers
-  end
-end
-
-def router do
-  quote do
-    ...
-+   import Phoenix.LiveView.Router
   end
 end
 ```
 
-> 🏁 Changes made in Step 4: <br />
-**Before**:
-[`lib/live_view_counter_web.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e300eadb4b71443543d33dc9e02975a99f0aa08/lib/live_view_counter_web.ex) <br />
-***After***:
-[`lib/live_view_counter_web.ex#L27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27)
-The relevant lines are
-[`27`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L27),
-[`46`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L46)
-and
-[`55`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/3c7c448ead7c161167fb310638b44be80b20ea1e/lib/live_view_counter_web.ex#L55).
+> 🏁 Changes made in Step 3: 
 
 <br />
 
