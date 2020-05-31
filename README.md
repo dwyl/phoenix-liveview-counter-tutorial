@@ -38,6 +38,7 @@ A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with **no prior experience** necessary.
 
+<br />
 
 ### LiveView?
 
@@ -54,6 +55,18 @@ is loaded on the client for the page to work.
 
 See: https://github.com/phoenixframework/phoenix_live_view
 
+
+> 💡 This tutorial follows and _expands_
+on the _official_ Phoenix LiveView installation instructions:
+[github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
+We always prefer _more_ detailed instructions when learning
+so we have added more detail to each step.
+Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
+because the counter works in the finished example.
+If you followed the instructions in "Step 0"
+to run the finished app on your `localhost`
+_before_ diving into building it,
+you also know they work for _you_. ✅
 
 
 
@@ -98,6 +111,7 @@ Elixir 1.10.3 (compiled with Erlang/OTP 22)
 This informs us we are using `Elixir version 1.10.2`
 which is the _latest_ version at the time of writing.
 
+<br />
 
 **b.** **`Phoenix` installed** on your computer.
 see: [hexdocs.pm/phoenix/installation.html](https://hexdocs.pm/phoenix/installation.html)
@@ -114,14 +128,15 @@ You should see:
 Phoenix v1.5.3
 ```
 
+If you have an earlier version,
+definitely upgrade to get the latest features! <br />
 If you have a _later_ version of Phoenix,
 and you get _stuck_ at any point,
 _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 We are here to help!
 
-
-
+<br />
 
 **c.** **`Node.js` installed** on your computer.
 Download it from: https://nodejs.org
@@ -141,6 +156,7 @@ v12.17.0
 > Phoenix LiveView does not require the _latest_ Node.js,
 so if you have a _recent_ version e.g `v10`, you will be fine.
 
+<br />
 
 **d.** Familiarity with **basic `Elixir` syntax** is recommended
 but not essential; <br />
@@ -163,6 +179,8 @@ on your machine _before_ writing any code.
 
 > 💡 You can also try the version deployed to Heroku:
 https://live-view-counter.herokuapp.com
+
+
 
 <br />
 
@@ -231,8 +249,13 @@ In your terminal run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
-mix phx.new live_view_counter --no-ecto --live
+mix phx.new live_view_counter --live --no-ecto
 ```
+
+The `--live` flag tells the `mix phx.new` generator command
+that we are creating a `LiveView` application.
+It will setup the dependencies and boilerplate
+for us to get going as fast as possible.
 
 The `--no-ecto` flag tells `mix phx.new`
 to create an App without a Database. <br />
@@ -294,107 +317,10 @@ in your web browser.
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 > 🏁 Snapshot of code at the end of Step 1:
-[phoenix-liveview-counter-tutorial/pull/4/commits/0d94a1c](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/0d94a1c4072514d0c66cba2c2c21952a76af98be)
+[`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
 
 <br />
 
-### Step 2: Add LiveView to `deps` in `mix.exs` File
-
-Now that we have a working basic Phoenix App,
-it's time to setup `phoenix_live_view` to work with our App.
-There are quite a few steps
-but they only take a couple of minutes to complete;
-don't be put off by the configuration,
-the payoff is worth it!
-
-
-> 💡 This tutorial follows and _expands_
-on the _official_ Phoenix LiveView installation instructions:
-[github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
-We always prefer _more_ detailed instructions when learning
-so we have added more detail to each step.
-Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
-because the counter works in the finished example.
-If you followed the instructions in "Step 0"
-to run the finished app on your `localhost`
-_before_ diving into building it,
-you also know they work for _you_. ✅
-
-
-Open the `mix.exs` file and locate the `deps` list,
-e.g:
-
-```elixir
-defp deps do
-  [
-    {:phoenix, "~> 1.4.16"},
-    {:phoenix_pubsub, "~> 1.1"},
-    {:phoenix_html, "~> 2.11"},
-    {:phoenix_live_reload, "~> 1.2", only: :dev},
-    {:gettext, "~> 0.11"},
-    {:jason, "~> 1.0"},
-    {:plug_cowboy, "~> 2.0"}
-  ]
-end
-
-```
-
-Append the following line to the end of the list:
-
-```
-{:phoenix_live_view, "~> 0.10.0"},
-```
-
-The `deps` definition should now look likes this:
-
-```elixir
-defp deps do
-  [
-    {:phoenix, "~> 1.4.16"},
-    {:phoenix_pubsub, "~> 1.1"},
-    {:phoenix_html, "~> 2.11"},
-    {:phoenix_live_reload, "~> 1.2", only: :dev},
-    {:gettext, "~> 0.11"},
-    {:jason, "~> 1.0"},
-    {:plug_cowboy, "~> 2.0"},
-    {:phoenix_live_view, "~> 0.10.0"},
-  ]
-end
-```
-
-The _last_ line in the code block is the important one.
-
-
-> 🏁 [`mix.exs`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L33-46)
-file at the end of Step 2:
-[mix.exs#L44](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d0521ced8cb9d55a6a214a886ecab811ee065960/mix.exs#L44)
-
-<br />
-
-#### 2.1 Download the `phoenix_live_view` Dependency
-
-Now that you've added the `phoenix_live_view` to `mix.exs`,
-you need to _download_ the dependencies.
-Run:
-
-```
-mix deps.get
-```
-
-You should see output similar to:
-
-```
-Resolving Hex dependencies...
-Dependency resolution completed:
-Unchanged:
-  cowboy 2.7.0
-  ...
-New:
-  phoenix_live_view 0.9.0
-* Getting phoenix_live_view (Hex package)
-```
-
-<br />
 
 ### Step 3. Configure `signing_salt` in `config.exs`
 
