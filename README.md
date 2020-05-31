@@ -779,15 +779,15 @@ end
 #### Code Explanation
 
 The first change is on
-[Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
+[Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L4)
 `@topic "live"` defines a module attribute
 (_think of it as a global constant_),
 that lets us to reference `@topic` anywhere in the file.
 
 The second change is on
-[Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L7)
+[Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L7)
 where the
-[`mount/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L6)
+[`mount/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L6)
 function now creates a subscription to the topic:
 
 ```elixir
@@ -795,14 +795,14 @@ LiveViewCounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel topic
 ```
 
 Each client connected to the App
-subscribes to `@topic`
+subscribes to the `@topic`
 so when the count is updated on any of the clients,
 all the other clients see the same value.
 This uses Phoenix's built-in channels (WebSocket) system.
 
 
 Next we update the first
-[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L11)
+[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L11)
 function which handles the `"inc"` event:
 
 ```elixir
@@ -848,7 +848,7 @@ where the value is `1`
 
 The _fourth_ update is to the
 `"dec"` version of
-[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L17)
+[`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L17)
 
 ```elixir
 def handle_event("dec", _msg, socket) do
@@ -878,8 +878,8 @@ The line `{:noreply, assign(socket, msg.payload)}`
 just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
-> 🏁 The changes made in Step 13 are:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/pull/6/commits/f2df2ddad97f8621365dcf455a218b1b59362a59)
+> 🏁 At the end of Step 6 the file looks like:
+[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L1-L36)
 
 <br />
 
@@ -917,7 +917,9 @@ in less than 40 lines of code!
 
 <br />
 
-### Step 14: Use a LiveView Template (Optional)
+<!-- uncomment this if you want to help get it working.
+
+### Step 7: Use a LiveView Template (Optional)
 
 At present the
 [`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L27-L34)
@@ -940,8 +942,9 @@ This is _fine_ when the template is small like in this counter,
 but it's a good idea to split the template into a _separate_ file
 to make it easier to read and maintain.
 
-Create a new file called `counter.html.leex` in the
-`lib/live_view_counter_web/templates/page/` directory
+Create a new file with the path:
+`lib/live_view_counter_web/templates/counter.html.leex`
+
 and add the following code to it:
 
 ```html
@@ -953,11 +956,12 @@ and add the following code to it:
 ```
 
 > 🏁 Your `counter.html.leex` should look like this:
-[lib/live_view_counter_web/templates/page/counter.html.leex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/5981c1c2c93560e2f1ee0440579bc15543a83db7/lib/live_view_counter_web/templates/page/counter.html.leex#L1-L5)
+[lib/live_view_counter_web/templates/counter.html.leex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/a82b6b79d83e62efc7d1d0be6b89ecef06c04fcd/lib/live_view_counter_web/templates/counter.html.leex)
 
 That template is identical to the one we had in the
 [`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L27-L34)
-function; that's the point: we just want it in a separate file.
+function.
+That's the point; we just want it in a separate file.
 
 <br />
 
@@ -974,7 +978,7 @@ def render(assigns) do
 end
 ```
 
-> 🏁 At the end of Step 14 your `counter.ex` file should resemble:
+> 🏁 At the end of Step 7 your `counter.ex` file should resemble:
 [lib/live_view_counter_web/live/counter.ex](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/f6a5be51a7f7acc3c0df63595ec6f9716a603e12/lib/live_view_counter_web/live/counter.ex#L29)
 
 Re-run your app using `mix phx.server` and confirm everything still works:
@@ -985,6 +989,8 @@ Re-run your app using `mix phx.server` and confirm everything still works:
 <br /><br />
 
 # _Done_!
+
+-->
 
 That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
