@@ -10,10 +10,10 @@ use Mix.Config
 # Configures the endpoint
 config :live_view_counter, LiveViewCounterWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "K73oqZVIRIAck+a4sNK0V/hPujAYLeXGrKwax57JXFKMb8z64kgTaMF0Ys/Ikhrm",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
+  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
+  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: LiveViewCounter.PubSub,
+  live_view: [signing_salt: "tT2envDD"]
 
 # Configures Elixir's Logger
 config :logger, :console,
