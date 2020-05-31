@@ -93,7 +93,7 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.10.2 (compiled with Erlang/OTP 22)
+Elixir 1.10.3 (compiled with Erlang/OTP 22)
 ```
 This informs us we are using `Elixir version 1.10.2`
 which is the _latest_ version at the time of writing.
@@ -111,7 +111,7 @@ mix phx.new -v
 You should see:
 
 ```sh
-Phoenix v1.4.16
+Phoenix v1.5.3
 ```
 
 If you have a _later_ version of Phoenix,
@@ -135,7 +135,7 @@ node -v
 You should see output similar to:
 
 ```
-v12.16.1
+v12.17.0
 ```
 
 > Phoenix LiveView does not require the _latest_ Node.js,
@@ -188,17 +188,10 @@ cd phoenix-liveview-counter-tutorial
 
 #### _Download_ the Dependencies
 
-Install the `Elixir` dependencies by running the command:
+Install the dependencies by running the command:
 
 ```sh
-mix deps.get
-```
-
-Install the `Node.js` dependencies with:
-
-```sh
-npm install --prefix assets
-# or `cd assets && npm install && cd ..` for Windows users if --prefix doesn't work
+mix setup
 ```
 
 It will take a few seconds to download the dependencies
@@ -238,7 +231,7 @@ In your terminal run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
-mix phx.new live_view_counter --no-ecto
+mix phx.new live_view_counter --no-ecto --live
 ```
 
 The `--no-ecto` flag tells `mix phx.new`
