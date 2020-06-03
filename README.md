@@ -887,7 +887,7 @@ just means "don't send this message to the socket again"
 
 Now that
 [`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
-has been update to broadcast the count to all connected clients,
+has been updated to broadcast the count to all connected clients,
 let's _run_ the app in a few web browsers to show it in _action_!
 
 In your terminal, run:
