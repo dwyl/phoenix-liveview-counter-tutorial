@@ -4,26 +4,26 @@ defmodule LiveViewCounterWeb.CounterTest do
 
   test "connected mount", %{conn: conn} do
     {:ok, _view, html} = live(conn, "/")
-    assert html =~ "Count: 0"
+    assert html =~ "count is: 0"
   end
 
   test "Increment", %{conn: conn} do
     {:ok, view, html} = live(conn, "/")
-    assert html =~ "Count: 0"
-    assert render_click(view, :inc) =~ "Count: 1"
+    assert html =~ "count is: 0"
+    assert render_click(view, :inc) =~ "count is: 1"
   end
 
   test "Decrement", %{conn: conn} do
     {:ok, view, html} = live(conn, "/")
-    assert html =~ "Count: 0"
-    assert render_click(view, :dec) =~ "Count: -1"
+    assert html =~ "count is: 0"
+    assert render_click(view, :dec) =~ "count is: -1"
   end
 
   test "handle_info/2", %{conn: conn} do
     {:ok, view, disconnected_html} = live(conn, "/")
-    assert disconnected_html =~ "Count: 0"
-    assert render(view) =~ "Count: 0"
+    assert disconnected_html =~ "count is: 0"
+    assert render(view) =~ "count is: 0"
     send(view.pid, %{payload: %{ val: 1 }})
-    assert render(view) =~ "Count: 1"
+    assert render(view) =~ "count is: 1"
   end
 end

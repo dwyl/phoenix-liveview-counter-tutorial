@@ -20,7 +20,8 @@ defmodule LiveViewCounterWeb.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with channels
-      use Phoenix.ChannelTest
+      import Phoenix.ChannelTest
+      import LiveViewCounterWeb.ChannelCase
 
       # The default endpoint for testing
       @endpoint LiveViewCounterWeb.Endpoint
