@@ -108,7 +108,7 @@ You should expect to see output similar to the following:
 ```elixir
 Elixir 1.10.3 (compiled with Erlang/OTP 22)
 ```
-This informs us we are using `Elixir version 1.10.2`
+This informs us we are using `Elixir version 1.10.3`
 which is the _latest_ version at the time of writing.
 
 <br />
