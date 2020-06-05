@@ -316,6 +316,8 @@ in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
+😱 *If you are having problems with the server hanging, try [this](###-problems-getting-the-initial-server-running).*
+
 > 🏁 Snapshot of code at the end of Step 1:
 [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
 
@@ -435,8 +437,7 @@ defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0),
-      layout: {LiveViewCounterWeb.LayoutView, "app.html"}}
+    {:ok, assign(socket, :val, 0)}
   end
 
   def handle_event("inc", _, socket) do
@@ -494,7 +495,6 @@ Specifying the `layout` template as `app.html`
 is needed for Phoenix LiveView to know which template file to use.
 
 <br />
-
 
 The second function is `handle_event/3`
 which handles the incoming events received.
@@ -999,6 +999,41 @@ so we know you like it!
 
 
 <br /><br /><br />
+
+## Notes and help
+
+### Problems getting the initial server running
+
+If the app hangs and throws this error:
+```
+[error] an exception was raised:
+    ** (FunctionClauseError) no function clause matching in Phoenix.LiveView.Channel.start_link/1
+        (phoenix_live_view 0.12.1) lib/phoenix_live_view/channel.ex:12: Phoenix.LiveView.Channel.start_link({LivetestWeb.Endpoint, {#PID<0.643.0>, #Reference<0.4273921409.1426587651.156349>}})
+
+```
+Modifing your mix.deps from:
+```elixir
+ defp deps do
+    [
+      {:phoenix, "~> 1.5.1"},
+      {:phoenix_live_view, "~> 0.12.1"},
+      ...
+    ]
+  end
+```
+to this:
+```elixir
+ defp deps do
+    [
+      {:phoenix, "~> 1.5.3"},
+      {:phoenix_live_view, "~> 0.13.0"},
+      ...
+    ]
+  end
+```
+Should fix the problem.
+
+---
 
 ## Credits & Thanks! 🙌
 
