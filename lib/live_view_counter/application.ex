@@ -7,6 +7,8 @@ defmodule LiveViewCounter.Application do
 
   def start(_type, _args) do
     children = [
+      # Start the App State
+      LiveViewCounter.Count,
       # Start the Telemetry supervisor
       LiveViewCounterWeb.Telemetry,
       # Start the PubSub system
