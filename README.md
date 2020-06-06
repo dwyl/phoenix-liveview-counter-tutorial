@@ -1013,7 +1013,7 @@ If the app hangs and throws this error:
 
 ```
 Modifing your mix.deps from:
-```
+```elixir
  defp deps do
     [
       {:phoenix, "~> 1.5.1"},
@@ -1023,10 +1023,10 @@ Modifing your mix.deps from:
   end
 ```
 to this:
-```
+```elixir
  defp deps do
     [
-      {:phoenix, "~> 1.5.1"},
+      {:phoenix, "~> 1.5.3"},
       {:phoenix_live_view, "~> 0.13.0"},
       ...
     ]
