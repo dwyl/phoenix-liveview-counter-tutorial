@@ -18,8 +18,8 @@ defmodule LiveViewCounterWeb.Counter do
     {:noreply, assign(socket, :val, Count.decr())}
   end
 
-  def handle_info(msg, socket) do
-    {:noreply, assign(socket, val: msg)}
+  def handle_info({:count, count}, socket) do
+    {:noreply, assign(socket, val: count)}
   end
 
   def render(assigns) do

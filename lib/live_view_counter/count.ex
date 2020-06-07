@@ -45,7 +45,7 @@ defmodule LiveViewCounter.Count do
 
   defp make_change(count, change) do
     new_count = count + change
-    PubSub.broadcast(LiveViewCounter.PubSub, topic, new_count)
+    PubSub.broadcast(LiveViewCounter.PubSub, topic(), {:count, new_count})
     {:reply, new_count, new_count}
   end
 end
