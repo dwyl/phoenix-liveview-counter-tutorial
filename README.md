@@ -317,7 +317,7 @@ in your web browser.
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 😱 If you are having problems with the server hanging, try
- [this](######-problems-with-dependencies)
+ [this](###-problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
 [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
@@ -1004,26 +1004,25 @@ so we know you like it!
 ## Future Steps
 ### Moving state out of the LiveViews
 
-With the implementation we have started so far you may have noticed that 
-when we open a new browser window the count is always zero.  As soon as we 
-click plus or minus it adjusts and everyone is back in line.  This is because 
-the state is replicated across LiveView instances and coordinated via pub-sub.  
-If the state was big and complicated this would get wasteful in resources and 
-hard to manage.
+With this implementation you may have noticed that when we open a new browser 
+window the count is always zero. As soon as we click plus or minus it adjusts
+and all the views get back in line. This is because the state is replicated 
+across LiveView instances and coordinated via pub-sub.  If the state was big 
+and complicated this would get wasteful in resources and hard to manage.
 
 Generally it is good practice to identify *shared state* and to manage that in 
-a single location, using PubSub to update the LiveViews about changes.  This 
-allows the LiveViews to focus on user specific state, seperating concerns and
-making the application both more efficient (hopefully) and easier to reason 
-about and debug.
+a single location.
 
-The Elixer way of managing state is the 
-[GenServer](https://hexdocs.pm/elixir/GenServer.html).
+The Elixir way of managing state is the 
+[GenServer](https://hexdocs.pm/elixir/GenServer.html), using PubSub to update 
+the LiveViews about changes.  This allows the LiveViews to focus on user specific
+state, separating concerns; making the application both more efficient 
+(hopefully) and easier to reason about and debug.
 
-We are going to start mainig use of the lib/live_view_counter directory. In 
-the [Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) 
-this holds "all of your business domain".  For us this is the count state and 
-the incr and decr methods.
+We are now going to start maknig use of the lib/live_view_counter directory! The 
+[Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) says
+that this holds "all of your business domain".  For us this is the current count, 
+along with the incr and decr methods.
 
 ``` elixir
 defmodule LiveViewCounter.Count do
@@ -1085,7 +1084,7 @@ end
 
 The GenServer runs in its own process.  Other parts of the application invoke 
 the API in their own process, these calls are forwarded to the `handle_call` 
-functions in the GenServer process where they are handled.  
+functions in the GenServer process where they are processed serially.  
 
 We have also moved the PubSub publication here as well.
 
@@ -1163,15 +1162,15 @@ end
 
 What is happening now is that the initial state is being retrieved from the 
 shared Application GenServer process and the updates are being forwarded there
-via its API to be handled.  Finally, the Gen Server Handlers publish the new 
-state to all teh active LiveViews.
+via its API.  Finally, the Gen Server Handlers publish the new state to all the
+active LiveViews.
 
 ### How many people are using the Counter?
 
 Phoenix has a very cool feature called 
 [Presence](https://hexdocs.pm/phoenix/presence.html#content) to track how many
-people are using our system.  It does a lot more than count users, but this is 
-a counting app so...
+people are using our system.  (It does a lot more than count users, but this is 
+a counting app so...)
 
 First of all we need to tell the Application we are going to use Presence.  
 For this we need to create a `lib/lib_view_counter/presence.ex` file like this:
@@ -1185,7 +1184,7 @@ end
 ```
 
 and tell the application about it in the `lib/lib_view_counter/application.ex`
- file (add it just below the PubSub config):
+file (add it just below the PubSub config):
 
 ```diff
   def start(_type, _args) do
@@ -1214,9 +1213,9 @@ and tell the application about it in the `lib/lib_view_counter/application.ex`
 The application doesn't need to know any more about the user count (it might, 
 but not here) so the rest of the code goes into 
 `lib/lib_view_counter_web/live/counter.ex`.  
-1. We subscribe participate and subscribe to the Presence system (we do that in 
+1. We subscribe, participate-in and subscribe to the Presence system (we do that in 
 `mount`)
-1. We handle Presence updates and use the cureent count, adding joiners and 
+1. We handle Presence updates and use the current count, adding joiners and 
 subtracting leavers to calculate the current numbers 'present'.  We do that
 in a pattern matched `handle_info`.
 1. We publish the additional data to the client in `render`
@@ -1278,7 +1277,7 @@ defmodule LiveViewCounterWeb.Counter do
   end
 end
 ```
-No, as you open and close your incognito windows you will get a count of how
+Now, as you open and close your incognito windows you will get a count of how
 many are running.
 
 <br /><br /><br />
