@@ -317,7 +317,7 @@ in your web browser.
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 😱 If you are having problems with the server hanging, try
- [this](###-problems-with-dependencies)
+ [this](#problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
 [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
