@@ -275,8 +275,13 @@ That will download all the necessary dependencies.
 
 #### Checkpoint 1: _Run_ the _Tests_!
 
+In your terminal, go into the newly created app folder using:
 
-In your terminal, run the following `mix` command:
+```sh
+cd live_view_counter
+```
+
+And then run the following `mix` command:
 
 ```sh
 mix test
