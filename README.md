@@ -316,7 +316,8 @@ in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
-😱 *If you are having problems with the server hanging, try [this](###-problems-getting-the-initial-server-running).*
+😱 If you are having problems with the server hanging, try
+ [this](#problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
 [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
@@ -1000,9 +1001,290 @@ so we know you like it!
 
 <br /><br /><br />
 
+## Future Steps
+### Moving state out of the LiveViews
+
+With this implementation you may have noticed that when we open a new browser 
+window the count is always zero. As soon as we click plus or minus it adjusts
+and all the views get back in line. This is because the state is replicated 
+across LiveView instances and coordinated via pub-sub.  If the state was big 
+and complicated this would get wasteful in resources and hard to manage.
+
+Generally it is good practice to identify *shared state* and to manage that in 
+a single location.
+
+The Elixir way of managing state is the 
+[GenServer](https://hexdocs.pm/elixir/GenServer.html), using PubSub to update 
+the LiveViews about changes.  This allows the LiveViews to focus on user specific
+state, separating concerns; making the application both more efficient 
+(hopefully) and easier to reason about and debug.
+
+We are now going to start maknig use of the lib/live_view_counter directory! The 
+[Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) says
+that this holds "all of your business domain".  For us this is the current count, 
+along with the incr and decr methods.
+
+``` elixir
+defmodule LiveViewCounter.Count do
+  use GenServer
+
+  alias Phoenix.PubSub
+
+  @name :count_server
+
+  @start_value 0
+
+  # -------  External API (runs in client process) -------
+
+  def topic do
+    "count"
+  end
+
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, @start_value, name: @name)
+  end
+  
+  def incr() do
+    GenServer.call @name, :incr
+  end
+
+  def decr() do
+    GenServer.call @name, :decr
+  end
+
+  def current() do
+    GenServer.call @name, :current
+  end
+
+  def init(start_count) do
+    {:ok, start_count}
+  end
+
+  # -------  Implementation  (Runs in GenServer process) -------
+
+  def handle_call(:current, _from, count) do
+     {:reply, count, count}
+  end
+
+  def handle_call(:incr, _from, count) do
+    make_change(count, +1)
+  end
+
+  def handle_call(:decr, _from, count) do
+    make_change(count, -1)
+  end
+
+  defp make_change(count, change) do
+    new_count = count + change
+    PubSub.broadcast(LiveViewCounter.PubSub, topic(), {:count, new_count})
+    {:reply, new_count, new_count}
+  end
+end
+```
+
+The GenServer runs in its own process.  Other parts of the application invoke 
+the API in their own process, these calls are forwarded to the `handle_call` 
+functions in the GenServer process where they are processed serially.  
+
+We have also moved the PubSub publication here as well.
+
+*[We could have used asyncronous `handle_cast` functions and relied on the 
+PubSub to update us.  Using `handle_call` means the calling LiveView will be 
+updated twice, but it doesn't really matter at this scale.]*
+
+We are also going to need to tell the Application that it now has some business
+logic; we do this in the `start/2` function in the 
+`lib/live_view_counter/application.ex file`.
+
+```diff
+  def start(_type, _args) do
+    children = [
+      # Start the App State
++     LiveViewCounter.Count,
+      # Start the Telemetry supervisor
+      LiveViewCounterWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: LiveViewCounter.PubSub},
+      # Start the Endpoint (http/https)
+      LiveViewCounterWeb.Endpoint
+      # Start a worker by calling: LiveViewCounter.Worker.start_link(arg)
+      # {LiveViewCounter.Worker, arg}
+    ]
+
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: LiveViewCounter.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+...
+```
+
+Finally, we are going to have to make some changes to the LiveView itself, 
+it now has less to do!
+
+```elixir
+defmodule LiveViewCounterWeb.Counter do
+  use Phoenix.LiveView
+  alias LiveViewCounter.Count
+  alias Phoenix.PubSub
+
+  @topic Count.topic
+
+  def mount(_params, _session, socket) do
+    PubSub.subscribe(LiveViewCounter.PubSub, @topic)
+
+    {:ok, assign(socket, val: Count.current()) }
+  end
+
+  def handle_event("inc", _, socket) do
+    {:noreply, assign(socket, :val, Count.incr())}
+  end
+
+  def handle_event("dec", _, socket) do
+    {:noreply, assign(socket, :val, Count.decr())}
+  end
+
+  def handle_info({:count, count}, socket) do
+    {:noreply, assign(socket, val: count)}
+  end
+
+  def render(assigns) do
+    ~L"""
+    <div>
+      <h1>The count is: <%= @val %></h1>
+      <button phx-click="dec">-</button>
+      <button phx-click="inc">+</button>
+    </div>
+    """
+  end
+end
+```
+
+What is happening now is that the initial state is being retrieved from the 
+shared Application GenServer process and the updates are being forwarded there
+via its API.  Finally, the Gen Server Handlers publish the new state to all the
+active LiveViews.
+
+### How many people are using the Counter?
+
+Phoenix has a very cool feature called 
+[Presence](https://hexdocs.pm/phoenix/presence.html#content) to track how many
+people are using our system.  (It does a lot more than count users, but this is 
+a counting app so...)
+
+First of all we need to tell the Application we are going to use Presence.  
+For this we need to create a `lib/lib_view_counter/presence.ex` file like this:
+
+```elixir
+defmodule LiveViewCounter.Presence do
+  use Phoenix.Presence,
+    otp_app: :live_view_counter,
+    pubsub_server: LiveViewCounter.PubSub
+end
+```
+
+and tell the application about it in the `lib/lib_view_counter/application.ex`
+file (add it just below the PubSub config):
+
+```diff
+  def start(_type, _args) do
+    children = [
+      # Start the App State
+      LiveViewCounter.Count,
+      # Start the Telemetry supervisor
+      LiveViewCounterWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: LiveViewCounter.PubSub},
++     LiveViewCounter.Presence,
+      # Start the Endpoint (http/https)
+      LiveViewCounterWeb.Endpoint
+      # Start a worker by calling: LiveViewCounter.Worker.start_link(arg)
+      # {LiveViewCounter.Worker, arg}
+    ]
+
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: LiveViewCounter.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+
+```
+
+The application doesn't need to know any more about the user count (it might, 
+but not here) so the rest of the code goes into 
+`lib/lib_view_counter_web/live/counter.ex`.  
+1. We subscribe, participate-in and subscribe to the Presence system (we do that in 
+`mount`)
+1. We handle Presence updates and use the current count, adding joiners and 
+subtracting leavers to calculate the current numbers 'present'.  We do that
+in a pattern matched `handle_info`.
+1. We publish the additional data to the client in `render`
+
+```diff
+defmodule LiveViewCounterWeb.Counter do
+  use Phoenix.LiveView
+  alias LiveViewCounter.Count
+  alias Phoenix.PubSub
+  alias LiveViewCounter.Presence
+
+  @topic Count.topic
+  @presence_topic "presence"
+
+  def mount(_params, _session, socket) do
+    PubSub.subscribe(LiveViewCounter.PubSub, @topic)
+
++   Presence.track(self(), @presence_topic, socket.id, %{})
++   LiveViewCounterWeb.Endpoint.subscribe(@presence_topic)
++
++   initial_present =
++     Presence.list(@presence_topic)
++     |> map_size
+
++   {:ok, assign(socket, val: Count.current(), present: initial_present) }
+-   {:ok, assign(socket, val: Count.current()) }
+  end
+
+  def handle_event("inc", _, socket) do
+    {:noreply, assign(socket, :val, Count.incr())}
+  end
+
+  def handle_event("dec", _, socket) do
+    {:noreply, assign(socket, :val, Count.decr())}
+  end
+
+  def handle_info({:count, count}, socket) do
+    {:noreply, assign(socket, val: count)}
+  end
+
++ def handle_info(
++       %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
++       %{assigns: %{present: present}} = socket
++    ) do
++   new_present = present + map_size(joins) - map_size(leaves)
++
++   {:noreply, assign(socket, :present, new_present)}
++ end
+
+  def render(assigns) do
+    ~L"""
+    <div>
+      <h1>The count is: <%= @val %></h1>
+      <button phx-click="dec">-</button>
+      <button phx-click="inc">+</button>
++     <h1>Current users: <%= @present %></h1>
+    </div>
+    """
+  end
+end
+```
+Now, as you open and close your incognito windows you will get a count of how
+many are running.
+
+<br /><br /><br />
+
 ## Notes and help
 
-### Problems getting the initial server running
+### Problems with dependencies
 
 If the app hangs and throws this error:
 ```
