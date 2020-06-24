@@ -1298,7 +1298,7 @@ If the app hangs and throws this error:
         (phoenix_live_view 0.12.1) lib/phoenix_live_view/channel.ex:12: Phoenix.LiveView.Channel.start_link({LivetestWeb.Endpoint, {#PID<0.643.0>, #Reference<0.4273921409.1426587651.156349>}})
 
 ```
-Modifing your mix.deps from:
+Modifying your mix.deps from:
 ```elixir
  defp deps do
     [
