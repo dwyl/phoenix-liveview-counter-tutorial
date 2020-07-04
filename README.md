@@ -1024,7 +1024,7 @@ the LiveViews about changes.  This allows the LiveViews to focus on user specifi
 state, separating concerns; making the application both more efficient 
 (hopefully) and easier to reason about and debug.
 
-We are now going to start maknig use of the lib/live_view_counter directory! The 
+We are now going to start making use of the lib/live_view_counter directory! The 
 [Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) says
 that this holds "all of your business domain".  For us this is the current count, 
 along with the incr and decr methods.
