@@ -8,7 +8,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 [![HitCount](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial.svg)](http://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
 
-**Build your _first_ App** using **Phoenix LiveView**
+**Build your _first_ App** using **Phoenix LiveView** <br />
 and _understand_ all the basic concepts in **20 minutes** or _less_!
 
 <div>
@@ -28,9 +28,6 @@ a _complete_ beginner can follow.
 This repository is the **_complete beginner's_ tutorial**
 we _wish_ we had when **learning LiveView**
 and the one _you_ have been looking for!
-
-
-
 
 ## What? 💭
 
@@ -55,23 +52,18 @@ is loaded on the client for the page to work.
 
 See: https://github.com/phoenixframework/phoenix_live_view
 
-
 > 💡 This tutorial follows and _expands_
-on the _official_ Phoenix LiveView installation instructions:
-[github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
-We always prefer _more_ detailed instructions when learning
-so we have added more detail to each step.
-Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
-because the counter works in the finished example.
-If you followed the instructions in "Step 0"
-to run the finished app on your `localhost`
-_before_ diving into building it,
-you also know they work for _you_. ✅
-
-
+> on the _official_ Phoenix LiveView installation instructions:
+> [github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
+> We always prefer _more_ detailed instructions when learning
+> so we have added more detail to each step.
+> Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
+> because the counter works in the finished example.
+> If you followed the instructions in "Step 0"
+> to run the finished app on your `localhost` > _before_ diving into building it,
+> you also know they work for _you_. ✅
 
 <br />
-
 
 ## Who? 👤
 
@@ -106,9 +98,10 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.10.3 (compiled with Erlang/OTP 22)
+Elixir 1.10.4 (compiled with Erlang/OTP 23)
 ```
-This informs us we are using `Elixir version 1.10.3`
+
+This informs us we are using `Elixir version 1.10.4`
 which is the _latest_ version at the time of writing.
 
 <br />
@@ -125,7 +118,7 @@ mix phx.new -v
 You should see:
 
 ```sh
-Phoenix v1.5.3
+Phoenix v1.5.5
 ```
 
 If you have an earlier version,
@@ -150,11 +143,11 @@ node -v
 You should see output similar to:
 
 ```
-v12.17.0
+v12.18.4
 ```
 
 > Phoenix LiveView does not require the _latest_ Node.js,
-so if you have a _recent_ version e.g `v10`, you will be fine.
+> so if you have a _recent_ version e.g `v10`, you will be fine.
 
 <br />
 
@@ -164,7 +157,6 @@ you can pick it up as you go and
 [ask questions](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 if you get stuck!
 See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-elixir#what)
-
 
 <br />
 
@@ -178,9 +170,7 @@ so we recommend running the _finished_ app
 on your machine _before_ writing any code.
 
 > 💡 You can also try the version deployed to Heroku:
-https://live-view-counter.herokuapp.com
-
-
+> https://live-view-counter.herokuapp.com
 
 <br />
 
@@ -191,7 +181,6 @@ we suggest that you clone and _run_
 the complete app on your `localhost`. <br />
 That way you _know_ it's working
 without much effort/time expended.
-
 
 #### Clone the Repository
 
@@ -231,12 +220,11 @@ Now you can visit
 in your web browser.
 
 > 💡 Open a _second_ browser window (_e.g. incognito mode_),
-you will see the the counter updating in both places like magic!
+> you will see the the counter updating in both places like magic!
 
 You should expect to see:
 
 ![phoenix-liveview-counter-start](https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif)
-
 
 With the _finished_ version of the App running on your machine
 and a clear picture of where we are headed, it's time to _build_ it!
@@ -314,7 +302,6 @@ Run the server by executing this command:
 mix phx.server
 ```
 
-
 Visit
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
@@ -322,13 +309,12 @@ in your web browser.
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
 😱 If you are having problems with the server hanging, try
- [this](#problems-with-dependencies)
+[this](#problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
-[`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
+> [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
 
 <br />
-
 
 ### Step 2. Configure `signing_salt` in `config.exs`
 
@@ -353,11 +339,10 @@ iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c
 ```
 
 > 💡 This is a **random** string generator
-that generates a **32 character string** of alphanumeric data, <br />
-so the result will be **different each time** you run the command.
+> that generates a **32 character string** of alphanumeric data, <br />
+> so the result will be **different each time** you run the command.
 
 Copy the string into your computer's clipboard.
-
 
 Open your `config/config.exs` file
 and locate the line that begins with
@@ -391,13 +376,12 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
 The _last_ line in the code block is the important one.
 
 > 🏁 At the end of Step 2 the file should look like this:
-[config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/c8f175eaa90352cec37eb1db070b652a763265cb/config/config.exs#L16)
+> [config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/c8f175eaa90352cec37eb1db070b652a763265cb/config/config.exs#L16)
 
 > 💡**Note**: in a _real world_ App,
-we would use an environment variable
-for the `signing_salt`
-to ensure it is kept secret.
-
+> we would use an environment variable
+> for the `signing_salt`
+> to ensure it is kept secret.
 
 <br />
 
@@ -422,7 +406,7 @@ end
 ```
 
 > 🏁 Change made in Step 3:
-[`lib/live_view_counter_web.ex#L28`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/ac2b5bedba500e08dbc066ecb5772f6fe3e2a69f/lib/live_view_counter_web.ex#L28)
+> [`lib/live_view_counter_web.ex#L28`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/ac2b5bedba500e08dbc066ecb5772f6fe3e2a69f/lib/live_view_counter_web.ex#L28)
 
 <br />
 
@@ -543,12 +527,11 @@ end
 and _decrements_ the counter using the `&(&1 - 1)` syntax.
 
 > In `Elixir` we can have multiple
-similar functions with the _same_ function name
-but different matches on the arguments
-or different "arity" (_number of arguments_). <br />
-For more detail on Functions in Elixir,
-see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
-
+> similar functions with the _same_ function name
+> but different matches on the arguments
+> or different "arity" (_number of arguments_). <br />
+> For more detail on Functions in Elixir,
+> see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
 
 _Finally_ the _third_ function `render/1`
 receives the `assigns` argument which contains the `:val` state
@@ -569,12 +552,10 @@ the `render/1` function will be executed
 and updated data (_in our case the `:val` count_)
 is sent to the client.
 
-
 > 🏁 At the end of Step 4 you should have a file similar to:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
+> [`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
 
 <br />
-
 
 ### Step 5: Create the `live` Route in `router.ex`
 
@@ -607,7 +588,7 @@ end
 ```
 
 > 🏁 At the end of Step 5 you should have a `router.ex` file similar to:
-[`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
+> [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
 
 <br />
 
@@ -640,7 +621,6 @@ Finished in 0.1 seconds
 This just tells us that the test is looking for the string
 `"Welcome to Phoenix!"` in the page and did not find it.
 
-
 To fix the broken test, open the
 `test/live_view_counter_web/live/page_live_test.exs`
 file and locate the lines:
@@ -656,8 +636,7 @@ e.g:
 `"The count is"`
 
 > 🏁 The `page_live_test.exs` file should now look like this:
-[`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/8b12dd70f6b1693a4f39a1cb53f8fc1b4ced33f1/test/live_view_counter_web/live/page_live_test.exs#L8-L9)
-
+> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/8b12dd70f6b1693a4f39a1cb53f8fc1b4ced33f1/test/live_view_counter_web/live/page_live_test.exs#L8-L9)
 
 Confirm the tests pass again by running:
 
@@ -674,8 +653,6 @@ Generated live_view_counter app
 Finished in 0.05 seconds
 3 tests, 0 failures
 ```
-
-
 
 <br />
 
@@ -695,7 +672,6 @@ in your web browser.
 You should expect to see a fully functioning LiveView counter:
 
 ![phoenix-liveview-counter-single-windowl](https://user-images.githubusercontent.com/194400/76174551-d6395f80-619f-11ea-8e8d-ab9441d15b6d.gif)
-
 
 <br />
 
@@ -726,7 +702,6 @@ If we want to _share_ the counter state between multiple clients,
 we need to add a bit more code.
 
 <br />
-
 
 ### Step 6: Share State Between Clients!
 
@@ -806,7 +781,6 @@ so when the count is updated on any of the clients,
 all the other clients see the same value.
 This uses Phoenix's built-in channels (WebSocket) system.
 
-
 Next we update the first
 [`handle_event/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L11)
 function which handles the `"inc"` event:
@@ -831,6 +805,7 @@ In case you are curious (_like we are_),
 `new_state` is an instance of the
 [`Phoenix.LiveView.Socket`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Socket.html)
 socket:
+
 ```elixir
 #Phoenix.LiveView.Socket<
   assigns: %{
@@ -847,6 +822,7 @@ socket:
   ...
 }
 ```
+
 The `new_state.assigns` is a Map
 that includes the key `val`
 where the value is `1`
@@ -885,7 +861,7 @@ just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
 > 🏁 At the end of Step 6 the file looks like:
-[`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L1-L36)
+> [`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L1-L36)
 
 <br />
 
@@ -919,7 +895,6 @@ You just built a real-time counter
 that seamlessly updates all connected clients
 using Phoenix LiveView
 in less than 40 lines of code!
-
 
 <br />
 
@@ -1003,33 +978,33 @@ We hope you enjoyed learning with us! <br />
 If you found this useful, please ⭐️and _share_ the GitHub repo
 so we know you like it!
 
-
 <br /><br /><br />
 
 ## Future Steps
+
 ### Moving state out of the LiveViews
 
-With this implementation you may have noticed that when we open a new browser 
+With this implementation you may have noticed that when we open a new browser
 window the count is always zero. As soon as we click plus or minus it adjusts
-and all the views get back in line. This is because the state is replicated 
-across LiveView instances and coordinated via pub-sub.  If the state was big 
+and all the views get back in line. This is because the state is replicated
+across LiveView instances and coordinated via pub-sub. If the state was big
 and complicated this would get wasteful in resources and hard to manage.
 
-Generally it is good practice to identify *shared state* and to manage that in 
+Generally it is good practice to identify _shared state_ and to manage that in
 a single location.
 
-The Elixir way of managing state is the 
-[GenServer](https://hexdocs.pm/elixir/GenServer.html), using PubSub to update 
-the LiveViews about changes.  This allows the LiveViews to focus on user specific
-state, separating concerns; making the application both more efficient 
+The Elixir way of managing state is the
+[GenServer](https://hexdocs.pm/elixir/GenServer.html), using PubSub to update
+the LiveViews about changes. This allows the LiveViews to focus on user specific
+state, separating concerns; making the application both more efficient
 (hopefully) and easier to reason about and debug.
 
-We are now going to start making use of the lib/live_view_counter directory! The 
+We are now going to start making use of the lib/live_view_counter directory! The
 [Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) says
-that this holds "all of your business domain".  For us this is the current count, 
+that this holds "all of your business domain". For us this is the current count,
 along with the incr and decr methods.
 
-``` elixir
+```elixir
 defmodule LiveViewCounter.Count do
   use GenServer
 
@@ -1048,7 +1023,7 @@ defmodule LiveViewCounter.Count do
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, @start_value, name: @name)
   end
-  
+
   def incr() do
     GenServer.call @name, :incr
   end
@@ -1087,18 +1062,18 @@ defmodule LiveViewCounter.Count do
 end
 ```
 
-The GenServer runs in its own process.  Other parts of the application invoke 
-the API in their own process, these calls are forwarded to the `handle_call` 
-functions in the GenServer process where they are processed serially.  
+The GenServer runs in its own process. Other parts of the application invoke
+the API in their own process, these calls are forwarded to the `handle_call`
+functions in the GenServer process where they are processed serially.
 
 We have also moved the PubSub publication here as well.
 
-*[We could have used asyncronous `handle_cast` functions and relied on the 
-PubSub to update us.  Using `handle_call` means the calling LiveView will be 
-updated twice, but it doesn't really matter at this scale.]*
+_[We could have used asyncronous `handle_cast` functions and relied on the
+PubSub to update us. Using `handle_call` means the calling LiveView will be
+updated twice, but it doesn't really matter at this scale.]_
 
 We are also going to need to tell the Application that it now has some business
-logic; we do this in the `start/2` function in the 
+logic; we do this in the `start/2` function in the
 `lib/live_view_counter/application.ex file`.
 
 ```diff
@@ -1124,7 +1099,7 @@ logic; we do this in the `start/2` function in the
 ...
 ```
 
-Finally, we are going to have to make some changes to the LiveView itself, 
+Finally, we are going to have to make some changes to the LiveView itself,
 it now has less to do!
 
 ```elixir
@@ -1165,19 +1140,19 @@ defmodule LiveViewCounterWeb.Counter do
 end
 ```
 
-What is happening now is that the initial state is being retrieved from the 
+What is happening now is that the initial state is being retrieved from the
 shared Application GenServer process and the updates are being forwarded there
-via its API.  Finally, the Gen Server Handlers publish the new state to all the
+via its API. Finally, the Gen Server Handlers publish the new state to all the
 active LiveViews.
 
 ### How many people are using the Counter?
 
-Phoenix has a very cool feature called 
+Phoenix has a very cool feature called
 [Presence](https://hexdocs.pm/phoenix/presence.html#content) to track how many
-people are using our system.  (It does a lot more than count users, but this is 
+people are using our system. (It does a lot more than count users, but this is
 a counting app so...)
 
-First of all we need to tell the Application we are going to use Presence.  
+First of all we need to tell the Application we are going to use Presence.
 For this we need to create a `lib/lib_view_counter/presence.ex` file like this:
 
 ```elixir
@@ -1215,14 +1190,15 @@ file (add it just below the PubSub config):
 
 ```
 
-The application doesn't need to know any more about the user count (it might, 
-but not here) so the rest of the code goes into 
-`lib/lib_view_counter_web/live/counter.ex`.  
-1. We subscribe, participate-in and subscribe to the Presence system (we do that in 
-`mount`)
-1. We handle Presence updates and use the current count, adding joiners and 
-subtracting leavers to calculate the current numbers 'present'.  We do that
-in a pattern matched `handle_info`.
+The application doesn't need to know any more about the user count (it might,
+but not here) so the rest of the code goes into
+`lib/lib_view_counter_web/live/counter.ex`.
+
+1. We subscribe, participate-in and subscribe to the Presence system (we do that in
+   `mount`)
+1. We handle Presence updates and use the current count, adding joiners and
+   subtracting leavers to calculate the current numbers 'present'. We do that
+   in a pattern matched `handle_info`.
 1. We publish the additional data to the client in `render`
 
 ```diff
@@ -1282,6 +1258,7 @@ defmodule LiveViewCounterWeb.Counter do
   end
 end
 ```
+
 Now, as you open and close your incognito windows you will get a count of how
 many are running.
 
@@ -1292,13 +1269,16 @@ many are running.
 ### Problems with dependencies
 
 If the app hangs and throws this error:
+
 ```
 [error] an exception was raised:
     ** (FunctionClauseError) no function clause matching in Phoenix.LiveView.Channel.start_link/1
         (phoenix_live_view 0.12.1) lib/phoenix_live_view/channel.ex:12: Phoenix.LiveView.Channel.start_link({LivetestWeb.Endpoint, {#PID<0.643.0>, #Reference<0.4273921409.1426587651.156349>}})
 
 ```
+
 Modifying your mix.deps from:
+
 ```elixir
  defp deps do
     [
@@ -1308,7 +1288,9 @@ Modifying your mix.deps from:
     ]
   end
 ```
+
 to this:
+
 ```elixir
  defp deps do
     [
@@ -1318,6 +1300,7 @@ to this:
     ]
   end
 ```
+
 Should fix the problem.
 
 ---
@@ -1340,16 +1323,16 @@ The 3 key differences
 between this tutorial and Dennis' original post are:
 
 1. **_Complete_ code** commit (snapshot) at the end of each section
-(_not just inline snippets of code_). <br />
-We feel that having the _complete_ code
-speeds up learning significantly, especially if (when) we get _stuck_.
+   (_not just inline snippets of code_). <br />
+   We feel that having the _complete_ code
+   speeds up learning significantly, especially if (when) we get _stuck_.
 2. **_Latest_ Phoenix, Elixir and LiveView** versions.
-A few updates have been made to LiveView setup,
-these are reflected in our tutorial which uses the latest release.
-3. ***Broadcast updates*** to all connected clients.
-So when the counter is incremented/decremented in one client,
-all others see the update.
-This is the true power and "wow moment" of LiveView!
+   A few updates have been made to LiveView setup,
+   these are reflected in our tutorial which uses the latest release.
+3. **_Broadcast updates_** to all connected clients.
+   So when the counter is incremented/decremented in one client,
+   all others see the update.
+   This is the true power and "wow moment" of LiveView!
 
 <br />
 
@@ -1401,6 +1384,5 @@ Presence and Channels (Hooks) is worth watching:
 [youtu.be/AbNAuOQ8wBE](https://youtu.be/AbNAuOQ8wBE)
 
 [![Sophie-DeBenedetto-elixir-conf-2019-talk](https://user-images.githubusercontent.com/194400/76205486-3a850f00-61f2-11ea-9503-aec19ee666b5.png)](https://youtu.be/AbNAuOQ8wBE)
-
 
 Related blog post: https://elixirschool.com/blog/live-view-live-component/
