@@ -533,7 +533,7 @@ and _decrements_ the counter using the `&(&1 - 1)` syntax.
 > For more detail on Functions in Elixir,
 > see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
 
-_Finally_ the _third_ function `render/1`
+_Finally_ the _forth_ function `render/1`
 receives the `assigns` argument which contains the `:val` state
 and renders the template using the `@val` template variable.
 
