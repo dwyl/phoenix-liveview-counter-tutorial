@@ -481,8 +481,6 @@ which uses the
 function to assign the `:val` key a value of `0` on the `socket`.
 That just means the socket will now have a `:val`
 which is initialised to `0`.
-Specifying the `layout` template as `app.html`
-is needed for Phoenix LiveView to know which template file to use.
 
 <br />
 
