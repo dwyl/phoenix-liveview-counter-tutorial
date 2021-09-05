@@ -846,7 +846,7 @@ The _final_ change is the implementation of the `handle_info/2` function:
 
 ```elixir
 def handle_info(msg, socket) do
-  {:noreply, assign(socket, msg.payload)}
+  {:noreply, assign(socket, val: msg.payload.val)}
 end
 ```
 
@@ -854,7 +854,7 @@ end
 handles `Elixir` process messages
 where `msg` is the received message
 and `socket` is the `Phoenix.Socket`. <br />
-The line `{:noreply, assign(socket, msg.payload)}`
+The line `{:noreply, assign(socket, val: msg.payload.val)}`
 just means "don't send this message to the socket again"
 (_which would cause a recursive loop of updates_).
 
