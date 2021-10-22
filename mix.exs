@@ -4,8 +4,8 @@ defmodule LiveViewCounter.MixProject do
   def project do
     [
       app: :live_view_counter,
-      version: "0.14.1",
-      elixir: "~> 1.10",
+      version: "1.6.2",
+      elixir: "~> 1.12.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -36,17 +36,19 @@ defmodule LiveViewCounter.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.5"},
-      {:phoenix_live_view, "~> 0.14.7"},
-      {:floki, ">= 0.27.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix, "~> 1.6.2"},
+      {:phoenix_live_view, "~> 0.16.4"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.2"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.3", override: true},
+      {:phoenix_live_dashboard, "~> 0.5"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
+      {:gettext, "~> 0.18.2"},
+      {:jason, "~> 1.2.2"},
+      {:plug_cowboy, "~> 2.5.2"},
+      {:plug_crypto, "~> 1.2.2"},
 
       # Test Code Coverage:
       {:excoveralls, "~> 0.12.2", only: :test}
@@ -55,7 +57,8 @@ defmodule LiveViewCounter.MixProject do
 
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"]
+      setup: ["deps.get", "assets.deploy"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end

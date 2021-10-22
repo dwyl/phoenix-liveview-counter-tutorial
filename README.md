@@ -2,7 +2,7 @@
 
 # Phoenix LiveView Counter Tutorial
 
-[![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-counter-tutorial/Elixir%20CI?label=build&style=flat-square)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 [![Hex pm](http://img.shields.io/hexpm/v/phoenix_live_view.svg?style=flat-square)](https://hex.pm/packages/phoenix_live_view)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
@@ -98,10 +98,10 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.10.4 (compiled with Erlang/OTP 23)
+Elixir 1.12.3 (compiled with Erlang/OTP 24)
 ```
 
-This informs us we are using `Elixir version 1.10.4`
+This informs us we are using `Elixir version 1.12.3`
 which is the _latest_ version at the time of writing.
 
 <br />
@@ -118,7 +118,7 @@ mix phx.new -v
 You should see:
 
 ```sh
-Phoenix v1.5.5
+Phoenix v1.6.2
 ```
 
 If you have an earlier version,
@@ -128,26 +128,6 @@ and you get _stuck_ at any point,
 _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 We are here to help!
-
-<br />
-
-**c.** **`Node.js` installed** on your computer.
-Download it from: https://nodejs.org
-
-If you run the following command in your terminal:
-
-```sh
-node -v
-```
-
-You should see output similar to:
-
-```
-v12.18.4
-```
-
-> Phoenix LiveView does not require the _latest_ Node.js,
-> so if you have a _recent_ version e.g `v10`, you will be fine.
 
 <br />
 
@@ -1261,47 +1241,6 @@ Now, as you open and close your incognito windows you will get a count of how
 many are running.
 
 <br /><br /><br />
-
-## Notes and help
-
-### Problems with dependencies
-
-If the app hangs and throws this error:
-
-```
-[error] an exception was raised:
-    ** (FunctionClauseError) no function clause matching in Phoenix.LiveView.Channel.start_link/1
-        (phoenix_live_view 0.12.1) lib/phoenix_live_view/channel.ex:12: Phoenix.LiveView.Channel.start_link({LivetestWeb.Endpoint, {#PID<0.643.0>, #Reference<0.4273921409.1426587651.156349>}})
-
-```
-
-Modifying your mix.deps from:
-
-```elixir
- defp deps do
-    [
-      {:phoenix, "~> 1.5.1"},
-      {:phoenix_live_view, "~> 0.12.1"},
-      ...
-    ]
-  end
-```
-
-to this:
-
-```elixir
- defp deps do
-    [
-      {:phoenix, "~> 1.5.3"},
-      {:phoenix_live_view, "~> 0.13.0"},
-      ...
-    ]
-  end
-```
-
-Should fix the problem.
-
----
 
 ## Credits & Thanks! 🙌
 
