@@ -115,10 +115,10 @@ If you run the following command in your terminal:
 mix phx.new -v
 ```
 
-You should see:
+You should see something similar to the following:
 
 ```sh
-Phoenix v1.6.2
+Phoenix installer v1.6.0
 ```
 
 If you have an earlier version,
@@ -287,9 +287,6 @@ Visit
 in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
-
-😱 If you are having problems with the server hanging, try
-[this](#problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
 > [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
@@ -582,14 +579,14 @@ will now _fail_:
 Compiling 1 file (.ex)
 ..
 
-1) test disconnected and connected render (LiveViewCounterWeb.PageLiveTest)
-   test/live_view_counter_web/live/page_live_test.exs:6
+1) test GET / (LiveViewCounterWeb.PageControllerTest)
+   test/live_view_counter_web/controllers/page_controller_test.exs:4
    Assertion with =~ failed
-   code:  assert disconnected_html =~ "Welcome to Phoenix!"
+   code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
    left:  "<html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/><meta charset=\"UTF-8\" content=\"IHQLHHISBjZlWTskHjAmHBETKCFnGWUloYSOGMkDRhaSvIBtkycvQNUF\" csrf-param=\"_csrf_token\" method-param=\"_method\" name=\"csrf-token\"/><title data-suffix=\" · Phoenix Framework\">LiveViewCounter · Phoenix Framework</title><link phx-track-static=\"phx-track-static\" rel=\"stylesheet\" href=\"/css/app.css\"/><script defer=\"defer\" phx-track-static=\"phx-track-static\" type=\"text/javascript\" src=\"/js/app.js\"></script></head><body><header><section class=\"container\"><nav role=\"navigation\"><ul><li><a href=\"https://hexdocs.pm/phoenix/overview.html\">Get Started</a></li><li><a href=\"/dashboard\">LiveDashboard</a></li></ul></nav><a href=\"https://phoenixframework.org/\" class=\"phx-logo\"><img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/></a></section></header><div data-phx-main=\"true\" data-phx-session=\"SFMyNTY" data-phx-view=\"Counter\" id=\"phx-FhQ9AJF6KACJPAEm\"><div><h1>The count is: 0</h1><button phx-click=\"dec\">-</button><button phx-click=\"inc\">+</button></div></div></body></html>"
    right: "Welcome to Phoenix!"
    stacktrace:
-     test/live_view_counter_web/live/page_live_test.exs:8: (test)
+     test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
 
 
 Finished in 0.1 seconds
@@ -600,12 +597,11 @@ This just tells us that the test is looking for the string
 `"Welcome to Phoenix!"` in the page and did not find it.
 
 To fix the broken test, open the
-`test/live_view_counter_web/live/page_live_test.exs`
-file and locate the lines:
+`test/live_view_counter_web/controllers/page_controller_test.exs`
+file and locate the line:
 
 ```elixir
-assert disconnected_html =~ "Welcome to Phoenix!"
-assert render(page_live) =~ "Welcome to Phoenix!"
+assert html_response(conn, 200) =~ "Welcome to Phoenix!"
 ```
 
 Update the string from `"Welcome to Phoenix!"`
@@ -614,7 +610,8 @@ e.g:
 `"The count is"`
 
 > 🏁 The `page_live_test.exs` file should now look like this:
-> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/8b12dd70f6b1693a4f39a1cb53f8fc1b4ced33f1/test/live_view_counter_web/live/page_live_test.exs#L8-L9)
+> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
+
 
 Confirm the tests pass again by running:
 
@@ -956,7 +953,7 @@ We hope you enjoyed learning with us! <br />
 If you found this useful, please ⭐️and _share_ the GitHub repo
 so we know you like it!
 
-<br /><br /><br />
+<br />
 
 ## Future Steps
 
