@@ -2,7 +2,7 @@
 
 # Phoenix LiveView Counter Tutorial
 
-[![Build Status](https://img.shields.io/travis/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/phoenix-liveview-counter-tutorial)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-counter-tutorial/Elixir%20CI?label=build&style=flat-square)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 [![Hex pm](http://img.shields.io/hexpm/v/phoenix_live_view.svg?style=flat-square)](https://hex.pm/packages/phoenix_live_view)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
@@ -98,10 +98,10 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.10.4 (compiled with Erlang/OTP 23)
+Elixir 1.12.3 (compiled with Erlang/OTP 24)
 ```
 
-This informs us we are using `Elixir version 1.10.4`
+This informs us we are using `Elixir version 1.12.3`
 which is the _latest_ version at the time of writing.
 
 <br />
@@ -115,10 +115,10 @@ If you run the following command in your terminal:
 mix phx.new -v
 ```
 
-You should see:
+You should see something similar to the following:
 
 ```sh
-Phoenix v1.5.5
+Phoenix installer v1.6.0
 ```
 
 If you have an earlier version,
@@ -128,26 +128,6 @@ and you get _stuck_ at any point,
 _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 We are here to help!
-
-<br />
-
-**c.** **`Node.js` installed** on your computer.
-Download it from: https://nodejs.org
-
-If you run the following command in your terminal:
-
-```sh
-node -v
-```
-
-You should see output similar to:
-
-```
-v12.18.4
-```
-
-> Phoenix LiveView does not require the _latest_ Node.js,
-> so if you have a _recent_ version e.g `v10`, you will be fine.
 
 <br />
 
@@ -307,9 +287,6 @@ Visit
 in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
-
-😱 If you are having problems with the server hanging, try
-[this](#problems-with-dependencies)
 
 > 🏁 Snapshot of code at the end of Step 1:
 > [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
@@ -602,14 +579,14 @@ will now _fail_:
 Compiling 1 file (.ex)
 ..
 
-1) test disconnected and connected render (LiveViewCounterWeb.PageLiveTest)
-   test/live_view_counter_web/live/page_live_test.exs:6
+1) test GET / (LiveViewCounterWeb.PageControllerTest)
+   test/live_view_counter_web/controllers/page_controller_test.exs:4
    Assertion with =~ failed
-   code:  assert disconnected_html =~ "Welcome to Phoenix!"
+   code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
    left:  "<html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/><meta charset=\"UTF-8\" content=\"IHQLHHISBjZlWTskHjAmHBETKCFnGWUloYSOGMkDRhaSvIBtkycvQNUF\" csrf-param=\"_csrf_token\" method-param=\"_method\" name=\"csrf-token\"/><title data-suffix=\" · Phoenix Framework\">LiveViewCounter · Phoenix Framework</title><link phx-track-static=\"phx-track-static\" rel=\"stylesheet\" href=\"/css/app.css\"/><script defer=\"defer\" phx-track-static=\"phx-track-static\" type=\"text/javascript\" src=\"/js/app.js\"></script></head><body><header><section class=\"container\"><nav role=\"navigation\"><ul><li><a href=\"https://hexdocs.pm/phoenix/overview.html\">Get Started</a></li><li><a href=\"/dashboard\">LiveDashboard</a></li></ul></nav><a href=\"https://phoenixframework.org/\" class=\"phx-logo\"><img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/></a></section></header><div data-phx-main=\"true\" data-phx-session=\"SFMyNTY" data-phx-view=\"Counter\" id=\"phx-FhQ9AJF6KACJPAEm\"><div><h1>The count is: 0</h1><button phx-click=\"dec\">-</button><button phx-click=\"inc\">+</button></div></div></body></html>"
    right: "Welcome to Phoenix!"
    stacktrace:
-     test/live_view_counter_web/live/page_live_test.exs:8: (test)
+     test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
 
 
 Finished in 0.1 seconds
@@ -620,12 +597,11 @@ This just tells us that the test is looking for the string
 `"Welcome to Phoenix!"` in the page and did not find it.
 
 To fix the broken test, open the
-`test/live_view_counter_web/live/page_live_test.exs`
-file and locate the lines:
+`test/live_view_counter_web/controllers/page_controller_test.exs`
+file and locate the line:
 
 ```elixir
-assert disconnected_html =~ "Welcome to Phoenix!"
-assert render(page_live) =~ "Welcome to Phoenix!"
+assert html_response(conn, 200) =~ "Welcome to Phoenix!"
 ```
 
 Update the string from `"Welcome to Phoenix!"`
@@ -634,7 +610,8 @@ e.g:
 `"The count is"`
 
 > 🏁 The `page_live_test.exs` file should now look like this:
-> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/8b12dd70f6b1693a4f39a1cb53f8fc1b4ced33f1/test/live_view_counter_web/live/page_live_test.exs#L8-L9)
+> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
+
 
 Confirm the tests pass again by running:
 
@@ -976,7 +953,7 @@ We hope you enjoyed learning with us! <br />
 If you found this useful, please ⭐️and _share_ the GitHub repo
 so we know you like it!
 
-<br /><br /><br />
+<br />
 
 ## Future Steps
 
@@ -1261,47 +1238,6 @@ Now, as you open and close your incognito windows you will get a count of how
 many are running.
 
 <br /><br /><br />
-
-## Notes and help
-
-### Problems with dependencies
-
-If the app hangs and throws this error:
-
-```
-[error] an exception was raised:
-    ** (FunctionClauseError) no function clause matching in Phoenix.LiveView.Channel.start_link/1
-        (phoenix_live_view 0.12.1) lib/phoenix_live_view/channel.ex:12: Phoenix.LiveView.Channel.start_link({LivetestWeb.Endpoint, {#PID<0.643.0>, #Reference<0.4273921409.1426587651.156349>}})
-
-```
-
-Modifying your mix.deps from:
-
-```elixir
- defp deps do
-    [
-      {:phoenix, "~> 1.5.1"},
-      {:phoenix_live_view, "~> 0.12.1"},
-      ...
-    ]
-  end
-```
-
-to this:
-
-```elixir
- defp deps do
-    [
-      {:phoenix, "~> 1.5.3"},
-      {:phoenix_live_view, "~> 0.13.0"},
-      ...
-    ]
-  end
-```
-
-Should fix the problem.
-
----
 
 ## Credits & Thanks! 🙌
 

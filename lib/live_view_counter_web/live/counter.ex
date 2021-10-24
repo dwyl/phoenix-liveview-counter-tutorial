@@ -43,7 +43,7 @@ defmodule LiveViewCounterWeb.Counter do
 
   def render(assigns) do
     ~L"""
-    <div>
+    <div id="livecount_container">
       <h1>The count is: <%= @val %></h1>
       <button phx-click="dec">-</button>
       <button phx-click="inc">+</button>
