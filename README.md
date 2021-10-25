@@ -1181,10 +1181,10 @@ defmodule LiveViewCounterWeb.Counter do
   use Phoenix.LiveView
   alias LiveViewCounter.Count
   alias Phoenix.PubSub
-  alias LiveViewCounter.Presence
++ alias LiveViewCounter.Presence
 
   @topic Count.topic
-  @presence_topic "presence"
++ @presence_topic "presence"
 
   def mount(_params, _session, socket) do
     PubSub.subscribe(LiveViewCounter.PubSub, @topic)
@@ -1237,7 +1237,7 @@ end
 Now, as you open and close your incognito windows you will get a count of how
 many are running.
 
-<br /><br /><br />
+<br />
 
 ## Credits & Thanks! 🙌
 
