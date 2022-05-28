@@ -947,8 +947,27 @@ Re-run your app using `mix phx.server` and confirm everything still works:
 
 That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
-If you found this useful, please ⭐️and _share_ the GitHub repo
+If you found this useful, please ⭐️ and _share_ the GitHub repo
 so we know you like it!
+
+<br />
+
+## _Feedback_
+
+Several people in the `Elixir` / `Phoenix` community
+have found this tutorial helpful when starting to use `LiveView`,
+e.g: Kurt Mackey [**`@mrkurt`**](https://github.com/mrkurt)
+[twitter.com/mrkurt/status/1362940036795219973](https://twitter.com/mrkurt/status/1362940036795219973)
+
+![mrkurt-liveview-tweet](https://user-images.githubusercontent.com/194400/109387184-c8707300-78f7-11eb-9f2f-3a13f5433b77.png)
+
+He deployed the counter app to a 17 region cluster using fly.io: https://liveview-counter.fly.dev
+
+![liveview-counter-cluster](https://user-images.githubusercontent.com/194400/170820493-117751b7-078a-4d4c-9539-33bb5ff8e14d.png)
+
+Code: https://github.com/fly-apps/phoenix-liveview-cluster/blob/master/lib/live_view_counter_web/live/counter.ex
+
+> **_Your_ feedback** is always very much **welcome**!
 
 <br />
 
