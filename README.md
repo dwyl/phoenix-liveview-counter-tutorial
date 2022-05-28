@@ -456,9 +456,6 @@ scope "/", LiveViewCounterWeb do
 end
 ```
 
-> 🏁 At the end of Step 5 you should have a `router.ex` file similar to:
-> [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
-
 <br />
 
 #### 3.1 Update the Failing Test Assertion
@@ -845,6 +842,15 @@ That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
 If you found this useful, please ⭐️ and _share_ the GitHub repo
 so we know you like it!
+
+<br />
+
+## What's _Next_?
+
+If you've enjoyed this basic counter tutorial
+and want something a bit more advanced,
+checkout our `LiveView` _Chat_ Tutorial:
+[github.com/dwyl/**phoenix-liveview-chat-example**](https://github.com/dwyl/phoenix-liveview-chat-example)
 
 <br />
 
