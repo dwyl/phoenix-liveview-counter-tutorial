@@ -25,3 +25,12 @@ npm-debug.log
 
 # Ignore digested assets cache.
 /priv/static/cache_manifest.json
+
+# Ignore assets that are produced by build tools.
+/priv/static/assets/
+
+# Ignore digested assets cache.
+/priv/static/cache_manifest.json
+
+# Ignore this noise:
+.DS_Store
