@@ -4,13 +4,12 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-counter-tutorial/Elixir%20CI?label=build&style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/actions/workflows/ci.yml)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
-[![Hex pm](https://img.shields.io/hexpm/v/phoenix_live_view.svg?style=flat-square)](https://hex.pm/packages/phoenix_live_view)
+[![Hex.pm](https://img.shields.io/hexpm/v/phoenix_live_view?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix_live_view)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-counter-tutorial.svg)](https://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
-  
 
 **Build your _first_ App** using **Phoenix LiveView** <br />
-and _understand_ all the basic concepts in **20 minutes** or _less_!
+and **_understand_** all the concepts in **20 minutes** or _less_!
 
 <div>
   <a href="https://live-view-counter.herokuapp.com/">
@@ -23,12 +22,12 @@ and _understand_ all the basic concepts in **20 minutes** or _less_!
 
 ## Why? 🤷
 
-There are several example apps on GitHub using Phoenix LiveView
-but none include are step-by-step instructions
+There are several example apps around the Internet using Phoenix LiveView
+but _none_ include **step-by-step instructions**
 a _complete_ beginner can follow.
-This repository is the **_complete beginner's_ tutorial**
+This is the **_complete beginner's_ tutorial**
 we _wish_ we had when **learning LiveView**
-and the one _you_ have been looking for!
+and the one _you_ have been searching for! 🎉
 
 ## What? 💭
 
@@ -36,26 +35,29 @@ A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with **no prior experience** necessary.
 
-<br />
+### `LiveView`?
 
-### LiveView?
+Phoenix `LiveView` allows you to build **rich interactive web apps**
+with **realtime reactive UI** (_no page refresh when data updates_)
+**without** writing **`JavaScript`**!
+This enables building **_incredible_ user experiences**
+with **_considerably_ less code**.
 
-Phoenix LiveView allows you to build rich interactive web apps
-with realtime reactive UI (_no page refresh when data updates_)
-without having to write any `JavaScript`!
-This allows developers to build _incredible_ user experiences
-with considerably less code.
-
-LiveView pages load instantly because they are rendered on the Server
-and they require considerably less bandwidth than a similar
+`LiveView` pages load instantly because they are rendered on the Server
+and they require far less bandwidth than a similar
 React, Vue.js, Angular, etc. because only the _bare minimum_
 is loaded on the client for the page to work.
+
+For a sneak peak of what is possible to build with `LiveView`,
+watch [@chrismccord](https://github.com/chrismccord)'s **`LiveBeats`** intro:
+
+https://user-images.githubusercontent.com/576796/162234098-31b580fe-e424-47e6-b01d-cd2cfcf823a9.mp4
 
 See: https://github.com/phoenixframework/phoenix_live_view
 
 > 💡 This tutorial follows and _expands_
-> on the _official_ Phoenix LiveView installation instructions:
-> [github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
+> on the _official_ `LiveView` installation instructions:
+> [github.com/phoenixframework/phoenix_live_view/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
 > We always prefer _more_ detailed instructions when learning
 > so we have added more detail to each step.
 > Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
@@ -69,7 +71,9 @@ See: https://github.com/phoenixframework/phoenix_live_view
 ## Who? 👤
 
 This tutorial is aimed at people who have
-never built _anything_ in Phoenix or LiveView.
+never built _anything_ in `Phoenix` or `LiveView`.
+You can _speed-run_ it in **10 minutes**
+if you're already familiar with `Phoenix` or `Rails`.
 
 If you get stuck at any point
 while following the tutorial
@@ -78,7 +82,7 @@ _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 
 If you don't have a lot of time or bandwidth to watch videos,
-this tutorial will be the _fastest_ way to learn LiveView.
+this tutorial will be the _fastest_ way to learn `LiveView`.
 
 <br />
 
@@ -99,16 +103,16 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.12.3 (compiled with Erlang/OTP 24)
+Elixir 1.13.4 (compiled with Erlang/OTP 24)
 ```
 
-This informs us we are using `Elixir version 1.12.3`
+This informs us we are using `Elixir version 1.13.4`
 which is the _latest_ version at the time of writing.
 
 <br />
 
 **b.** **`Phoenix` installed** on your computer.
-see: [hexdocs.pm/phoenix/installation.html](https://hexdocs.pm/phoenix/installation.html)
+see: [hexdocs.pm/phoenix/**installation**](https://hexdocs.pm/phoenix/installation.html)
 
 If you run the following command in your terminal:
 
@@ -119,7 +123,7 @@ mix phx.new -v
 You should see something similar to the following:
 
 ```sh
-Phoenix installer v1.6.0
+Phoenix installer v1.6.9
 ```
 
 If you have an earlier version,
@@ -132,8 +136,9 @@ We are here to help!
 
 <br />
 
-**d.** Familiarity with **basic `Elixir` syntax** is recommended
-but not essential; <br />
+**c.** Basic familiarity with **`Elixir` syntax**
+is _recommended_ but _not essential_; <br />
+If you know _any_ programming language,
 you can pick it up as you go and
 [ask questions](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 if you get stuck!
@@ -218,18 +223,19 @@ In your terminal run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
-mix phx.new live_view_counter --live --no-ecto
+mix phx.new live_view_counter --no-ecto
 ```
-
-The `--live` flag tells the `mix phx.new` generator command
-that we are creating a `LiveView` application.
-It will setup the dependencies and boilerplate
-for us to get going as fast as possible.
 
 The `--no-ecto` flag tells `mix phx.new`
 to create an App without a Database. <br />
 This keeps our counter as simple as possible.
-We can always add a Database to store the counter later.
+We can always add a Database _later_.
+
+> **Note**: Since `Phoenix` `1.6` the `--live` flag
+> is no longer required when creating a `LiveView` app.
+> `LiveView` is included by default in all new `Phoenix` Apps.
+> Older tutorials may still include the flag,
+> everything is _much_ easier now.
 
 When you see the following prompt:
 
@@ -612,7 +618,6 @@ e.g:
 
 > 🏁 The `page_live_test.exs` file should now look like this:
 > [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
-
 
 Confirm the tests pass again by running:
 
