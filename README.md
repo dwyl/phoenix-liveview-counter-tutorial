@@ -53,18 +53,9 @@ watch [@chrismccord](https://github.com/chrismccord)'s **`LiveBeats`** intro:
 
 https://user-images.githubusercontent.com/576796/162234098-31b580fe-e424-47e6-b01d-cd2cfcf823a9.mp4
 
-See: https://github.com/phoenixframework/phoenix_live_view
+> **Tip**: Enable the **_sound_**. It's a collaborative music listening experience. 🎶
 
-> 💡 This tutorial follows and _expands_
-> on the _official_ `LiveView` installation instructions:
-> [github.com/phoenixframework/phoenix_live_view/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
-> We always prefer _more_ detailed instructions when learning
-> so we have added more detail to each step.
-> Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
-> because the counter works in the finished example.
-> If you followed the instructions in "Step 0"
-> to run the finished app on your `localhost` > _before_ diving into building it,
-> you also know they work for _you_. ✅
+See: https://github.com/phoenixframework/phoenix_live_view
 
 <br />
 
