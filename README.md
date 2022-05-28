@@ -256,13 +256,11 @@ mix test
 You should see:
 
 ```
-Generated phoenix app
-==> live_view_counter
 Compiling 14 files (.ex)
 Generated live_view_counter app
 ...
 
-Finished in 0.02 seconds
+Finished in 0.03 seconds (0.02s async, 0.01s sync)
 3 tests, 0 failures
 ```
 
@@ -286,111 +284,9 @@ in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
-> 🏁 Snapshot of code at the end of Step 1:
-> [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
-
 <br />
 
-### Step 2. Configure `signing_salt` in `config.exs`
-
-Phoenix LiveView uses a cryptographic salt
-to secure communications
-between client and server. 🔐 <br />
-You don't need to know what this is,
-just follow the instructions below and you'll be fine,
-but if you are curious,
-read: https://en.wikipedia.org/wiki/Salt_(cryptography)
-
-In your terminal run the following command:
-
-```
-mix phx.gen.secret 32
-```
-
-You should see output similar to the following:
-
-```
-iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c
-```
-
-> 💡 This is a **random** string generator
-> that generates a **32 character string** of alphanumeric data, <br />
-> so the result will be **different each time** you run the command.
-
-Copy the string into your computer's clipboard.
-
-Open your `config/config.exs` file
-and locate the line that begins with
-`live_view:`
-
-In this case it is the last line in the "Configures the endpoint" block:
-
-```elixir
-# Configures the endpoint
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "tT2envDD"]
-```
-
-Replace the String value for `signing_salt`
-with the one you generated in your terminal:
-
-```elixir
-# Configures the endpoint
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
-```
-
-The _last_ line in the code block is the important one.
-
-> 🏁 At the end of Step 2 the file should look like this:
-> [config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/c8f175eaa90352cec37eb1db070b652a763265cb/config/config.exs#L16)
-
-> 💡**Note**: in a _real world_ App,
-> we would use an environment variable
-> for the `signing_salt`
-> to ensure it is kept secret.
-
-<br />
-
-### Step 3: Add `Phoenix.LiveView.Controller` to `live_view_counter_web.ex`
-
-Open the `lib/live_view_counter_web.ex` file
-and add the relevant `Phoenix.LiveView` import statement
-to the `controller`:
-
-```diff
-def controller do
-  quote do
-    use Phoenix.Controller, namespace: LiveViewCounterWeb
-
-    import Plug.Conn
-    import LiveViewCounterWeb.Gettext
-    alias LiveViewCounterWeb.Router.Helpers, as: Routes
-
-+   import Phoenix.LiveView.Controller
-  end
-end
-```
-
-> 🏁 Change made in Step 3:
-> [`lib/live_view_counter_web.ex#L28`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/ac2b5bedba500e08dbc066ecb5772f6fe3e2a69f/lib/live_view_counter_web.ex#L28)
-
-<br />
-
-We are finished setting up our Phoenix App to use LiveView!
-Now we get to the _fun_ part: creating the counter!! 🎉
-
-<br />
-
-### Step 4: Create the `counter.ex` File
+### Step 2: Create the `counter.ex` File
 
 Create a new file with the path:
 `lib/live_view_counter_web/live/counter.ex`
@@ -530,7 +426,7 @@ is sent to the client.
 
 <br />
 
-### Step 5: Create the `live` Route in `router.ex`
+### Step 3: Create the `live` Route in `router.ex`
 
 Now that we have created our Live handler function in Step 4,
 it's time to tell Phoenix how to invoke it.
@@ -565,7 +461,7 @@ end
 
 <br />
 
-#### 5.1 Update the Failing Test Assertion
+#### 3.1 Update the Failing Test Assertion
 
 Since we have replaced the
 `get "/", PageController, :index` route in `router.ex`
@@ -675,7 +571,7 @@ we need to add a bit more code.
 
 <br />
 
-### Step 6: Share State Between Clients!
+### Step 4: Share State Between Clients!
 
 One of the biggest selling points
 of using Phoenix to build web apps
