@@ -4,13 +4,12 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-counter-tutorial/Elixir%20CI?label=build&style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/actions/workflows/ci.yml)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
-[![Hex pm](https://img.shields.io/hexpm/v/phoenix_live_view.svg?style=flat-square)](https://hex.pm/packages/phoenix_live_view)
+[![Hex.pm](https://img.shields.io/hexpm/v/phoenix_live_view?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix_live_view)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-counter-tutorial.svg)](https://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
-  
 
 **Build your _first_ App** using **Phoenix LiveView** <br />
-and _understand_ all the basic concepts in **20 minutes** or _less_!
+and **_understand_** all the concepts in **20 minutes** or _less_!
 
 <div>
   <a href="https://live-view-counter.herokuapp.com/">
@@ -23,12 +22,12 @@ and _understand_ all the basic concepts in **20 minutes** or _less_!
 
 ## Why? 🤷
 
-There are several example apps on GitHub using Phoenix LiveView
-but none include are step-by-step instructions
+There are several example apps around the Internet using Phoenix LiveView
+but _none_ include **step-by-step instructions**
 a _complete_ beginner can follow.
-This repository is the **_complete beginner's_ tutorial**
+This is the **_complete beginner's_ tutorial**
 we _wish_ we had when **learning LiveView**
-and the one _you_ have been looking for!
+and the one _you_ have been searching for! 🎉
 
 ## What? 💭
 
@@ -36,40 +35,36 @@ A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with **no prior experience** necessary.
 
-<br />
+### `LiveView`?
 
-### LiveView?
+Phoenix `LiveView` allows you to build **rich interactive web apps**
+with **realtime reactive UI** (_no page refresh when data updates_)
+**without** writing **`JavaScript`**!
+This enables building **_incredible_ user experiences**
+with **_considerably_ less code**.
 
-Phoenix LiveView allows you to build rich interactive web apps
-with realtime reactive UI (_no page refresh when data updates_)
-without having to write any `JavaScript`!
-This allows developers to build _incredible_ user experiences
-with considerably less code.
-
-LiveView pages load instantly because they are rendered on the Server
-and they require considerably less bandwidth than a similar
+`LiveView` pages load instantly because they are rendered on the Server
+and they require far less bandwidth than a similar
 React, Vue.js, Angular, etc. because only the _bare minimum_
 is loaded on the client for the page to work.
 
-See: https://github.com/phoenixframework/phoenix_live_view
+For a sneak peak of what is possible to build with `LiveView`,
+watch [@chrismccord](https://github.com/chrismccord)'s **`LiveBeats`** intro:
 
-> 💡 This tutorial follows and _expands_
-> on the _official_ Phoenix LiveView installation instructions:
-> [github.com/phoenixframework/phoenix_live_view/blob/master/guides/introduction/installation.md](https://github.com/phoenixframework/phoenix_live_view/blob/e87a2a9c08c7527120e2f0c687b909a1e0095869/guides/introduction/installation.md) <br />
-> We always prefer _more_ detailed instructions when learning
-> so we have added more detail to each step.
-> Crucially we know all the steps in _this_ tutorial _work_ flawlessly,
-> because the counter works in the finished example.
-> If you followed the instructions in "Step 0"
-> to run the finished app on your `localhost` > _before_ diving into building it,
-> you also know they work for _you_. ✅
+https://user-images.githubusercontent.com/576796/162234098-31b580fe-e424-47e6-b01d-cd2cfcf823a9.mp4
+
+> **Tip**: Enable the **_sound_**. It's a collaborative music listening experience. 🎶
+
+See: https://github.com/phoenixframework/phoenix_live_view
 
 <br />
 
 ## Who? 👤
 
 This tutorial is aimed at people who have
-never built _anything_ in Phoenix or LiveView.
+never built _anything_ in `Phoenix` or `LiveView`.
+You can _speed-run_ it in **10 minutes**
+if you're already familiar with `Phoenix` or `Rails`.
 
 If you get stuck at any point
 while following the tutorial
@@ -78,7 +73,7 @@ _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 
 If you don't have a lot of time or bandwidth to watch videos,
-this tutorial will be the _fastest_ way to learn LiveView.
+this tutorial will be the _fastest_ way to learn `LiveView`.
 
 <br />
 
@@ -99,16 +94,16 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.12.3 (compiled with Erlang/OTP 24)
+Elixir 1.13.4 (compiled with Erlang/OTP 24)
 ```
 
-This informs us we are using `Elixir version 1.12.3`
+This informs us we are using `Elixir version 1.13.4`
 which is the _latest_ version at the time of writing.
 
 <br />
 
 **b.** **`Phoenix` installed** on your computer.
-see: [hexdocs.pm/phoenix/installation.html](https://hexdocs.pm/phoenix/installation.html)
+see: [hexdocs.pm/phoenix/**installation**](https://hexdocs.pm/phoenix/installation.html)
 
 If you run the following command in your terminal:
 
@@ -119,7 +114,7 @@ mix phx.new -v
 You should see something similar to the following:
 
 ```sh
-Phoenix installer v1.6.0
+Phoenix installer v1.6.9
 ```
 
 If you have an earlier version,
@@ -132,8 +127,9 @@ We are here to help!
 
 <br />
 
-**d.** Familiarity with **basic `Elixir` syntax** is recommended
-but not essential; <br />
+**c.** Basic familiarity with **`Elixir` syntax**
+is _recommended_ but _not essential_; <br />
+If you know _any_ programming language,
 you can pick it up as you go and
 [ask questions](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
 if you get stuck!
@@ -218,18 +214,19 @@ In your terminal run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
-mix phx.new live_view_counter --live --no-ecto
+mix phx.new live_view_counter --no-ecto
 ```
-
-The `--live` flag tells the `mix phx.new` generator command
-that we are creating a `LiveView` application.
-It will setup the dependencies and boilerplate
-for us to get going as fast as possible.
 
 The `--no-ecto` flag tells `mix phx.new`
 to create an App without a Database. <br />
 This keeps our counter as simple as possible.
-We can always add a Database to store the counter later.
+We can always add a Database _later_.
+
+> **Note**: Since `Phoenix` `1.6` the `--live` flag
+> is no longer required when creating a `LiveView` app.
+> `LiveView` is included by default in all new `Phoenix` Apps.
+> Older tutorials may still include the flag,
+> everything is _much_ easier now.
 
 When you see the following prompt:
 
@@ -259,13 +256,11 @@ mix test
 You should see:
 
 ```
-Generated phoenix app
-==> live_view_counter
 Compiling 14 files (.ex)
 Generated live_view_counter app
 ...
 
-Finished in 0.02 seconds
+Finished in 0.03 seconds (0.02s async, 0.01s sync)
 3 tests, 0 failures
 ```
 
@@ -289,111 +284,9 @@ in your web browser.
 
 ![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
 
-> 🏁 Snapshot of code at the end of Step 1:
-> [`#c48488`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/tree/c4848853beb2df3327663270d1018a128bbcf0fa)
-
 <br />
 
-### Step 2. Configure `signing_salt` in `config.exs`
-
-Phoenix LiveView uses a cryptographic salt
-to secure communications
-between client and server. 🔐 <br />
-You don't need to know what this is,
-just follow the instructions below and you'll be fine,
-but if you are curious,
-read: https://en.wikipedia.org/wiki/Salt_(cryptography)
-
-In your terminal run the following command:
-
-```
-mix phx.gen.secret 32
-```
-
-You should see output similar to the following:
-
-```
-iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c
-```
-
-> 💡 This is a **random** string generator
-> that generates a **32 character string** of alphanumeric data, <br />
-> so the result will be **different each time** you run the command.
-
-Copy the string into your computer's clipboard.
-
-Open your `config/config.exs` file
-and locate the line that begins with
-`live_view:`
-
-In this case it is the last line in the "Configures the endpoint" block:
-
-```elixir
-# Configures the endpoint
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "tT2envDD"]
-```
-
-Replace the String value for `signing_salt`
-with the one you generated in your terminal:
-
-```elixir
-# Configures the endpoint
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "s0e+LZ/leTtv3peHaFhnd2rbncAeV5qlR1rNShKXDMSRbVgU2Aar8nyXszsQrZ1p",
-  render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "iluKTpVJp8PgtRHYv1LSItNuQ1bLdR7c"]
-```
-
-The _last_ line in the code block is the important one.
-
-> 🏁 At the end of Step 2 the file should look like this:
-> [config/config.exs#L16](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/c8f175eaa90352cec37eb1db070b652a763265cb/config/config.exs#L16)
-
-> 💡**Note**: in a _real world_ App,
-> we would use an environment variable
-> for the `signing_salt`
-> to ensure it is kept secret.
-
-<br />
-
-### Step 3: Add `Phoenix.LiveView.Controller` to `live_view_counter_web.ex`
-
-Open the `lib/live_view_counter_web.ex` file
-and add the relevant `Phoenix.LiveView` import statement
-to the `controller`:
-
-```diff
-def controller do
-  quote do
-    use Phoenix.Controller, namespace: LiveViewCounterWeb
-
-    import Plug.Conn
-    import LiveViewCounterWeb.Gettext
-    alias LiveViewCounterWeb.Router.Helpers, as: Routes
-
-+   import Phoenix.LiveView.Controller
-  end
-end
-```
-
-> 🏁 Change made in Step 3:
-> [`lib/live_view_counter_web.ex#L28`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/ac2b5bedba500e08dbc066ecb5772f6fe3e2a69f/lib/live_view_counter_web.ex#L28)
-
-<br />
-
-We are finished setting up our Phoenix App to use LiveView!
-Now we get to the _fun_ part: creating the counter!! 🎉
-
-<br />
-
-### Step 4: Create the `counter.ex` File
+### Step 2: Create the `counter.ex` File
 
 Create a new file with the path:
 `lib/live_view_counter_web/live/counter.ex`
@@ -533,7 +426,7 @@ is sent to the client.
 
 <br />
 
-### Step 5: Create the `live` Route in `router.ex`
+### Step 3: Create the `live` Route in `router.ex`
 
 Now that we have created our Live handler function in Step 4,
 it's time to tell Phoenix how to invoke it.
@@ -563,12 +456,9 @@ scope "/", LiveViewCounterWeb do
 end
 ```
 
-> 🏁 At the end of Step 5 you should have a `router.ex` file similar to:
-> [`lib/live_view_counter_web/router.ex#L20`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/008aaaca697015cc944bca6b99cc654b1385b51e/lib/live_view_counter_web/router.ex#L20)
-
 <br />
 
-#### 5.1 Update the Failing Test Assertion
+#### 3.1 Update the Failing Test Assertion
 
 Since we have replaced the
 `get "/", PageController, :index` route in `router.ex`
@@ -612,7 +502,6 @@ e.g:
 
 > 🏁 The `page_live_test.exs` file should now look like this:
 > [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
-
 
 Confirm the tests pass again by running:
 
@@ -679,7 +568,7 @@ we need to add a bit more code.
 
 <br />
 
-### Step 6: Share State Between Clients!
+### Step 4: Share State Between Clients!
 
 One of the biggest selling points
 of using Phoenix to build web apps
@@ -951,8 +840,36 @@ Re-run your app using `mix phx.server` and confirm everything still works:
 
 That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
-If you found this useful, please ⭐️and _share_ the GitHub repo
+If you found this useful, please ⭐️ and _share_ the GitHub repo
 so we know you like it!
+
+<br />
+
+## What's _Next_?
+
+If you've enjoyed this basic counter tutorial
+and want something a bit more advanced,
+checkout our `LiveView` _Chat_ Tutorial:
+[github.com/dwyl/**phoenix-liveview-chat-example**](https://github.com/dwyl/phoenix-liveview-chat-example)
+
+<br />
+
+## _Feedback_
+
+Several people in the `Elixir` / `Phoenix` community
+have found this tutorial helpful when starting to use `LiveView`,
+e.g: Kurt Mackey [**`@mrkurt`**](https://github.com/mrkurt)
+[twitter.com/mrkurt/status/1362940036795219973](https://twitter.com/mrkurt/status/1362940036795219973)
+
+![mrkurt-liveview-tweet](https://user-images.githubusercontent.com/194400/109387184-c8707300-78f7-11eb-9f2f-3a13f5433b77.png)
+
+He deployed the counter app to a 17 region cluster using fly.io: https://liveview-counter.fly.dev
+
+![liveview-counter-cluster](https://user-images.githubusercontent.com/194400/170820493-117751b7-078a-4d4c-9539-33bb5ff8e14d.png)
+
+Code: https://github.com/fly-apps/phoenix-liveview-cluster/blob/master/lib/live_view_counter_web/live/counter.ex
+
+> **_Your_ feedback** is always very much **welcome**!
 
 <br />
 
