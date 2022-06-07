@@ -897,6 +897,8 @@ We are now going to start making use of the lib/live_view_counter directory! The
 that this holds "all of your business domain". For us this is the current count,
 along with the incr and decr methods.
 
+Create a file with the path `lib/live_view_counter/counter.ex` and add the following:
+
 ```elixir
 defmodule LiveViewCounter.Count do
   use GenServer
