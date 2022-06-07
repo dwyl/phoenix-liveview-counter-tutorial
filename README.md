@@ -1089,7 +1089,7 @@ The application doesn't need to know any more about the user count (it might,
 but not here) so the rest of the code goes into
 `lib/live_view_counter_web/live/counter.ex`.
 
-1. We subscribe, participate-in and subscribe to the Presence system (we do that in
+1. We subscribe to and participate in the Presence system (we do that in
    `mount`)
 1. We handle Presence updates and use the current count, adding joiners and
    subtracting leavers to calculate the current numbers 'present'. We do that
