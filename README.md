@@ -897,6 +897,8 @@ We are now going to start making use of the lib/live_view_counter directory! The
 that this holds "all of your business domain". For us this is the current count,
 along with the incr and decr methods.
 
+Create a file with the path `lib/live_view_counter/counter.ex` and add the following:
+
 ```elixir
 defmodule LiveViewCounter.Count do
   use GenServer
@@ -1046,7 +1048,7 @@ people are using our system. (It does a lot more than count users, but this is
 a counting app so...)
 
 First of all we need to tell the Application we are going to use Presence.
-For this we need to create a `lib/lib_view_counter/presence.ex` file like this:
+For this we need to create a `lib/live_view_counter/presence.ex` file like this:
 
 ```elixir
 defmodule LiveViewCounter.Presence do
@@ -1056,7 +1058,7 @@ defmodule LiveViewCounter.Presence do
 end
 ```
 
-and tell the application about it in the `lib/lib_view_counter/application.ex`
+and tell the application about it in the `lib/live_view_counter/application.ex`
 file (add it just below the PubSub config):
 
 ```diff
@@ -1085,9 +1087,9 @@ file (add it just below the PubSub config):
 
 The application doesn't need to know any more about the user count (it might,
 but not here) so the rest of the code goes into
-`lib/lib_view_counter_web/live/counter.ex`.
+`lib/live_view_counter_web/live/counter.ex`.
 
-1. We subscribe, participate-in and subscribe to the Presence system (we do that in
+1. We subscribe to and participate in the Presence system (we do that in
    `mount`)
 1. We handle Presence updates and use the current count, adding joiners and
    subtracting leavers to calculate the current numbers 'present'. We do that
