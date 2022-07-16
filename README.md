@@ -20,7 +20,41 @@ and **_understand_** all the concepts in **20 minutes** or _less_!
 </div>
 <br />
 
-## Why? 🤷
+- [Phoenix LiveView Counter Tutorial](#phoenix-liveview-counter-tutorial)
+- [Why? 🤷](#why-)
+- [What? 💭](#what-)
+  - [`LiveView`?](#liveview)
+- [Who? 👤](#who-)
+  - [Prerequisites: What you Need _Before_ You Start 📝](#prerequisites-what-you-need-before-you-start-)
+- [How? 💻](#how-)
+  - [Step 0: Run the _Finished_ Counter App on your `localhost` 🏃‍](#step-0-run-the-finished-counter-app-on-your-localhost-)
+    - [Clone the Repository](#clone-the-repository)
+    - [_Download_ the Dependencies](#download-the-dependencies)
+    - [_Run_ the App](#run-the-app)
+  - [Step 1: Create the App 🆕](#step-1-create-the-app-)
+    - [Checkpoint 1: _Run_ the _Tests_!](#checkpoint-1-run-the-tests)
+    - [Checkpoint 1b: _Run_ the New Phoenix App!](#checkpoint-1b-run-the-new-phoenix-app)
+  - [Step 2: Create the `counter.ex` File](#step-2-create-the-counterex-file)
+    - [_Explanation_ of the Code](#explanation-of-the-code)
+  - [Step 3: Create the `live` Route in `router.ex`](#step-3-create-the-live-route-in-routerex)
+    - [3.1 Update the Failing Test Assertion](#31-update-the-failing-test-assertion)
+    - [Checkpoint: Run Counter App!](#checkpoint-run-counter-app)
+    - [Recap: Working Counter Without a JavaScript Framework](#recap-working-counter-without-a-javascript-framework)
+  - [Step 4: Share State Between Clients!](#step-4-share-state-between-clients)
+    - [Code Explanation](#code-explanation)
+    - [Checkpoint: Run It!](#checkpoint-run-it)
+- [Congratulations! 🎉](#congratulations-)
+  - [What's _Next_?](#whats-next)
+  - [_Feedback_](#feedback)
+- [Future Steps](#future-steps)
+  - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
+  - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
+  - [Credits & Thanks! 🙌](#credits--thanks-)
+    - [Phoenix LiveView for Web Developers Who Don't know Elixir](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
+  
+<br />
+
+# Why? 🤷
 
 There are several example apps around the Internet using Phoenix LiveView
 but _none_ include **step-by-step instructions**
@@ -29,13 +63,13 @@ This is the **_complete beginner's_ tutorial**
 we _wish_ we had when **learning LiveView**
 and the one _you_ have been searching for! 🎉
 
-## What? 💭
+# What? 💭
 
 A _complete beginners_ tutorial for building
 the most basic possible Phoenix LiveView App
 with **no prior experience** necessary.
 
-### `LiveView`?
+## `LiveView`?
 
 Phoenix `LiveView` allows you to build **rich interactive web apps**
 with **realtime reactive UI** (_no page refresh when data updates_)
@@ -59,7 +93,7 @@ See: https://github.com/phoenixframework/phoenix_live_view
 
 <br />
 
-## Who? 👤
+# Who? 👤
 
 This tutorial is aimed at people who have
 never built _anything_ in `Phoenix` or `LiveView`.
@@ -77,7 +111,7 @@ this tutorial will be the _fastest_ way to learn `LiveView`.
 
 <br />
 
-### Prerequisites: What you Need _Before_ You Start 📝
+## Prerequisites: What you Need _Before_ You Start 📝
 
 Before you start working through the tutorial,
 you will need:
@@ -137,7 +171,7 @@ See: [https://github.com/dwyl/**learn-elixir**](https://github.com/dwyl/learn-el
 
 <br />
 
-## How? 💻
+# How? 💻
 
 This tutorial takes you through all the steps
 to build and test a counter in Phoenix LiveView. <br />
@@ -151,7 +185,7 @@ on your machine _before_ writing any code.
 
 <br />
 
-### Step 0: Run the _Finished_ Counter App on your `localhost` 🏃‍
+## Step 0: Run the _Finished_ Counter App on your `localhost` 🏃‍
 
 Before you attempt to _build_ the counter,
 we suggest that you clone and _run_
@@ -159,7 +193,7 @@ the complete app on your `localhost`. <br />
 That way you _know_ it's working
 without much effort/time expended.
 
-#### Clone the Repository
+### Clone the Repository
 
 On your `localhost`,
 run the following command to clone the repo
@@ -170,7 +204,7 @@ git clone https://github.com/dwyl/phoenix-liveview-counter-tutorial.git
 cd phoenix-liveview-counter-tutorial
 ```
 
-#### _Download_ the Dependencies
+### _Download_ the Dependencies
 
 Install the dependencies by running the command:
 
@@ -184,7 +218,7 @@ be
 [patient](https://user-images.githubusercontent.com/194400/76169853-58139380-6174-11ea-8e03-4011815758d0.png).
 😉
 
-#### _Run_ the App
+### _Run_ the App
 
 Start the Phoenix server by running the command:
 
@@ -208,7 +242,7 @@ and a clear picture of where we are headed, it's time to _build_ it!
 
 <br />
 
-### Step 1: Create the App 🆕
+## Step 1: Create the App 🆕
 
 In your terminal run the following `mix` command
 to generate the new Phoenix app:
@@ -239,7 +273,7 @@ That will download all the necessary dependencies.
 
 <br />
 
-#### Checkpoint 1: _Run_ the _Tests_!
+### Checkpoint 1: _Run_ the _Tests_!
 
 In your terminal, go into the newly created app folder using:
 
@@ -270,7 +304,7 @@ It's a good way to confirm everything is working.
 
 <br />
 
-#### Checkpoint 1b: _Run_ the New Phoenix App!
+### Checkpoint 1b: _Run_ the New Phoenix App!
 
 Run the server by executing this command:
 
@@ -286,7 +320,7 @@ in your web browser.
 
 <br />
 
-### Step 2: Create the `counter.ex` File
+## Step 2: Create the `counter.ex` File
 
 Create a new file with the path:
 `lib/live_view_counter_web/live/counter.ex`
@@ -321,7 +355,7 @@ defmodule LiveViewCounterWeb.Counter do
 end
 ```
 
-#### _Explanation_ of the Code
+### _Explanation_ of the Code
 
 The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
 This loads just means that we will need to implement certain functions
@@ -426,7 +460,7 @@ is sent to the client.
 
 <br />
 
-### Step 3: Create the `live` Route in `router.ex`
+## Step 3: Create the `live` Route in `router.ex`
 
 Now that we have created our Live handler function in Step 4,
 it's time to tell Phoenix how to invoke it.
@@ -458,7 +492,7 @@ end
 
 <br />
 
-#### 3.1 Update the Failing Test Assertion
+### 3.1 Update the Failing Test Assertion
 
 Since we have replaced the
 `get "/", PageController, :index` route in `router.ex`
@@ -521,7 +555,7 @@ Finished in 0.05 seconds
 
 <br />
 
-#### Checkpoint: Run Counter App!
+### Checkpoint: Run Counter App!
 
 Now that all the code for the `counter.ex` is written,
 run the Phoenix app with the following command:
@@ -540,7 +574,7 @@ You should expect to see a fully functioning LiveView counter:
 
 <br />
 
-#### Recap: Working Counter Without a JavaScript Framework
+### Recap: Working Counter Without a JavaScript Framework
 
 Once the initial installation
 and configuration of LiveView was complete,
@@ -568,7 +602,7 @@ we need to add a bit more code.
 
 <br />
 
-### Step 4: Share State Between Clients!
+## Step 4: Share State Between Clients!
 
 One of the biggest selling points
 of using Phoenix to build web apps
@@ -622,7 +656,7 @@ defmodule LiveViewCounterWeb.Counter do
 end
 ```
 
-#### Code Explanation
+### Code Explanation
 
 The first change is on
 [Line 4](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/live_view_counter_web/live/counter.ex#L4)
@@ -730,7 +764,7 @@ just means "don't send this message to the socket again"
 
 <br />
 
-#### Checkpoint: Run It!
+### Checkpoint: Run It!
 
 Now that
 [`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/live_view_counter_web/live/counter.ex#L4)
@@ -869,13 +903,13 @@ He deployed the counter app to a 17 region cluster using fly.io: https://livevie
 
 Code: https://github.com/fly-apps/phoenix-liveview-cluster/blob/master/lib/live_view_counter_web/live/counter.ex
 
-> **_Your_ feedback** is always very much **welcome**!
+> **_Your_ feedback** is always very much **welcome**! 🙏
 
 <br />
 
-## Future Steps
+# Future Steps
 
-### Moving state out of the LiveViews
+## Moving state out of the LiveViews
 
 With this implementation you may have noticed that when we open a new browser
 window the count is always zero. As soon as we click plus or minus it adjusts
@@ -1040,7 +1074,7 @@ shared Application GenServer process and the updates are being forwarded there
 via its API. Finally, the Gen Server Handlers publish the new state to all the
 active LiveViews.
 
-### How many people are using the Counter?
+## How many people are using the Counter?
 
 Phoenix has a very cool feature called
 [Presence](https://hexdocs.pm/phoenix/presence.html#content) to track how many
