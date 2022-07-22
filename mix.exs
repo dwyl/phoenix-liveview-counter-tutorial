@@ -45,7 +45,7 @@ defmodule LiveViewCounter.MixProject do
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.19.1"},
+      {:gettext, "~> 0.20.0"},
       {:jason, "~> 1.3.0"},
       {:plug_cowboy, "~> 2.5.2"},
       {:plug_crypto, "~> 1.2.2"},
