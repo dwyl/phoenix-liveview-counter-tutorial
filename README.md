@@ -997,10 +997,6 @@ functions in the GenServer process where they are processed serially.
 
 We have also moved the PubSub publication here as well.
 
-_[We could have used asyncronous `handle_cast` functions and relied on the
-PubSub to update us. Using `handle_call` means the calling LiveView will be
-updated twice, but it doesn't really matter at this scale.]_
-
 We are also going to need to tell the Application that it now has some business
 logic; we do this in the `start/2` function in the
 `lib/live_view_counter/application.ex file`.
