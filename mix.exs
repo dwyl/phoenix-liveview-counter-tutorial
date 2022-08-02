@@ -5,15 +5,20 @@ defmodule LiveViewCounter.MixProject do
     [
       app: :live_view_counter,
       version: "1.6.2",
-      elixir: "~> 1.12.3",
+      elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test,
-      "coveralls.json": :test, "coveralls.post": :test, "coveralls.html": :test]
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.json": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -37,11 +42,11 @@ defmodule LiveViewCounter.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.2"},
-      {:phoenix_live_view, "~> 0.16.4"},
+      {:phoenix_live_view, "~> 0.17.11"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.5"},
+      {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},

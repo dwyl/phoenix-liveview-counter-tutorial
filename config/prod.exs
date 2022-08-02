@@ -1,4 +1,4 @@
-use Mix.Config
+import Mix.Config
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
@@ -17,10 +17,8 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
-
 # Do not print debug messages in production
 config :logger, level: :info
-
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.

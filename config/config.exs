@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Mix.Config
 
 # Configures the endpoint
 config :live_view_counter, LiveViewCounterWeb.Endpoint,
