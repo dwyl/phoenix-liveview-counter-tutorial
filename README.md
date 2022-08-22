@@ -455,7 +455,7 @@ the `render/1` function will be executed
 and updated data (_in our case the `:val` count_)
 is sent to the client.
 
-> 🏁 At the end of Step 4 you should have a file similar to:
+> 🏁 At the end of Step 2 you should have a file similar to:
 > [`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
 
 <br />
