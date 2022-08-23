@@ -534,8 +534,8 @@ to something we _know_ is present on the page,
 e.g:
 `"The count is"`
 
-> 🏁 The `page_live_test.exs` file should now look like this:
-> [`test/live_view_counter_web/live/page_live_test.exs#L8-L9`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
+> 🏁 The `page_controller_test.exs.exs` file should now look like this:
+> [`test/live_view_counter_web/controllers/page_controller_test.exs#L6`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/live_view_counter_web/controllers/page_controller_test.exs#L6)
 
 Confirm the tests pass again by running:
 
