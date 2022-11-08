@@ -462,7 +462,7 @@ is sent to the client.
 
 ## Step 3: Create the `live` Route in `router.ex`
 
-Now that we have created our Live handler function in Step 4,
+Now that we have created our Live handler function in Step 2,
 it's time to tell Phoenix how to invoke it.
 
 Open the
