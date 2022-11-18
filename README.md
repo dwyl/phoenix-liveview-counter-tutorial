@@ -128,11 +128,13 @@ elixir -v
 You should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.13.4 (compiled with Erlang/OTP 24)
+Elixir 1.14.2 (compiled with Erlang/OTP 25)
 ```
 
-This informs us we are using `Elixir version 1.13.4`
+This informs us we are using `Elixir version 1.14.2`
 which is the _latest_ version at the time of writing.
+Some of the more advanced features of Phoenix 1.7 during compilation time require elixir 
+1.14 although the code will work in previous versions.
 
 <br />
 
@@ -148,7 +150,7 @@ mix phx.new -v
 You should see something similar to the following:
 
 ```sh
-Phoenix installer v1.6.9
+Phoenix installer v1.7.0-rc.0
 ```
 
 If you have an earlier version,
@@ -287,15 +289,16 @@ And then run the following `mix` command:
 mix test
 ```
 
-You should see:
+The first time it will compile Phoenix and will take some time.
+You should see something similar to this:
 
 ```
-Compiling 14 files (.ex)
+Compiling 17 files (.ex)
 Generated live_view_counter app
-...
 
-Finished in 0.03 seconds (0.02s async, 0.01s sync)
-3 tests, 0 failures
+.....
+Finished in 0.1 seconds (0.05s async, 0.1s sync)
+5 tests, 0 failures
 ```
 
 Tests all pass.
@@ -329,7 +332,7 @@ And add the following code to it:
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
 
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :val, 0)}
@@ -344,12 +347,15 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
-      <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
-    </div>
+    <h1 class="text-4xl font-bold text-center"> The count is: <%= @val %> </h1>
+
+    <p class="text-center">
+     <.button phx-click="dec">-</.button>
+     <.button phx-click="inc">+</.button>
+     </p>
+     </div>
     """
   end
 end
@@ -406,7 +412,8 @@ end
 returns a tuple of:
 `{:noreply, update(socket, :val, &(&1 + 1))}`
 where the `:noreply` just means
-"do not send any further messages to the caller of this function".
+"do not send any further messages to the caller of this function". 
+
 `update(socket, :val, &(&1 + 1))` as it's name suggests,
 will _update_ the value of `:val` on the `socket`
 to the
@@ -441,9 +448,9 @@ receives the `assigns` argument which contains the `:val` state
 and renders the template using the `@val` template variable.
 
 The `render/1` function renders the template included in the function.
-The `~L"""` syntax just means
+The `~H"""` syntax just means
 "_treat this multiline string as a LiveView template_"
-The `~L` [sigil](https://elixir-lang.org/getting-started/sigils.html)
+The `~H` [sigil](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
 
