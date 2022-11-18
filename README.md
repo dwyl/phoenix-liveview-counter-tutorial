@@ -508,35 +508,36 @@ in the previous step, the test in
 will now _fail_:
 
 ```sh
-Compiling 1 file (.ex)
-..
+Compiling 6 files (.ex)
+Generated live_view_counter app
+....
 
-1) test GET / (LiveViewCounterWeb.PageControllerTest)
-   test/live_view_counter_web/controllers/page_controller_test.exs:4
-   Assertion with =~ failed
-   code:  assert html_response(conn, 200) =~ "Welcome to Phoenix!"
-   left:  "<html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/><meta charset=\"UTF-8\" content=\"IHQLHHISBjZlWTskHjAmHBETKCFnGWUloYSOGMkDRhaSvIBtkycvQNUF\" csrf-param=\"_csrf_token\" method-param=\"_method\" name=\"csrf-token\"/><title data-suffix=\" · Phoenix Framework\">LiveViewCounter · Phoenix Framework</title><link phx-track-static=\"phx-track-static\" rel=\"stylesheet\" href=\"/css/app.css\"/><script defer=\"defer\" phx-track-static=\"phx-track-static\" type=\"text/javascript\" src=\"/js/app.js\"></script></head><body><header><section class=\"container\"><nav role=\"navigation\"><ul><li><a href=\"https://hexdocs.pm/phoenix/overview.html\">Get Started</a></li><li><a href=\"/dashboard\">LiveDashboard</a></li></ul></nav><a href=\"https://phoenixframework.org/\" class=\"phx-logo\"><img src=\"/images/phoenix.png\" alt=\"Phoenix Framework Logo\"/></a></section></header><div data-phx-main=\"true\" data-phx-session=\"SFMyNTY" data-phx-view=\"Counter\" id=\"phx-FhQ9AJF6KACJPAEm\"><div><h1>The count is: 0</h1><button phx-click=\"dec\">-</button><button phx-click=\"inc\">+</button></div></div></body></html>"
-   right: "Welcome to Phoenix!"
-   stacktrace:
-     test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
+  1) test GET / (LiveViewCounterWeb.PageControllerTest)
+     test/live_view_counter_web/controllers/page_controller_test.exs:4
+     Assertion with =~ failed
+     code:  assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
+     left:  "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <meta name=\"csrf-token\" content=\"EFt5PABkPz1nPg5FMAoaDSA6BCFtBCMO_4JmNTx_2vO6i3qxXjETTpal\">\n    <title data-suffix=\" · Phoenix Framework\">\nLiveViewCounter\n     · Phoenix Framework</title>\n    <link phx-track-static rel=\"stylesheet\" href=\"/assets/app.css\">\n    <script defer phx-track-static type=\"text/javascript\" src=\"/assets/app.js\">\n    </script>\n  </head>\n  <body class=\"bg-white antialiased\">\n<div data-phx-main=\"true\" data-phx-session=\"SFMyNTY.g2gDaAJhBXQAAAAIZAACaWRtAAAAFHBoeC1GeWkzSUNDYTd2UHFEQURFZAAMbGl2ZV9zZXNzaW9uaAJkAAdkZWZhdWx0bggAuNQjZx-3KBdkAApwYXJlbnRfcGlkZAADbmlsZAAIcm9vdF9waWRkAANuaWxkAAlyb290X3ZpZXdkACFFbGl4aXIuTGl2ZVZpZXdDb3VudGVyV2ViLkNvdW50ZXJkAAZyb3V0ZXJkACBFbGl4aXIuTGl2ZVZpZXdDb3VudGVyV2ViLlJvdXRlcmQAB3Nlc3Npb250AAAAAGQABHZpZXdkACFFbGl4aXIuTGl2ZVZpZXdDb3VudGVyV2ViLkNvdW50ZXJuBgB-d1aLhAFiAAFRgA.hdT9WuJRfJeX-TckMFWrkUEVEh_orieA_DkMToWk-7Q\" data-phx-static=\"SFMyNTY.g2gDaAJhBXQAAAADZAAKYXNzaWduX25ld2pkAAVmbGFzaHQAAAAAZAACaWRtAAAAFHBoeC1GeWkzSUNDYTd2UHFEQURFbgYAjXdWi4QBYgABUYA.6RULnUMCLG3q5DBgBuTc-2ZP2L0jyu-DoIHLG7WlEDs\" id=\"phx-Fyi3ICCa7vPqDADE\"><header class=\"px-4 sm:px-6 lg:px-8\">\n  <div class=\"flex items-center justify-between border-b border-zinc-100 py-3\">\n    <div class=\"flex items-center gap-4\">\n      <a href=\"/\">\n        <svg viewBox=\"0 0 71 48\" class=\"h-6\" aria-hidden=\"true\">\n          <path d=\"m26.371 33.477-.552-.1c-3.92-.729-6.397-3.1-7.57-6.829-.733-2.324.597-4.035 3.035-4.148 1.995-.092 3.362 1.055 4.57 2.39 1.557 1.72 2.984 3.558 4.514 5.305 2.202 2.515 4.797 4.134 8.347 3.634 3.183-.448 5.958-1.725 8.371-3.828.363-.316.761-.592 1.144-.886l-.241-.284c-2.027.63-4.093.841-6.205.735-3.195-.16-6.24-.828-8.964-2.582-2.486-1.601-4.319-3.746-5.19-6.611-.704-2.315.736-3.934 3.135-3.6.948.133 1.746.56 2.463 1.165.583.493 1.143 1.015 1.738 1.493 2.8 2.25 6.712 2.375 10.265-.068-5.842-.026-9.817-3.24-13.308-7.313-1.366-1.594-2.7-3.216-4.095-4.785-2.698-3.036-5.692-5.71-9.79-6.623C12.8-.623 7.745.14 2.893 2.361 1.926 2.804.997 3.319 0 4.149c.494 0 .763.006 1.032 0 2.446-.064 4.28 1.023 5.602 3.024.962 1.457 1.415 3.104 1.761 4.798.513 2.515.247 5.078.544 7.605.761 6.494 4.08 11.026 10.26 13.346 2.267.852 4.591 1.135 7.172.555ZM10.751 3.852c-.976.246-1.756-.148-2.56-.962 1.377-.343 2.592-.476 3.897-.528-.107.848-.607 1.306-1.336 1.49Zm32.002 37.924c-.085-.626-.62-.901-1.04-1.228-1.857-1.446-4.03-1.958-6.333-2-1.375-.026-2.735-.128-4.031-.61-.595-.22-1.26-.505-1.244-1.272.015-.78.693-1 1.31-1.184.505-.15 1.026-.247 1.6-.382-1.46-.936-2.886-1.065-4.787-.3-2.993 1.202-5.943 1.06-8.926-.017-1.684-.608-3.179-1.563-4.735-2.408l-.043.03a2.96 2.96 0 0 0 .04-.029c-.038-.117-.107-.12-.197-.054l.122.107c1.29 2.115 3.034 3.817 5.004 5.271 3.793 2.8 7.936 4.471 12.784 3.73A66.714 66.714 0 0 1 37 40.877c1.98-.16 3.866.398 5.753.899Zm-9.14-30.345c-.105-.076-.206-.266-.42-.069 1.745 2.36 3.985 4.098 6.683 5.193 4.354 1.767 8.773 2.07 13.293.51 3.51-1.21 6.033-.028 7.343 3.38.19-3.955-2.137-6.837-5.843-7.401-2.084-.318-4.01.373-5.962.94-5.434 1.575-10.485.798-15.094-2.553Zm27.085 15.425c.708.059 1.416.123 2.124.185-1.6-1.405-3.55-1.517-5.523-1.404-3.003.17-5.167 1.903-7.14 3.972-1.739 1.824-3.31 3.87-5.903 4.604.043.078.054.117.066.117.35.005.699.021 1.047.005 3.768-.17 7.317-.965 10.14-3.7.89-.86 1.685-1.817 2.544-2.71.716-.746 1.584-1.159 2.645-1.07Zm-8.753-4.67c-2.812.246-5.254 1.409-7.548 2.943-1.766 1.18-3.654 1.738-5.776 1.37-.374-.066-.75-.114-1.124-.17l-.013.156c.135.07.265.151.405.207.354.14.702.308 1.07.395 4.083.971 7.992.474 11.516-1.803 2.221-1.435 4.521-1.707 7.013-1.336.252.038.503.083.756.107.234.022.479.255.795.003-2.179-1.574-4.526-2.096-7.094-1.872Zm-10.049-9.544c1.475.051 2.943-.142 4.486-1.059-.452.04-.643.04-.827.076-2.126.424-4.033-.04-5.733-1.383-.623-.493-1.257-.974-1.889-1.457-2.503-1.914-5.374-2.555-8.514-2.5.05.154.054.26.108.315 3.417 3.455 7.371 5.836 12.369 6.008Zm24.727 17.731c-2.114-2.097-4.952-2.367-7.578-.537 1.738.078 3.043.632 4.101 1.728.374.388.763.768 1.182 1.106 1.6 1.29 4.311 1.352 5.896.155-1.861-.726-1.861-.726-3.601-2.452Zm-21.058 16.06c-1.858-3.46-4.981-4.24-8.59-4.008a9.667 9.667 0 0 1 2.977 1.39c.84.586 1.547 1.311 2.243 2.055 1.38 1.473 3.534 2.376 4.962 2.07-.656-.412-1.238-.848-1.592-1.507Zm17.29-19.32c0-.023.001-.045.003-.068l-.006.006.006-.006-.036-.004.021.018.012.053Zm-20 14.744a7.61 7.61 0 0 0-.072-.041.127.127 0 0 0 .015.043c.005.008.038 0 .058-.002Zm-.072-.041-.008-.034-.008.01.008-.01-.022-.006.005.026.024.014Z\" fill=\"#FD4F00\"></path>\n        </svg>\n      </a>\n      <p class=\"rounded-full bg-brand/5 px-2 text-[0.8125rem] font-medium leading-6 text-brand\">\n        v1.7\n      </p>\n    </div>\n    <div class=\"flex items-center gap-4\">\n      <a href=\"https://twitter.com/elixirphoenix\" class=\"text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:text-zinc-700\">\n        @elixirphoenix\n      </a>\n      <a href=\"https://github.com/phoenixframework/phoenix\" class=\"text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:text-zinc-700\">\n        GitHub\n      </a>\n      <a href=\"https://hexdocs.pm/phoenix/overview.html\" class=\"rounded-lg bg-zinc-100 px-2 py-1 text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:bg-zinc-200/80 active:text-zinc-900/70\">\n        Get Started <span aria-hidden=\"true\">&rarr;</span>\n      </a>\n    </div>\n  </div>\n</header>\n<main class=\"px-4 py-20 sm:px-6 lg:px-8\">\n  <div class=\"mx-auto max-w-2xl\">\n    \n    \n    <div id=\"disconnected\" phx-click=\"[[&quot;push&quot;,{&quot;event&quot;:&quot;lv:clear-flash&quot;,&quot;value&quot;:{&quot;key&quot;:&quot;error&quot;}}],[&quot;hide&quot;,{&quot;time&quot;:200,&quot;to&quot;:&quot;#flash&quot;,&quot;transition&quot;:[[&quot;transition-all&quot;,&quot;transform&quot;,&quot;ease-in&quot;,&quot;duration-200&quot;],[&quot;opacity-100&quot;,&quot;translate-y-0&quot;,&quot;sm:scale-100&quot;],[&quot;opacity-0&quot;,&quot;translate-y-4&quot;,&quot;sm:translate-y-0&quot;,&quot;sm:scale-95&quot;]]}]]\" role=\"alert\" class=\"fixed hidden top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 shadow-md shadow-zinc-900/5 ring-1 bg-rose-50 p-3 text-rose-900 shadow-md ring-rose-500 fill-rose-900\" phx-connected=\"[[&quot;hide&quot;,{&quot;time&quot;:200,&quot;to&quot;:&quot;#disconnected&quot;,&quot;transition&quot;:[[&quot;transition-all&quot;,&quot;transform&quot;,&quot;ease-in&quot;,&quot;duration-200&quot;],[&quot;opacity-100&quot;,&quot;translate-y-0&quot;,&quot;sm:scale-100&quot;],[&quot;opacity-0&quot;,&quot;translate-y-4&quot;,&quot;sm:translate-y-0&quot;,&quot;sm:scale-95&quot;]]}]]\" phx-disconnected=\"[[&quot;show&quot;,{&quot;display&quot;:null,&quot;time&quot;:200,&quot;to&quot;:&quot;#disconnected&quot;,&quot;transition&quot;:[[&quot;transition-all&quot;,&quot;transform&quot;,&quot;ease-out&quot;,&quot;duration-300&quot;],[&quot;opacity-0&quot;,&quot;translate-y-4&quot;,&quot;sm:translate-y-0&quot;,&quot;sm:scale-95&quot;],[&quot;opacity-100&quot;,&quot;translate-y-0&quot;,&quot;sm:scale-100&quot;]]}]]\">\n  <p class=\"flex items-center gap-1.5 text-[0.8125rem] font-semibold leading-6\">\n    \n    <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" class=\"h-4 w-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n  <path fill-rule=\"evenodd\" d=\"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z\" clip-rule=\"evenodd\"/>\n</svg>\n    We can&#39;t find the internet\n  </p>\n  <p class=\"mt-2 text-[0.8125rem] leading-5\">\n      Attempting to reconnect <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" class=\"ml-1 w-3 h-3 inline animate-spin\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" viewBox=\"0 0 24 24\">\n  <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99\"/>\n</svg>\n    </p>\n  \n</div>\n<div>\n<h1 class=\"text-4xl font-bold text-center\"> The count is: 0 </h1>\n\n<p class=\"text-center\">\n <button class=\"phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80 \" phx-click=\"dec\">\n  -\n</button>\n <button class=\"phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80 \" phx-click=\"inc\">\n  +\n</button>\n </p>\n </div>\n  </div>\n</main></div>\n  </body>\n</html>"
+     right: "Peace of mind from prototype to production"
+     stacktrace:
+       test/live_view_counter_web/controllers/page_controller_test.exs:6: (test)
 
 
-Finished in 0.1 seconds
-3 tests, 1 failure
+Finished in 0.1 seconds (0.06s async, 0.09s sync)
+5 tests, 1 failure
 ```
 
 This just tells us that the test is looking for the string
-`"Welcome to Phoenix!"` in the page and did not find it.
+`"Peace of mind from prototype to production"` in the page and did not find it.
 
 To fix the broken test, open the
 `test/live_view_counter_web/controllers/page_controller_test.exs`
 file and locate the line:
 
 ```elixir
-assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
 ```
 
-Update the string from `"Welcome to Phoenix!"`
+Update the string from `"Peace of mind from prototype to production"`
 to something we _know_ is present on the page,
 e.g:
 `"The count is"`
@@ -553,11 +554,11 @@ mix test
 You should see output similar to:
 
 ```
-Generated live_view_counter app
-...
+.....
+Finished in 0.1 seconds (0.03s async, 0.07s sync)
+5 tests, 0 failures
 
-Finished in 0.05 seconds
-3 tests, 0 failures
+Randomized with seed 244388
 ```
 
 <br />
@@ -590,7 +591,7 @@ We created a _single_ new file
 [`lib/live_view_counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/live_view_counter_web/live/counter.ex)
 that contains all the code required to
 initialise, render and update the counter.
-Then we set the `live("/", Counter)` route
+Then we set the `live "/", Counter` route
 to invoke the `Counter` module in `router.ex`.
 
 In total our counter App is **25 lines** of code.
