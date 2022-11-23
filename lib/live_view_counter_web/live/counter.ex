@@ -12,11 +12,12 @@ defmodule LiveViewCounterWeb.Counter do
     PubSub.subscribe(LiveViewCounter.PubSub, @topic)
 
     Presence.track(self(), @presence_topic, socket.id, %{})
-    LiveViewCounterWeb.Endpoint.subscribe(@presence_topic)
 
     initial_present =
       Presence.list(@presence_topic)
       |> map_size
+
+      LiveViewCounterWeb.Endpoint.subscribe(@presence_topic)
 
 
     {:ok, assign(socket, val:  Count.current(), present: initial_present) }
@@ -39,6 +40,9 @@ defmodule LiveViewCounterWeb.Counter do
        %{assigns: %{present: present}} = socket
     ) do
    new_present = present + map_size(joins) - map_size(leaves)
+   IO.inspect(present, label: "PRESENT:")
+   IO.inspect(joins, label: "JOINS")
+   IO.inspect(leaves, label: "LEAVES")
 
    {:noreply, assign(socket, :present, new_present)}
    end
