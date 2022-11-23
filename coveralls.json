@@ -10,6 +10,9 @@
     "lib/live_view_counter_web/views/error_helpers.ex",
     "lib/live_view_counter_web/router.ex",
     "lib/live_view_counter_web/live/page_live.ex",
+    "lib/live_view_counter_web/components/core_components.ex",
+    "lib/live_view_counter_web/controllers/error_json.ex",
+    "lib/live_view_counter_web/controllers/error_html.ex",
     "test/"
   ]
 }

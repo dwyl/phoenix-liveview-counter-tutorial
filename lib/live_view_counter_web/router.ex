@@ -17,7 +17,6 @@ defmodule LiveViewCounterWeb.Router do
   scope "/", LiveViewCounterWeb do
     pipe_through :browser
 
-    get "/original", PageController, :home
     live "/", Counter
   end
 
