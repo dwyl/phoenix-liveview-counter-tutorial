@@ -23,6 +23,7 @@ defmodule LiveViewCounterWeb.Counter do
     {:ok, assign(socket, val:  Count.current(), present: initial_present) }
   end
 
+  @spec handle_event(<<_::24>>, any, any) :: {:noreply, any}
   def handle_event("inc", _, socket) do
     {:noreply, assign(socket, val: Count.incr())}
   end
@@ -40,9 +41,7 @@ defmodule LiveViewCounterWeb.Counter do
        %{assigns: %{present: present}} = socket
     ) do
    new_present = present + map_size(joins) - map_size(leaves)
-   IO.inspect(present, label: "PRESENT:")
-   IO.inspect(joins, label: "JOINS")
-   IO.inspect(leaves, label: "LEAVES")
+
 
    {:noreply, assign(socket, :present, new_present)}
    end
