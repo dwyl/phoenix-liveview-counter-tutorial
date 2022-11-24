@@ -23,7 +23,7 @@ defmodule LiveViewCounterWeb.Counter do
     {:ok, assign(socket, val:  Count.current(), present: initial_present) }
   end
 
-  @spec handle_event(<<_::24>>, any, any) :: {:noreply, any}
+
   def handle_event("inc", _, socket) do
     {:noreply, assign(socket, val: Count.incr())}
   end
