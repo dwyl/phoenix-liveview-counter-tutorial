@@ -2,6 +2,7 @@ defmodule LiveViewCounterWeb.CounterTest do
   use LiveViewCounterWeb.ConnCase
   import Phoenix.LiveViewTest
 
+
   test "connected mount", %{conn: conn} do
     {:ok, _view, html} = live(conn, "/")
     current = LiveViewCounter.Count.current()
@@ -51,4 +52,3 @@ defmodule LiveViewCounterWeb.CounterTest do
     assert render(view) =~ "Current users: 0"
   end
 end
-

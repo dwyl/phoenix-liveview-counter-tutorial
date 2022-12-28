@@ -5,15 +5,19 @@ defmodule LiveViewCounter.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     children = [
-      # Start the App State
+      # Start the app state
       LiveViewCounter.Count,
       # Start the Telemetry supervisor
       LiveViewCounterWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: LiveViewCounter.PubSub},
+      # Add Presence
       LiveViewCounter.Presence,
+      # Start Finch
+      {Finch, name: LiveViewCounter.Finch},
       # Start the Endpoint (http/https)
       LiveViewCounterWeb.Endpoint
       # Start a worker by calling: LiveViewCounter.Worker.start_link(arg)
@@ -28,6 +32,7 @@ defmodule LiveViewCounter.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     LiveViewCounterWeb.Endpoint.config_change(changed, removed)
     :ok

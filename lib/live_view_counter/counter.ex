@@ -7,6 +7,8 @@ defmodule LiveViewCounter.Count do
 
   @start_value 0
 
+  # ------------ External API (runs in client process) ---------
+
   def topic do
     "count"
   end
@@ -16,12 +18,13 @@ defmodule LiveViewCounter.Count do
   end
 
   def incr() do
-    GenServer.call @name, :incr
+    GenServer.call(@name, :incr)
   end
 
   def decr() do
     GenServer.call @name, :decr
   end
+
 
   def current() do
     GenServer.call @name, :current
@@ -31,8 +34,10 @@ defmodule LiveViewCounter.Count do
     {:ok, start_count}
   end
 
+  # --------- Implementation (runs in GenServer process) ----------start_count
+
   def handle_call(:current, _from, count) do
-     {:reply, count, count}
+    {:reply, count, count}
   end
 
   def handle_call(:incr, _from, count) do
@@ -48,4 +53,5 @@ defmodule LiveViewCounter.Count do
     PubSub.broadcast(LiveViewCounter.PubSub, topic(), {:count, new_count})
     {:reply, new_count, new_count}
   end
+
 end

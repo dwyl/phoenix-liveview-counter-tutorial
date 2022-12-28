@@ -7,12 +7,9 @@ defmodule LiveViewCounterWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_live_view_counter_key",
-    signing_salt: "PH/r1NMc"
+    signing_salt: "fUAhnPcA",
+    same_site: "Lax"
   ]
-
-  socket "/socket", LiveViewCounterWeb.UserSocket,
-    websocket: true,
-    longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
@@ -24,7 +21,7 @@ defmodule LiveViewCounterWeb.Endpoint do
     at: "/",
     from: :live_view_counter,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: LiveViewCounterWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
