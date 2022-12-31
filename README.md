@@ -2,7 +2,7 @@
 
 # Phoenix LiveView Counter Tutorial
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-counter-tutorial/Elixir%20CI?label=build&style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/actions/workflows/ci.yml)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dwyl/phoenix-liveview-counter-tutorial/ci.yml?label=build&style=flat-square&branch=main)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-counter-tutorial/master.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-counter-tutorial?branch=master)
 [![Hex.pm](https://img.shields.io/hexpm/v/phoenix_live_view?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix_live_view)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
@@ -49,7 +49,8 @@ and **_understand_** all the concepts in **20 minutes** or _less_!
 - [Future Steps](#future-steps)
   - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
   - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
-  - [Credits & Thanks! 🙌](#credits--thanks-)
+  - [Some more tests](#some-more-tests)
+  - [Credits \& Thanks! 🙌](#credits--thanks-)
     - [Phoenix LiveView for Web Developers Who Don't know Elixir](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
   
 <br />
