@@ -50,7 +50,7 @@ and **_understand_** all the concepts in **20 minutes** or _less_!
   - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
   - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
   - [Some more tests](#some-more-tests)
-  - [Credits \& Thanks! 🙌](#credits--thanks-)
+  - [Credits + Thanks! 🙌](#credits--thanks-)
     - [Phoenix LiveView for Web Developers Who Don't know Elixir](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
   
 <br />
@@ -1276,7 +1276,7 @@ And lastly the logic that follows presence
 ```
 
 
-## Credits & Thanks! 🙌
+## Credits + Thanks! 🙌
 
 Credit for inspiring this tutorial goes to Dennis Beatty
 [@dnsbty](https://github.com/dnsbty)
