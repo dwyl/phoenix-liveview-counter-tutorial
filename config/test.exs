@@ -7,13 +7,6 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   secret_key_base: "i3VK2GAzdHdtGN0EVVWAQAHryZJZr+NQgQpwIV+5x1GSMSKrDfAE1W+vQDmTvFsg",
   server: false
 
-# In test we don't send emails.
-config :live_view_counter, LiveViewCounter.Mailer,
-  adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 
