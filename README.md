@@ -353,8 +353,8 @@ defmodule LiveViewCounterWeb.Counter do
     <h1 class="text-4xl font-bold text-center"> The count is: <%= @val %> </h1>
 
     <p class="text-center">
-     <.button phx-click="dec">-</.button>
-     <.button phx-click="inc">+</.button>
+     <button phx-click="dec">-</button>
+     <button phx-click="inc">+</button>
      </p>
      </div>
     """
