@@ -348,7 +348,7 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~H"""
+    ~L"""
     <div>
     <h1 class="text-4xl font-bold text-center"> The count is: <%= @val %> </h1>
 
@@ -449,9 +449,9 @@ receives the `assigns` argument which contains the `:val` state
 and renders the template using the `@val` template variable.
 
 The `render/1` function renders the template included in the function.
-The `~H"""` syntax just means
+The `~L"""` syntax just means
 "_treat this multiline string as a LiveView template_"
-The `~H` [sigil](https://elixir-lang.org/getting-started/sigils.html)
+The `~L` [sigil](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
 
