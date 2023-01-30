@@ -353,8 +353,8 @@ defmodule LiveViewCounterWeb.Counter do
     <h1 class="text-4xl font-bold text-center"> The count is: <%= @val %> </h1>
 
     <p class="text-center">
-     <button phx-click="dec">-</button>
-     <button phx-click="inc">+</button>
+     <.button phx-click="dec">-</.button>
+     <.button phx-click="inc">+</.button>
      </p>
      </div>
     """
@@ -654,11 +654,11 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
     </div>
     """
   end
@@ -818,11 +818,11 @@ has an inline template:
 
 ```elixir
 def render(assigns) do
-  ~L"""
+  ~H"""
   <div>
     <h1>The count is: <%= @val %></h1>
-    <button phx-click="dec">-</button>
-    <button phx-click="inc">+</button>
+    <.button phx-click="dec">-</.button>
+    <.button phx-click="inc">+</.button>
   </div>
   """
 ```
@@ -839,8 +839,8 @@ and add the following code to it:
 ```html
 <div>
   <h1>The count is: <%= @val %></h1>
-  <button phx-click="dec">-</button>
-  <button phx-click="inc">+</button>
+  <.button phx-click="dec">-</.button>
+  <.button phx-click="inc">+</.button>
 </div>
 ```
 
@@ -1063,11 +1063,11 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
     </div>
     """
   end
@@ -1181,11 +1181,11 @@ defmodule LiveViewCounterWeb.Counter do
 + end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
 +     <h1>Current users: <%= @present %></h1>
     </div>
     """
