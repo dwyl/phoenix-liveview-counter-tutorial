@@ -628,7 +628,7 @@ file with the following code:
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
 
   @topic "live"
 
@@ -1038,7 +1038,7 @@ it now has less to do!
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
   alias LiveViewCounter.Count
   alias Phoenix.PubSub
 
@@ -1137,7 +1137,7 @@ but not here) so the rest of the code goes into
 
 ```diff
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
   alias LiveViewCounter.Count
   alias Phoenix.PubSub
 + alias LiveViewCounter.Presence
