@@ -628,7 +628,7 @@ file with the following code:
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
 
   @topic "live"
 
@@ -654,11 +654,11 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
     </div>
     """
   end
@@ -818,11 +818,11 @@ has an inline template:
 
 ```elixir
 def render(assigns) do
-  ~L"""
+  ~H"""
   <div>
     <h1>The count is: <%= @val %></h1>
-    <button phx-click="dec">-</button>
-    <button phx-click="inc">+</button>
+    <.button phx-click="dec">-</.button>
+    <.button phx-click="inc">+</.button>
   </div>
   """
 ```
@@ -839,8 +839,8 @@ and add the following code to it:
 ```html
 <div>
   <h1>The count is: <%= @val %></h1>
-  <button phx-click="dec">-</button>
-  <button phx-click="inc">+</button>
+  <.button phx-click="dec">-</.button>
+  <.button phx-click="inc">+</.button>
 </div>
 ```
 
@@ -1038,7 +1038,7 @@ it now has less to do!
 
 ```elixir
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
   alias LiveViewCounter.Count
   alias Phoenix.PubSub
 
@@ -1063,11 +1063,11 @@ defmodule LiveViewCounterWeb.Counter do
   end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
     </div>
     """
   end
@@ -1137,7 +1137,7 @@ but not here) so the rest of the code goes into
 
 ```diff
 defmodule LiveViewCounterWeb.Counter do
-  use Phoenix.LiveView
+  use LiveViewCounterWeb, :live_view
   alias LiveViewCounter.Count
   alias Phoenix.PubSub
 + alias LiveViewCounter.Presence
@@ -1181,11 +1181,11 @@ defmodule LiveViewCounterWeb.Counter do
 + end
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div>
       <h1>The count is: <%= @val %></h1>
-      <button phx-click="dec">-</button>
-      <button phx-click="inc">+</button>
+      <.button phx-click="dec">-</.button>
+      <.button phx-click="inc">+</.button>
 +     <h1>Current users: <%= @present %></h1>
     </div>
     """
