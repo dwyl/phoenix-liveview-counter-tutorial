@@ -365,7 +365,7 @@ end
 ### _Explanation_ of the Code
 
 The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
-This loads just means that we will need to implement certain functions
+This just means that we will need to implement certain functions
 for our live view to work.
 
 The first function is `mount/3` which,
