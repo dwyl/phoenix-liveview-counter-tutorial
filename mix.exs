@@ -57,7 +57,7 @@ defmodule LiveViewCounter.MixProject do
       {:plug_cowboy, "~> 2.5"},
 
       # Test Code Coverage:
-      {:excoveralls, "~> 0.15.0", only: :test}
+      {:excoveralls, "~> 0.16.0", only: :test}
     ]
   end
 
