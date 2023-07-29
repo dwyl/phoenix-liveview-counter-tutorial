@@ -52,7 +52,8 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
     - [Add More Tests!](#add-more-tests)
   - [Bonus Level: Use a `LiveView Component` (Optional)](#bonus-level-use-a-liveview-component-optional)
     - [Create a `LiveView Component`](#create-a-liveview-component)
-  - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
+  - [Moving state out of the `LiveView`](#moving-state-out-of-the-liveview)
+    - [Update the Tests for `GenServer` State](#update-the-tests-for-genserver-state)
   - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
   - [More Tests!](#more-tests)
 - [_Done_! 🏁](#done-)
@@ -1192,9 +1193,8 @@ update the `render/1` function to:
 ```
 
 
-
 > 🏁 Your `counter_component.ex` should look like this:
-[`lib/counter_web/live/counter_component.ex`]()
+[`lib/counter_web/live/counter_component.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/92a25e41d52be7bbfd430b92181540806af64baa/lib/counter_web/live/counter_component.ex)
 
 The component's has an identical
 [`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/counter_web/live/counter.ex#L27-L34)
@@ -1208,7 +1208,7 @@ Re-run the `counter` App
 using `mix phx.server` 
 and confirm everything still works:
 
-![phoenix-liveview-counter-42](https://user-images.githubusercontent.com/194400/76267885-14985280-6264-11ea-8e6d-52d5166aacd9.gif)
+![phoenix-liveview-counter-component](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/7026e461-003d-4033-a0ea-c80b55494fa5)
 
 
 The tests all still pass and we have 100% coverage:
@@ -1231,9 +1231,10 @@ COV    FILE                                        LINES RELEVANT   MISSED
 ----------------
 ```
 
+<br />
 
 
-## Moving state out of the LiveViews
+## Moving state out of the `LiveView`
 
 With this implementation you may have noticed that when we open a new browser
 window the count is always zero. As soon as we click plus or minus it adjusts
@@ -1241,33 +1242,35 @@ and all the views get back in line. This is because the state is replicated
 across LiveView instances and coordinated via pub-sub. If the state was big
 and complicated this would get wasteful in resources and hard to manage.
 
-Generally it is good practice to identify _shared state_ and to manage that in
+Generally it is good practice 
+to identify _shared state_ 
+and to manage that in
 a single location.
 
-The Elixir way of managing state is the
-[GenServer](https://hexdocs.pm/elixir/GenServer.html), using PubSub to update
-the LiveViews about changes. This allows the LiveViews to focus on user specific
-state, separating concerns; making the application both more efficient
+The `Elixir` way of managing state is the
+[`GenServer`](https://hexdocs.pm/elixir/GenServer.html), 
+using `PubSub` to update
+the `LiveView` about changes. 
+This allows the `LiveViews` 
+to focus on specific state, 
+separating concerns; 
+making the application both more efficient
 (hopefully) and easier to reason about and debug.
 
-We are now going to start making use of the lib/live_view_counter directory! The
-[Phoenix docs](https://hexdocs.pm/phoenix/directory_structure.html#content) says
-that this holds "all of your business domain". For us this is the current count,
-along with the incr and decr methods.
 
-Create a file with the path `lib/live_view_counter/counter.ex` and add the following:
+Create a file with the path:
+`lib/counter_web/live/counter_state.ex` 
+and add the following:
 
 ```elixir
-defmodule LiveViewCounter.Count do
+defmodule Counter.Count do
   use GenServer
-
   alias Phoenix.PubSub
-
   @name :count_server
 
   @start_value 0
 
-  # -------  External API (runs in client process) -------
+  # External API (runs in client process)
 
   def topic do
     "count"
@@ -1293,7 +1296,7 @@ defmodule LiveViewCounter.Count do
     {:ok, start_count}
   end
 
-  # -------  Implementation  (Runs in GenServer process) -------
+  # Implementation (Runs in GenServer process)
 
   def handle_call(:current, _from, count) do
      {:reply, count, count}
@@ -1309,58 +1312,59 @@ defmodule LiveViewCounter.Count do
 
   defp make_change(count, change) do
     new_count = count + change
-    PubSub.broadcast(LiveViewCounter.PubSub, topic(), {:count, new_count})
+    PubSub.broadcast(Counter.PubSub, topic(), {:count, new_count})
     {:reply, new_count, new_count}
   end
 end
 ```
 
-The GenServer runs in its own process. Other parts of the application invoke
+The `GenServer` runs in its own process. 
+Other parts of the application invoke
 the API in their own process, these calls are forwarded to the `handle_call`
-functions in the GenServer process where they are processed serially.
+functions in the `GenServer` process where they are processed serially.
 
-We have also moved the PubSub publication here as well.
+We have also moved the `PubSub` publication here as well.
 
 We are also going to need to tell the Application that it now has some business
 logic; we do this in the `start/2` function in the
-`lib/live_view_counter/application.ex file`.
+`lib/counter/application.ex` file.
 
 ```diff
   def start(_type, _args) do
     children = [
       # Start the App State
-+     LiveViewCounter.Count,
++     Counter.Count,
       # Start the Telemetry supervisor
       CounterWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: LiveViewCounter.PubSub},
+      {Phoenix.PubSub, name: Counter.PubSub},
       # Start the Endpoint (http/https)
       CounterWeb.Endpoint
-      # Start a worker by calling: LiveViewCounter.Worker.start_link(arg)
-      # {LiveViewCounter.Worker, arg}
+      # Start a worker by calling: Counter.Worker.start_link(arg)
+      # {Counter.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: LiveViewCounter.Supervisor]
+    opts = [strategy: :one_for_one, name: Counter.Supervisor]
     Supervisor.start_link(children, opts)
   end
 ...
 ```
 
-Finally, we are going to have to make some changes to the LiveView itself,
+Finally, we need make some changes to the `LiveView` itself,
 it now has less to do!
 
 ```elixir
 defmodule CounterWeb.Counter do
   use CounterWeb, :live_view
-  alias LiveViewCounter.Count
+  alias Counter.Count
   alias Phoenix.PubSub
 
   @topic Count.topic
 
   def mount(_params, _session, socket) do
-    PubSub.subscribe(LiveViewCounter.PubSub, @topic)
+    PubSub.subscribe(Counter.PubSub, @topic)
 
     {:ok, assign(socket, val: Count.current()) }
   end
@@ -1389,10 +1393,112 @@ defmodule CounterWeb.Counter do
 end
 ```
 
-What is happening now is that the initial state is being retrieved from the
-shared Application GenServer process and the updates are being forwarded there
-via its API. Finally, the Gen Server Handlers publish the new state to all the
-active LiveViews.
+The initial state is retrieved from the
+shared Application `GenServer`` process 
+and the updates are being forwarded there
+via its API. 
+Finally, the `GenServer`
+to all the active `LiveView` clients.
+
+### Update the Tests for `GenServer` State
+
+Given that the `counter.ex` is now using the `GenServer` State,
+two of the tests now fail because the count is not correct.
+
+```sh
+mix t
+
+Generated counter app
+.....
+
+  1) test connected mount (CounterWeb.CounterTest)
+     test/counter_web/live/counter_test.exs:6
+     Assertion with =~ failed
+     code:  assert html =~ "Counter: 0"
+     left:  "<html lang=\"en\" class=\"[scrollbar-gutter:stable]\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"csrf-token\" content=\"A2QQMHc0OgsbDl0mUCZdGDoHWhUtMC4CDUIv9XHhtx2p6_iLerkvIbbk\"/><title data-suffix=\" · Phoenix Framework\">\nCounter\n     · Phoenix Framework</title><link phx-track-static=\"phx-track-static\" rel=\"stylesheet\" href=\"/assets/app.css\"/><script defer=\"defer\" phx-track-static=\"phx-track-static\" type=\"text/javascript\" src=\"/assets/app.js\">\n    </script></head><body class=\"bg-white antialiased\"><div data-phx-main=\"data-phx-main\" data-phx-session=\"SFMyNTY.g2gDaAJhBXQAAAAIdwJpZG0AAAAUcGh4LUYzWm01LWgycVNXZW5RREJ3B3Nlc3Npb250AAAAAHcKcGFyZW50X3BpZHcDbmlsdwZyb3V0ZXJ3GEVsaXhpci5Db3VudGVyV2ViLlJvdXRlcncEdmlld3cZRWxpeGlyLkNvdW50ZXJXZWIuQ291bnRlcncIcm9vdF9waWR3A25pbHcJcm9vdF92aWV3dxlFbGl4aXIuQ291bnRlcldlYi5Db3VudGVydwxsaXZlX3Nlc3Npb25oAncHZGVmYXVsdG4IAPP26BwRWHYXbgYA2w20ookBYgABUYA.Zae9BLTboLn6SPPe0qmktsfuru8HX2W4CALIBZNpcqE\" data-phx-static=\"SFMyNTY.g2gDaAJhBXQAAAADdwJpZG0AAAAUcGh4LUYzWm01LWgycVNXZW5RREJ3BWZsYXNodAAAAAB3CmFzc2lnbl9uZXdqbgYA2w20ookBYgABUYA.uooN8p97RRE1JN4tmkVNqC9islv-Np5B8wrewhwLnKc\" id=\"phx-F3Zm5-h2qSWenQDB\"><header class=\"px-4 sm:px-6 lg:px-8\"><div class=\"flex items-center justify-between border-b border-zinc-100 py-3 text-sm\"><div class=\"flex items-center gap-4\"><a href=\"/\"><img src=\"/images/logo.svg\" width=\"36\"/></a><p class=\"bg-brand/5 text-brand rounded-full px-2 font-medium leading-6\">\n        v1.7.7\n      </p></div><div class=\"flex items-center gap-4 font-semibold leading-6 text-zinc-900\"><a href=\"https://github.com/dwyl/phoenix-liveview-counter-tutorial\" class=\"hover:text-zinc-700\">\n        GitHub\n      </a><a href=\"https://github.com/dwyl/phoenix-liveview-counter-tutorial#how-\" class=\"rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80\">\n        Get Started ..."
+     right: "Counter: 0"
+     stacktrace:
+       test/counter_web/live/counter_test.exs:8: (test)
+
+
+
+  2) test Increment (CounterWeb.CounterTest)
+     test/counter_web/live/counter_test.exs:11
+     Assertion with =~ failed
+     code:  assert render_click(view, :inc) =~ "Counter: 1"
+     left:  "<header class=\"px-4 sm:px-6 lg:px-8\"><div class=\"flex items-center justify-between border-b border-zinc-100 py-3 text-sm\"><div class=\"flex items-center gap-4\"><a href=\"/\"><img src=\"/images/logo.svg\" width=\"36\"/></a><p class=\"bg-brand/5 text-brand rounded-full px-2 font-medium leading-6\">\n        v1.7.7\n      </p></div><div class=\"flex items-center gap-4 font-semibold leading-6 text-zinc-900\"><a href=\"https://github.com/dwyl/phoenix-liveview-counter-tutorial\" class=\"hover:text-zinc-700\">\n        GitHub\n      </a><a href=\"https://github.com/dwyl/phoenix-liveview-counter-tutorial#how-\" class=\"rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80\">\n      etc..."
+     right: "Counter: 1"
+     stacktrace:
+       test/counter_web/live/counter_test.exs:13: (test)
+
+.
+Finished in 0.1 seconds (0.02s async, 0.09s sync)
+8 tests, 2 failures
+```
+
+The test is expecting the _initial_ state to be `0` (zero) each time.
+But if we are storing the `count` in the `GenServer`,
+it will not be `0`.
+
+We can easily update the tests to check the state 
+_before_ incrementing/decrementing it.
+Open the 
+`test/counter_web/live/counter_test.exs`
+file and replace the contents with the following:
+
+```elixir
+defmodule CounterWeb.CounterTest do
+  use CounterWeb.ConnCase
+  import Phoenix.LiveViewTest
+
+  test "Increment", %{conn: conn} do
+    {:ok, view, html} = live(conn, "/")
+    current = Counter.Count.current()
+    assert html =~ "Counter: #{current}"
+    assert render_click(view, :inc) =~ "Counter: #{current + 1}"
+  end
+
+  test "Decrement", %{conn: conn} do
+    {:ok, view, html} = live(conn, "/")
+    current = Counter.Count.current()
+    assert html =~ "Counter: #{current}"
+    assert render_click(view, :dec) =~ "Counter: #{current - 1}"
+  end
+
+  test "handle_info/2 Count Update", %{conn: conn} do
+    {:ok, view, disconnected_html} = live(conn, "/")
+    current = Counter.Count.current()
+    assert disconnected_html =~ "Counter: #{current}"
+    assert render(view) =~ "Counter: #{current}"
+    send(view.pid, {:count, 2})
+    assert render(view) =~ "Counter: 2"
+  end
+end
+```
+
+Re-run the tests `mix c` and watch them pass with 100% coverage:
+
+```sh
+.......
+Finished in 0.1 seconds (0.04s async, 0.09s sync)
+7 tests, 0 failures
+
+Randomized with seed 614997
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+100.0% lib/counter_web/live/counter.ex                31        7        0
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+100.0% lib/counter_web/live/counter_state.ex          53       12        0
+[TOTAL] 100.0%
+----------------
+```
+
+
+
 
 ## How many people are using the Counter?
 
@@ -1405,10 +1511,10 @@ First of all we need to tell the Application we are going to use Presence.
 For this we need to create a `lib/live_view_counter/presence.ex` file like this:
 
 ```elixir
-defmodule LiveViewCounter.Presence do
+defmodule Counter.Presence do
   use Phoenix.Presence,
     otp_app: :live_view_counter,
-    pubsub_server: LiveViewCounter.PubSub
+    pubsub_server: Counter.PubSub
 end
 ```
 
@@ -1419,21 +1525,21 @@ file (add it just below the PubSub config):
   def start(_type, _args) do
     children = [
       # Start the App State
-      LiveViewCounter.Count,
+      Counter.Count,
       # Start the Telemetry supervisor
       CounterWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: LiveViewCounter.PubSub},
-+     LiveViewCounter.Presence,
+      {Phoenix.PubSub, name: Counter.PubSub},
++     Counter.Presence,
       # Start the Endpoint (http/https)
       CounterWeb.Endpoint
-      # Start a worker by calling: LiveViewCounter.Worker.start_link(arg)
-      # {LiveViewCounter.Worker, arg}
+      # Start a worker by calling: Counter.Worker.start_link(arg)
+      # {Counter.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: LiveViewCounter.Supervisor]
+    opts = [strategy: :one_for_one, name: Counter.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -1453,15 +1559,15 @@ but not here) so the rest of the code goes into
 ```diff
 defmodule CounterWeb.Counter do
   use CounterWeb, :live_view
-  alias LiveViewCounter.Count
+  alias Counter.Count
   alias Phoenix.PubSub
-+ alias LiveViewCounter.Presence
++ alias Counter.Presence
 
   @topic Count.topic
 + @presence_topic "presence"
 
   def mount(_params, _session, socket) do
-    PubSub.subscribe(LiveViewCounter.PubSub, @topic)
+    PubSub.subscribe(Counter.PubSub, @topic)
 
 +   Presence.track(self(), @presence_topic, socket.id, %{})
 +   CounterWeb.Endpoint.subscribe(@presence_topic)
@@ -1526,7 +1632,7 @@ defmodule CounterWeb.CounterTest do
 
   test "connected mount", %{conn: conn} do
     {:ok, _view, html} = live(conn, "/")
-    current = LiveViewCounter.Count.current()
+    current = Counter.Count.current()
     assert html =~ "count is: #{current}"
   end
 end
@@ -1539,14 +1645,14 @@ Let's add logic to test increments and decrements
 ```elixir
   test "Increment", %{conn: conn} do
     {:ok, view, html} = live(conn, "/")
-    current = LiveViewCounter.Count.current()
+    current = Counter.Count.current()
     assert html =~ "count is: #{current}"
     assert render_click(view, :inc) =~ "count is: #{current + 1}"
   end
 
   test "Decrement", %{conn: conn} do
     {:ok, view, html} = live(conn, "/")
-    current = LiveViewCounter.Count.current()
+    current = Counter.Count.current()
     assert html =~ "count is: #{current}"
     assert render_click(view, :dec) =~ "count is: #{current - 1}"
   end
@@ -1557,7 +1663,7 @@ Some more tests for the logic when a new user is connected
 ```elixir
   test "handle_info/2 Count Update", %{conn: conn} do
     {:ok, view, disconnected_html} = live(conn, "/")
-    current = LiveViewCounter.Count.current()
+    current = Counter.Count.current()
     assert disconnected_html =~ "count is: #{current}"
     assert render(view) =~ "count is: #{current}"
     send(view.pid, {:count, 2})
