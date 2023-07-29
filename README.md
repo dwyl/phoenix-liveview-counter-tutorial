@@ -54,7 +54,7 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
     - [Create a `LiveView Component`](#create-a-liveview-component)
   - [Moving state out of the `LiveView`](#moving-state-out-of-the-liveview)
     - [Update the Tests for `GenServer` State](#update-the-tests-for-genserver-state)
-  - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
+  - [How many \`people\`\` are using the Counter?](#how-many-people-are-using-the-counter)
   - [More Tests!](#more-tests)
 - [_Done_! 🏁](#done-)
 - [What's _Next_?](#whats-next)
@@ -1500,25 +1500,27 @@ COV    FILE                                        LINES RELEVANT   MISSED
 
 
 
-## How many people are using the Counter?
+## How many `people`` are using the Counter?
 
 Phoenix has a very cool feature called
-[Presence](https://hexdocs.pm/phoenix/presence.html#content) to track how many
+[Presence](https://hexdocs.pm/phoenix/presence.html#content) 
+to track how many
 people are using our system. (It does a lot more than count users, but this is
 a counting app so...)
 
 First of all we need to tell the Application we are going to use Presence.
-For this we need to create a `lib/live_view_counter/presence.ex` file like this:
+For this we need to create a `lib/counter/presence.ex` file like this:
 
 ```elixir
 defmodule Counter.Presence do
   use Phoenix.Presence,
-    otp_app: :live_view_counter,
+    otp_app: :counter,
     pubsub_server: Counter.PubSub
 end
 ```
 
-and tell the application about it in the `lib/live_view_counter/application.ex`
+and tell the application about it in the 
+`lib/counter/application.ex`
 file (add it just below the PubSub config):
 
 ```diff
@@ -1551,10 +1553,10 @@ but not here) so the rest of the code goes into
 
 1. We subscribe to and participate in the Presence system (we do that in
    `mount`)
-1. We handle Presence updates and use the current count, adding joiners and
+2. We handle Presence updates and use the current count, adding joiners and
    subtracting leavers to calculate the current numbers 'present'. We do that
    in a pattern matched `handle_info`.
-1. We publish the additional data to the client in `render`
+3. We publish the additional data to the client in `render`
 
 ```diff
 defmodule CounterWeb.Counter do
@@ -1603,19 +1605,37 @@ defmodule CounterWeb.Counter do
 
   def render(assigns) do
     ~H"""
-    <div>
-      <h1>The count is: <%= @val %></h1>
-      <.button phx-click="dec">-</.button>
-      <.button phx-click="inc">+</.button>
-+     <h1>Current users: <%= @present %></h1>
-    </div>
+    <.live_component module={CounterComponent} id="counter" val={@val} />
++   <.live_component module={PresenceComponent} id="presence" present={@present} />
     """
   end
 end
 ```
 
-Now, as you open and close your incognito windows you will get a count of how
-many are running.
+You will have noticed that last addition in the `render/1` function invokes a `PresenceComponent`.
+It doesn't exist yet, let's create it now!
+
+Create a file with the path:
+`lib/counter_web/live/presence_component.ex`
+and add the following code to it:
+
+```elixir
+defmodule PresenceComponent do
+  use Phoenix.LiveComponent
+
+  def render(assigns) do
+    ~H"""
+    <h1 class="text-center pt-2 text-xl">Connected Clients: <%= @present %></h1>
+    """
+  end
+end
+```
+
+Now, as you open and close your incognito windows to `localhost:4000`, 
+you will get a count of how many are running.
+
+
+![dwyl-liveview-counter-presence-genserver-state](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/33220b3e-3d22-42a0-be37-414a1cb0b693)
 
 <br />
 
