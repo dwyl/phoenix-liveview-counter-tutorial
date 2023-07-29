@@ -49,6 +49,7 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
     - [Add `excoveralls` to Check/Track Coverage](#add-excoveralls-to-checktrack-coverage)
     - [Create a `coveralls.json` File](#create-a-coverallsjson-file)
     - [`DELETE` Unused Files](#delete-unused-files)
+    - [Add More Tests!](#add-more-tests)
   - [Bonus Level: Use a `LiveView Component` (Optional)](#bonus-level-use-a-liveview-component-optional)
     - [Create a `LiveView Component`](#create-a-liveview-component)
   - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
@@ -976,13 +977,136 @@ and add the following code to it:
 }
 ```
 
+This file and the `skip_files` list specifically, 
+tells `excoveralls` to ignore boilerplate `Phoenix` files
+we cannot test. 
+
+If you re-run `mix c` now you should see something similar to the following:
+
+```sh
+Randomized with seed 572431
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+  0.0% lib/counter_web/controllers/page_control        9        1        1
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+ 33.3% lib/counter_web/live/counter.ex                32       12        8
+[TOTAL]  40.0%
+----------------
+Generating report...
+Saved to: cover/
+FAILED: Expected minimum coverage of 100%, got 40%.
+```
+
+This is already much better. 
+There are only 2 files we need to focus on.
+Let's start by tidying up the unused files.
 
 ### `DELETE` Unused Files
 
+Given that this `counter` App doesn't use any "controllers",
+we can simply `DELETE` the 
+`lib/counter_web/controllers/page_controller.ex` file.
 
-`lib/counter_web/controllers/page_control`
+```sh
+git rm lib/counter_web/controllers/page_controller.ex
+```
+
+
+Rename the `test/counter_web/controllers/page_controller_test.exs`
+to: `test/counter_web/live/counter_test.exs`
+
+Update the code in the `test/counter_web/live/counter_test.exs` to:
+
+```elixir
+defmodule CounterWeb.CounterTest do
+  use CounterWeb.ConnCase
+  import Phoenix.LiveViewTest
+
+  test "connected mount", %{conn: conn} do
+    {:ok, _view, html} = live(conn, "/")
+    assert html =~ "Counter: 0"
+  end
+end
+```
+
+Re-run the tests:
+
+```sh
+mix c
+```
+
+You should see:
+
+```sh
+Finished in 0.1 seconds (0.04s async, 0.07s sync)
+6 tests, 0 failures
+
+Randomized with seed 603239
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+ 33.3% lib/counter_web/live/counter.ex                32       12        8
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+[TOTAL]  42.9%
+----------------
+Generating report...
+Saved to: cover/
+FAILED: Expected minimum coverage of 100%, got 42.9%.
+```
 
 <br />
+
+### Add More Tests!
+
+Open the `test/counter_web/live/counter_test.exs`
+and add the following tests:
+
+```elixir
+test "Increment", %{conn: conn} do
+  {:ok, view, _html} = live(conn, "/")
+  assert render_click(view, :inc) =~ "Counter: 1"
+end
+
+test "Decrement", %{conn: conn} do
+  {:ok, view, _html} = live(conn, "/")
+  assert render_click(view, :dec) =~ "Counter: -1"
+end
+
+test "handle_info/2 broadcast message", %{conn: conn} do
+  {:ok, view, _html} = live(conn, "/")
+  {:ok, view2, _html} = live(conn, "/")
+
+  assert render_click(view, :inc) =~ "Counter: 1"
+  assert render_click(view2, :inc) =~ "Counter: 2"
+end
+```
+
+Once you've saved the file, re-run the tests: `mix c`
+You should see:
+
+```sh
+........
+Finished in 0.1 seconds (0.03s async, 0.09s sync)
+8 tests, 0 failures
+
+Randomized with seed 552859
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+100.0% lib/counter_web/live/counter.ex                32       12        0
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+[TOTAL] 100.0%
+----------------
+```
 
 
 ## Bonus Level: Use a `LiveView Component` (Optional)
