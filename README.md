@@ -12,8 +12,8 @@
 and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
 
 <div>
-  <a href="https://live-view-counter.herokuapp.com/">
-    <img src="https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif">
+  <a href="https://livecount.fly.dev/">
+    <img src="https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/e61cf511-d1d8-4236-83b2-f9f45e06e710">
   </a>
 </div>
 
