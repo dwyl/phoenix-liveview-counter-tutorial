@@ -1052,13 +1052,23 @@ COV    FILE                                        LINES RELEVANT   MISSED
 100.0% lib/counter_web/controllers/page_html.ex        5        0        0
 100.0% lib/counter_web/endpoint.ex                    46        0        0
  33.3% lib/counter_web/live/counter.ex                32       12        8
-100.0% lib/counter_web/live/counter_component.e       17        2        0
 [TOTAL]  42.9%
 ----------------
 Generating report...
 Saved to: cover/
 FAILED: Expected minimum coverage of 100%, got 42.9%.
 ```
+
+Open the coverage `HTML` file:
+```sh
+open cover/excoveralls.html
+```
+
+You should see:
+
+<img width="1180" alt="image" src="https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/3efbe3ba-d3d4-47a7-88d5-82f0e8cb2712">
+
+This shows us which functions/lines are _not_ being covered by our _existing_ tests.
 
 <br />
 
@@ -1087,7 +1097,8 @@ test "handle_info/2 broadcast message", %{conn: conn} do
 end
 ```
 
-Once you've saved the file, re-run the tests: `mix c`
+Once you've saved the file, 
+re-run the tests: `mix c`
 You should see:
 
 ```sh
@@ -1103,11 +1114,11 @@ COV    FILE                                        LINES RELEVANT   MISSED
 100.0% lib/counter_web/controllers/page_html.ex        5        0        0
 100.0% lib/counter_web/endpoint.ex                    46        0        0
 100.0% lib/counter_web/live/counter.ex                32       12        0
-100.0% lib/counter_web/live/counter_component.e       17        2        0
 [TOTAL] 100.0%
 ----------------
 ```
 
+**Done**. ✅
 
 ## Bonus Level: Use a `LiveView Component` (Optional)
 
@@ -1198,6 +1209,27 @@ using `mix phx.server`
 and confirm everything still works:
 
 ![phoenix-liveview-counter-42](https://user-images.githubusercontent.com/194400/76267885-14985280-6264-11ea-8e6d-52d5166aacd9.gif)
+
+
+The tests all still pass and we have 100% coverage:
+
+```sh
+........
+Finished in 0.1 seconds (0.03s async, 0.09s sync)
+8 tests, 0 failures
+
+Randomized with seed 470293
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+100.0% lib/counter_web/live/counter.ex                32       12        0
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+[TOTAL] 100.0%
+----------------
+```
 
 
 
