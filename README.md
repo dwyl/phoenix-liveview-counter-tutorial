@@ -61,6 +61,7 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
 - [_Feedback_ 💬 🙏](#feedback--)
 - [Credits + Thanks! 🙌](#credits--thanks-)
   - [`Phoenix LiveView` for Web Developers Who Don't know `Elixir`](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
+  - [Relevant + Recommended Reading](#relevant--recommended-reading)
   
 <br />
 
@@ -1819,3 +1820,12 @@ Presence and Channels (Hooks) is worth watching:
 [![Sophie-DeBenedetto-elixir-conf-2019-talk](https://user-images.githubusercontent.com/194400/76205486-3a850f00-61f2-11ea-9503-aec19ee666b5.png)](https://youtu.be/AbNAuOQ8wBE)
 
 Related blog post: https://elixirschool.com/blog/live-view-live-component/
+
+## Relevant + Recommended Reading
+
++ Real-Time Form Validation with Phoenix LiveView:
+  https://blog.appsignal.com/2021/09/28/real-time-form-validations-with-phoenix-liveview.html
++ Optimizing User Experience with LiveView:
+  https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview
++ `TDD` with `LiveView`: 
+  https://youtu.be/KfW3l3qJPH8
