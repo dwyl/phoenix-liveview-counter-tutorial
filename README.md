@@ -259,7 +259,8 @@ and a clear picture of where we are headed, it's time to _build_ it!
 
 ## Step 1: Create the App 🆕
 
-In your terminal run the following `mix` command
+In your terminal, 
+run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
@@ -268,9 +269,9 @@ mix phx.new counter --no-ecto --no-mailer --no-dashboard --no-gettext
 
 The flags after the `counter` (name of the project),
 tell `mix phx.new` generator:
-+ `--no-ecto` - don't create a Database - we aren't storing the `count`
++ `--no-ecto` - don't create a Database - we aren't storing any data
 + `--no-mailer`- this project doesn't send `email`
-+ `--no-dashboard` - we don't need a status dashboard
++ `--no-dashboard` - we don't need a status `dashboard`
 + `--no-gettext` - no translation required
   
 This keeps our counter as simple as possible.
@@ -295,10 +296,11 @@ That will download all the necessary dependencies.
 
 ### Checkpoint 1: _Run_ the _Tests_!
 
-In your terminal, go into the newly created app folder using:
+In your terminal, 
+go into the newly created app folder:
 
 ```sh
-cd live_view_counter
+cd counter
 ```
 
 And then run the following `mix` command:
@@ -307,20 +309,23 @@ And then run the following `mix` command:
 mix test
 ```
 
-The first time it will compile Phoenix and will take some time.
-You should see something similar to this:
+This will compile the `Phoenix` app 
+and will take some time. ⏳ <br />
+You should see output similar to this:
 
-```
-Compiling 17 files (.ex)
-Generated live_view_counter app
-
+```sh
+Compiling 13 files (.ex)
+Generated counter app
 .....
-Finished in 0.1 seconds (0.05s async, 0.1s sync)
+Finished in 0.00 seconds (0.00s async, 0.00s sync)
 5 tests, 0 failures
+
+Randomized with seed 29485
 ```
 
-Tests all pass.
-This is _expected_ with a new app.
+Tests all pass. ✅
+
+This is _expected_ with a `new` app.
 It's a good way to confirm everything is working.
 
 <br />
@@ -337,20 +342,22 @@ Visit
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
 
-![welcome-to-phoenix](https://user-images.githubusercontent.com/194400/76152198-ae210200-60b4-11ea-956f-68935daddfe0.png)
+You should see something similar to the following:
+
+![welcome-to-phoenix](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/fa8a37e6-9b4d-4f36-b156-33a2e16030ff)
 
 <br />
 
 ## Step 2: Create the `counter.ex` File
 
 Create a new file with the path:
-`lib/live_view_counter_web/live/counter.ex`
+`lib/counter_web/live/counter.ex`
 
 And add the following code to it:
 
 ```elixir
-defmodule LiveViewCounterWeb.Counter do
-  use LiveViewCounterWeb, :live_view
+defmodule CounterWeb.Counter do
+  use CounterWeb, :live_view
 
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :val, 0)}
@@ -381,12 +388,15 @@ end
 
 ### _Explanation_ of the Code
 
-The first line instructs Phoenix to use the `Phoenix.LiveView` behaviour.
-This just means that we will need to implement certain functions
-for our live view to work.
+The first line instructs Phoenix to use the 
+[`Phoenix.LiveView`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html)
+[behaviour](https://elixirschool.com/en/lessons/advanced/behaviours).
+This just means that we need to implement certain functions
+for our `LiveView` to work.
 
 The first function is `mount/3` which,
-as it's name suggests, mounts the module
+as it's name suggests, 
+_mounts_ the module
 with the `_params`, `_session` and `socket` arguments:
 
 ```elixir
@@ -395,12 +405,12 @@ def mount(_params, _session, socket) do
 end
 ```
 
-In our case we are _ignoring_ the `_params` and `_session`,
-hence the underscore prepended
-to the parameters.
-If we were using sessions for user management,
+In our case we are _ignoring_ 
+the `_params` and `_session` arguments,
+hence the prepended underscore.
+If we were using sessions,
 we would need to check the `session` variable,
-but in this simple counter example we just ignore it.
+but in this simple `counter` example, we just ignore it.
 
 `mount/3` returns a
 [tuple](https://elixir-lang.org/getting-started/basic-types.html#tuples):
@@ -409,7 +419,7 @@ which uses the
 [`assign/3`](https://hexdocs.pm/phoenix/Phoenix.Socket.html#assign/3)
 function to assign the `:val` key a value of `0` on the `socket`.
 That just means the socket will now have a `:val`
-which is initialised to `0`.
+which is initialized to `0`.
 
 <br />
 
@@ -459,7 +469,8 @@ and _decrements_ the counter using the `&(&1 - 1)` syntax.
 > but different matches on the arguments
 > or different "arity" (_number of arguments_). <br />
 > For more detail on Functions in Elixir,
-> see: https://elixirschool.com/en/lessons/basics/functions/#named-functions
+> see: 
+> [elixirschool.com/functions/#named-functions](https://elixirschool.com/en/lessons/basics/functions/#named-functions)
 
 _Finally_ the _forth_ function `render/1`
 receives the `assigns` argument which contains the `:val` state
@@ -468,11 +479,11 @@ and renders the template using the `@val` template variable.
 The `render/1` function renders the template included in the function.
 The `~H"""` syntax just means
 "_treat this multiline string as a LiveView template_"
-The `~H` [sigil](https://elixir-lang.org/getting-started/sigils.html)
+The `~H` [`sigil``](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
 
-LiveView will invoke the `mount/3` function
+`LiveView` will invoke the `mount/3` function
 and will pass the result of `mount/3` to `render/1` behind the scenes.
 
 Each time an update happens (e.g: `handle_event/3`)
