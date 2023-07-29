@@ -40,8 +40,8 @@ and **_understand_** all the concepts in **20 minutes** or _less_! 🚀
   - [Step 3: Create the `live` Route in `router.ex`](#step-3-create-the-live-route-in-routerex)
     - [3.1 Update the Failing Test Assertion](#31-update-the-failing-test-assertion)
     - [Checkpoint: Run Counter App!](#checkpoint-run-counter-app)
-    - [Recap: Working Counter Without a JavaScript Framework](#recap-working-counter-without-a-javascript-framework)
-  - [Step 4: Share State Between Clients!](#step-4-share-state-between-clients)
+    - [Recap: Working Counter _Without_ Writing `JavaScript`!](#recap-working-counter-without-writing-javascript)
+  - [Step 4: _Share_ State Between Clients!](#step-4-share-state-between-clients)
     - [Code Explanation](#code-explanation)
     - [Checkpoint: Run It!](#checkpoint-run-it)
 - [Congratulations! 🎉](#congratulations-)
@@ -474,12 +474,13 @@ and _decrements_ the counter using the `&(&1 - 1)` syntax.
 
 _Finally_ the _forth_ function `render/1`
 receives the `assigns` argument which contains the `:val` state
-and renders the template using the `@val` template variable.
+and _renders_ the template using the `@val` template variable.
 
 The `render/1` function renders the template included in the function.
 The `~H"""` syntax just means
 "_treat this multiline string as a LiveView template_"
-The `~H` [`sigil``](https://elixir-lang.org/getting-started/sigils.html)
+The `~H` 
+[`sigil``](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
 
@@ -573,7 +574,7 @@ e.g:
 `"The count is"`
 
 > 🏁 The `page_controller_test.exs.exs` file should now look like this:
-> [`test/counter_web/controllers/page_controller_test.exs#L6`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/master/test/counter_web/controllers/page_controller_test.exs#L6)
+> [`test/counter_web/controllers/page_controller_test.exs#L6`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/73e6f79a5fb75c36d3e7bb5a894b7f515ab83d40/test/counter_web/controllers/page_controller_test.exs)
 
 Confirm the tests pass again by running:
 
@@ -585,10 +586,10 @@ You should see output similar to:
 
 ```
 .....
-Finished in 0.1 seconds (0.03s async, 0.07s sync)
+Finished in 0.08 seconds (0.03s async, 0.05s sync)
 5 tests, 0 failures
 
-Randomized with seed 244388
+Randomized with seed 268653
 ```
 
 <br />
@@ -606,53 +607,56 @@ Vist
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
 
-You should expect to see a fully functioning LiveView counter:
+You should expect to see a fully functioning `LiveView` counter:
 
-![phoenix-liveview-counter-single-windowl](https://user-images.githubusercontent.com/194400/76174551-d6395f80-619f-11ea-8e8d-ab9441d15b6d.gif)
+![liveview-counter-1.7.7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/abb5bb09-de59-4631-b5a9-48f9de28ef75)
 
 <br />
 
-### Recap: Working Counter Without a JavaScript Framework
+### Recap: Working Counter _Without_ Writing `JavaScript`!
 
 Once the initial installation
-and configuration of LiveView was complete,
-the creation of the actual counter was remarkably simple.
+and configuration of `LiveView` was complete,
+the creation of the actual counter was _remarkably_ simple.
 We created a _single_ new file
-[`lib/counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/7e75ba0cfd7f170dc022cfdf62af380d70cc1496/lib/counter_web/live/counter.ex)
+[`lib/counter_web/live/counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/6aeb1b53b4c22b14258772e65ac05fd172a9f961/lib/counter_web/live/counter.ex)
 that contains all the code required to
 initialise, render and update the counter.
 Then we set the `live "/", Counter` route
 to invoke the `Counter` module in `router.ex`.
 
-In total our counter App is **25 lines** of code.
+In total our `counter`` App is **25 lines** of (relevant) code. 🤯
 
 <br />
 
 One important thing to note is that
-the counter only maintains state for a single web browser.
+the counter only maintains state for a _single_ web browser.
 Try opening a second browser window (_e.g: in "incognito mode"_)
 and notice how the counter only updates in one window at a time:
 
-![phoenix-liveview-counter-two-windows-independent-count](https://user-images.githubusercontent.com/194400/76204729-de6dbb00-61f0-11ea-9e72-5c67f8aa6598.gif)
+![phoenix-liveview-counter-two-windows-independent-count](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/7f8d0742-a295-4507-b7a2-fa2a281a32cb)
 
-If we want to _share_ the counter state between multiple clients,
+If we want to _share_ the `counter` state between multiple clients,
 we need to add a bit more code.
 
 <br />
 
-## Step 4: Share State Between Clients!
+## Step 4: _Share_ State Between Clients!
 
 One of the biggest selling points
-of using Phoenix to build web apps
-is the built-in support for WebSockets
-in the form of "channels".
-Phoenix Channels allow us to
-effortlessly sync data between
-clients and servers with minimal overhead.
+of using `Phoenix` to build web apps
+is the built-in support for 
+[`WebSockets`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+in the form of 
+[`Phoenix Channels`](https://hexdocs.pm/phoenix/channels.html).
+`Channels` allow us to
+_effortlessly_ sync data between
+clients and servers with _minimal_ overhead;
+they are one of `Elixir` (`Erlang/OTP`) superpowers! 
 
-We can share the counter state
+We can share the `counter` state
 between multiple clients by updating the
-[`counter.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/fcf34ac1b7e0300ec5d51ce27695fece457fbd6d/lib/counter_web/live/counter.ex#L1)
+`counter.ex`
 file with the following code:
 
 ```elixir
@@ -684,10 +688,10 @@ defmodule CounterWeb.Counter do
 
   def render(assigns) do
     ~H"""
-    <div>
-      <h1>The count is: <%= @val %></h1>
-      <.button phx-click="dec">-</.button>
-      <.button phx-click="inc">+</.button>
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-center"> Counter: <%= @val %> </h1>
+      <.button phx-click="dec" class="w-20 bg-red-500 hover:bg-red-600">-</.button>
+      <.button phx-click="inc" class="w-20 bg-green-500 hover:bg-green-600">+</.button>
     </div>
     """
   end
