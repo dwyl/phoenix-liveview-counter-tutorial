@@ -3,16 +3,16 @@
     "minimum_coverage": 100
   },
   "skip_files": [
-    "lib/live_view_counter/application.ex",
-    "lib/live_view_counter_web.ex",
-    "lib/live_view_counter_web/channels/user_socket.ex",
-    "lib/live_view_counter_web/telemetry.ex",
-    "lib/live_view_counter_web/views/error_helpers.ex",
-    "lib/live_view_counter_web/router.ex",
-    "lib/live_view_counter_web/live/page_live.ex",
-    "lib/live_view_counter_web/components/core_components.ex",
-    "lib/live_view_counter_web/controllers/error_json.ex",
-    "lib/live_view_counter_web/controllers/error_html.ex",
+    "lib/counter/application.ex",
+    "lib/counter_web.ex",
+    "lib/counter_web/channels/user_socket.ex",
+    "lib/counter_web/telemetry.ex",
+    "lib/counter_web/views/error_helpers.ex",
+    "lib/counter_web/router.ex",
+    "lib/counter_web/live/page_live.ex",
+    "lib/counter_web/components/core_components.ex",
+    "lib/counter_web/controllers/error_json.ex",
+    "lib/counter_web/controllers/error_html.ex",
     "test/"
   ]
 }

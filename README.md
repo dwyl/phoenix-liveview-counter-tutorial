@@ -45,17 +45,20 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
     - [Code Explanation](#code-explanation)
     - [Checkpoint: Run It!](#checkpoint-run-it)
   - [Congratulations! 🎉](#congratulations-)
+  - [Tests! 🧪](#tests-)
+    - [Add `excoveralls` to Check/Track Coverage](#add-excoveralls-to-checktrack-coverage)
+    - [Create a `coveralls.json` File](#create-a-coverallsjson-file)
+    - [`DELETE` Unused Files](#delete-unused-files)
   - [Bonus Level: Use a `LiveView Component` (Optional)](#bonus-level-use-a-liveview-component-optional)
     - [Create a `LiveView Component`](#create-a-liveview-component)
-- [_Done_! 🏁](#done-)
-  - [What's _Next_?](#whats-next)
-  - [_Feedback_](#feedback)
-- [Future Steps](#future-steps)
   - [Moving state out of the LiveViews](#moving-state-out-of-the-liveviews)
   - [How many people are using the Counter?](#how-many-people-are-using-the-counter)
-  - [Some more tests](#some-more-tests)
+  - [More Tests!](#more-tests)
+- [_Done_! 🏁](#done-)
+- [What's _Next_?](#whats-next)
+- [_Feedback_ 💬 🙏](#feedback--)
 - [Credits + Thanks! 🙌](#credits--thanks-)
-    - [`Phoenix LiveView`` for Web Developers Who Don't know `Elixir\`](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
+  - [`Phoenix LiveView` for Web Developers Who Don't know `Elixir`](#phoenix-liveview-for-web-developers-who-dont-know-elixir)
   
 <br />
 
@@ -842,7 +845,142 @@ You should see the count increasing/decreasing in all browsers simultaneously!
 You just built a real-time counter
 that seamlessly updates all connected clients
 using `Phoenix LiveView`
-in less than 40 lines of code!
+in less than **40 lines** of code!
+
+<br />
+
+## Tests! 🧪
+
+`before` we get carried away celebrating that we've _finished_ the counter,
+Let's make sure that all the functionality, however basic, is fully tested.
+
+### Add `excoveralls` to Check/Track Coverage
+
+Open your `mix.exs` file and locate the `deps` list.
+Add the following line to the list:
+
+```elixir
+# Track test coverage: github.com/parroty/excoveralls
+{:excoveralls, "~> 0.16.0", only: [:test, :dev]},
+```
+
+e.g: 
+[`mix.exs#L58`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/664228ac564a79a0dd92d06857622c1ba22cda71/mix.exs#L58)
+
+Then, still in the `mix.exs` file, locate the `project` definition,
+and replace:
+
+```elixir
+deps: deps()
+```
+
+With the following lines:
+
+```elixir
+deps: deps(),
+test_coverage: [tool: ExCoveralls],
+preferred_cli_env: [
+  c: :test,
+  coveralls: :test,
+  "coveralls.detail": :test,
+  "coveralls.json": :test,
+  "coveralls.post": :test,
+  "coveralls.html": :test,
+  t: :test
+]
+```
+
+e.g:
+[`mix.exs#L13-L22`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/664228ac564a79a0dd92d06857622c1ba22cda71/mix.exs#L13-L22)
+
+Finally in the `aliases` section of `mix.exs`,
+add the following lines:
+
+```elixir
+c: ["coveralls.html"],
+s: ["phx.server"],
+t: ["test"]
+```
+
+The `mix c` alias is the one we care about, we're going to use it immediately.
+The other two `mix s` and `mix t` are convenient shortcuts too. 
+Hopefully you can infer what they do. 👌
+
+
+With the the `mix.exs` file updated, 
+run the following commands in your terminal:
+
+```sh
+mix deps.get
+mix c
+```
+
+That will download the `excoveralls` dependency
+and execute the tests with coverage tracking.
+
+You should see output similar to the following:
+
+```sh
+Randomized with seed 468341
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+ 75.0% lib/counter/application.ex                     34        4        1
+100.0% lib/counter_web.ex                            111        2        0
+ 15.9% lib/counter_web/components/core_componen      661      151      127
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/error_html.e       19        1        0
+100.0% lib/counter_web/controllers/error_json.e       15        1        0
+  0.0% lib/counter_web/controllers/page_control        9        1        1
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+ 33.3% lib/counter_web/live/counter.ex                32       12        8
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+100.0% lib/counter_web/router.ex                      18        2        0
+ 80.0% lib/counter_web/telemetry.ex                   69        5        1
+[TOTAL]  23.8%
+----------------
+Generating report...
+Saved to: cover/
+FAILED: Expected minimum coverage of 100%, got 23.8%.
+```
+
+This tells us that only `23.8%` of the code in the project is covered by tests. 😕
+Let's fix that!
+
+### Create a `coveralls.json` File
+
+In the root of the project, 
+create a file called `coveralls.json`
+and add the following code to it:
+
+
+```json
+{
+  "coverage_options": {
+    "minimum_coverage": 100
+  },
+  "skip_files": [
+    "lib/counter/application.ex",
+    "lib/counter_web.ex",
+    "lib/counter_web/channels/user_socket.ex",
+    "lib/counter_web/telemetry.ex",
+    "lib/counter_web/views/error_helpers.ex",
+    "lib/counter_web/router.ex",
+    "lib/counter_web/live/page_live.ex",
+    "lib/counter_web/components/core_components.ex",
+    "lib/counter_web/controllers/error_json.ex",
+    "lib/counter_web/controllers/error_html.ex",
+    "test/"
+  ]
+}
+```
+
+
+### `DELETE` Unused Files
+
+
+`lib/counter_web/controllers/page_control`
 
 <br />
 
@@ -890,14 +1028,17 @@ And type (or paste) the following code in it:
 ```elixir
 defmodule CounterComponent do
   use Phoenix.LiveComponent
-  use CounterWeb, :live_view
 
   def render(assigns) do
     ~H"""
     <div class="text-center">
       <h1 class="text-4xl font-bold text-center"> Counter: <%= @val %> </h1>
-      <.button phx-click="dec" class="text-6xl pb-2 w-20 bg-red-500 hover:bg-red-600">-</.button>
-      <.button phx-click="inc" class="text-6xl pb-2 w-20 bg-green-500 hover:bg-green-600">+</.button>
+      <button phx-click="dec" class="text-6xl pb-2 w-20 bg-red-500 hover:bg-red-600 rounded-lg">
+        -
+      </button>
+      <button phx-click="inc" class="text-6xl pb-2 w-20 bg-green-500 hover:bg-green-600 rounded-lg">
+        +
+      </button>
     </div>
     """
   end
@@ -934,55 +1075,7 @@ and confirm everything still works:
 
 ![phoenix-liveview-counter-42](https://user-images.githubusercontent.com/194400/76267885-14985280-6264-11ea-8e6d-52d5166aacd9.gif)
 
-<br /><br />
 
-# _Done_! 🏁
-
-
-That's it for this tutorial. <br />
-We hope you enjoyed learning with us! <br />
-If you found this useful, 
-please ⭐️ and _share_ the `GitHub`` repo
-so we know you like it!
-
-<br />
-
-## What's _Next_?
-
-If you've enjoyed this basic `counter`` tutorial
-and want something a bit more advanced,
-checkout our **`LiveView` _Chat_ Tutorial**:
-[github.com/dwyl/**phoenix-liveview-chat-example**](https://github.com/dwyl/phoenix-liveview-chat-example) 💬 <br />
-Then if you want a more advanced "real world" App
-that uses `LiveView` _extensively_
-including `Authentication` and some client-side `JS`,
-checkout our 
-**`MVP` App** 
-[/dwyl/**mvp**](https://github.com/dwyl/mvp/)
-
-
-<br /><br />
-
-## _Feedback_
-
-Several people in the `Elixir` / `Phoenix` community
-have found this tutorial helpful when starting to use `LiveView`,
-e.g: Kurt Mackey [**`@mrkurt`**](https://github.com/mrkurt)
-[twitter.com/mrkurt/status/1362940036795219973](https://twitter.com/mrkurt/status/1362940036795219973)
-
-![mrkurt-liveview-tweet](https://user-images.githubusercontent.com/194400/109387184-c8707300-78f7-11eb-9f2f-3a13f5433b77.png)
-
-He deployed the counter app to a 17 region cluster using fly.io: https://liveview-counter.fly.dev
-
-![liveview-counter-cluster](https://user-images.githubusercontent.com/194400/170820493-117751b7-078a-4d4c-9539-33bb5ff8e14d.png)
-
-Code: https://github.com/fly-apps/phoenix-liveview-cluster/blob/master/lib/counter_web/live/counter.ex
-
-> **_Your_ feedback** is always very much **welcome**! 🙏
-
-<br />
-
-# Future Steps
 
 ## Moving state out of the LiveViews
 
@@ -1264,7 +1357,7 @@ many are running.
 
 <br />
 
-## Some more tests
+## More Tests!
 
 Once you have implemented the solution - before if you are using TDD - you need to make sure that the new code is properly tested. 
 
@@ -1342,6 +1435,53 @@ And lastly the logic that follows presence
 ```
 
 
+# _Done_! 🏁
+
+
+That's it for this tutorial. <br />
+We hope you enjoyed learning with us! <br />
+If you found this useful, 
+please ⭐️ and _share_ the `GitHub`` repo
+so we know you like it!
+-->
+
+<br />
+
+# What's _Next_?
+
+If you've enjoyed this basic `counter`` tutorial
+and want something a bit more advanced,
+checkout our **`LiveView` _Chat_ Tutorial**:
+[github.com/dwyl/**phoenix-liveview-chat-example**](https://github.com/dwyl/phoenix-liveview-chat-example) 💬 <br />
+Then if you want a more advanced "real world" App
+that uses `LiveView` _extensively_
+including `Authentication` and some client-side `JS`,
+checkout our 
+**`MVP` App** 
+[/dwyl/**mvp**](https://github.com/dwyl/mvp/)
+
+
+<br /><br />
+
+# _Feedback_ 💬 🙏
+
+Several people in the `Elixir` / `Phoenix` community
+have found this tutorial helpful when starting to use `LiveView`,
+e.g: Kurt Mackey [**`@mrkurt`**](https://github.com/mrkurt)
+[twitter.com/mrkurt/status/1362940036795219973](https://twitter.com/mrkurt/status/1362940036795219973)
+
+![mrkurt-liveview-tweet](https://user-images.githubusercontent.com/194400/109387184-c8707300-78f7-11eb-9f2f-3a13f5433b77.png)
+
+He deployed the counter app to a 17 region cluster using fly.io: https://liveview-counter.fly.dev
+
+![liveview-counter-cluster](https://user-images.githubusercontent.com/194400/170820493-117751b7-078a-4d4c-9539-33bb5ff8e14d.png)
+
+Code: https://github.com/fly-apps/phoenix-liveview-cluster/blob/master/lib/counter_web/live/counter.ex
+
+> **_Your_ feedback** is always very much **welcome**! 🙏
+
+<br /><br />
+
 # Credits + Thanks! 🙌
 
 Credit for inspiring this tutorial goes to Dennis Beatty
@@ -1373,7 +1513,7 @@ between this tutorial and Dennis' original post are:
 
 <br />
 
-### `Phoenix LiveView`` for Web Developers Who Don't know `Elixir`
+## `Phoenix LiveView` for Web Developers Who Don't know `Elixir`
 
 If you are new to LiveView (_and have the bandwidth_),
 we recommend watching
