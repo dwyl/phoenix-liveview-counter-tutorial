@@ -8,18 +8,18 @@
 import Config
 
 # Configures the endpoint
-config :live_view_counter, LiveViewCounterWeb.Endpoint,
+config :counter, CounterWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
-    formats: [html: LiveViewCounterWeb.ErrorHTML, json: LiveViewCounterWeb.ErrorJSON],
+    formats: [html: CounterWeb.ErrorHTML, json: CounterWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: LiveViewCounter.PubSub,
-  live_view: [signing_salt: "iwg//jCM"]
+  pubsub_server: Counter.PubSub,
+  live_view: [signing_salt: "bsg+Oldz"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.41",
+  version: "0.17.11",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
@@ -29,7 +29,7 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.1.8",
+  version: "3.3.2",
   default: [
     args: ~w(
       --config=tailwind.config.js

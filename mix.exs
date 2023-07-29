@@ -1,10 +1,10 @@
-defmodule LiveViewCounter.MixProject do
+defmodule Counter.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :live_view_counter,
-      version: "1.7.0",
+      app: :counter,
+      version: "1.7.7",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -28,7 +28,7 @@ defmodule LiveViewCounter.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {LiveViewCounter.Application, []},
+      mod: {Counter.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -42,22 +42,20 @@ defmodule LiveViewCounter.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.0-rc.0", override: true},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix, "~> 1.7.7"},
+      {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.19.1"},
+      {:phoenix_live_view, "~> 0.19.0"},
       {:floki, ">= 0.30.0", only: :test},
-      {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
-      {:finch, "~> 0.13"},
+      {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
 
-      # Test Code Coverage:
-      {:excoveralls, "~> 0.16.0", only: :test}
+      # Track test coverage: github.com/parroty/excoveralls
+      {:excoveralls, "~> 0.16.0", only: [:test, :dev]},
     ]
   end
 
@@ -69,11 +67,13 @@ defmodule LiveViewCounter.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get"],
+      setup: ["deps.get", "assets.setup", "assets.build"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
-      t: ["test"],
       c: ["coveralls.html"],
-      s: ["phx.server"]
+      s: ["phx.server"],
+      t: ["test"]
     ]
   end
 end
