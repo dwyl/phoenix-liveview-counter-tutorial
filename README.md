@@ -1641,84 +1641,58 @@ you will get a count of how many are running.
 
 ## More Tests!
 
-Once you have implemented the solution - before if you are using TDD - you need to make sure that the new code is properly tested. 
-
-We had a small test that showed that we were showing the counter in the web page, but let's test some of the new logic we added to the "test/counter_web/live/counter_test.exs" file
+Once you have implemented the solution,
+you need to make sure that the new code is tested. 
+Open the `test/counter_web/live/counter_test.exs` file
+and add the following tests:
 
 ```elixir
-defmodule CounterWeb.CounterTest do
-  use CounterWeb.ConnCase
-  import Phoenix.LiveViewTest
+test "handle_info/2 Presence Update - Joiner", %{conn: conn} do
+  {:ok, view, html} = live(conn, "/")
+  assert html =~ "Connected Clients: 1"
+  send(view.pid, %{
+    event: "presence_diff",
+    payload: %{joins: %{"phx-Fhb_dqdqsOCzKQAl" => %{metas: [%{phx_ref: "Fhb_dqdrwlCmfABl"}]}},
+                leaves: %{}}})
+  assert render(view) =~ "Connected Clients: 2"
+end
 
-  test "connected mount", %{conn: conn} do
-    {:ok, _view, html} = live(conn, "/")
-    current = Counter.Count.current()
-    assert html =~ "count is: #{current}"
-  end
+test "handle_info/2 Presence Update - Leaver", %{conn: conn} do
+  {:ok, view, html} = live(conn, "/")
+  assert html =~ "Connected Clients: 1"
+  send(view.pid, %{
+    event: "presence_diff",
+    payload: %{joins: %{},
+                leaves: %{"phx-Fhb_dqdqsOCzKQAl" => %{metas: [%{phx_ref: "Fhb_dqdrwlCmfABl"}]}}}})
+  assert render(view) =~ "Connected Clients: 0"
 end
 ```
 
-We load the cases and the LiveViewTest and start testing that the connnection shows the current number of users when connecting.
+With those tests in place, re-running the tests with coverage `mix c`,
+you should see the following:
 
-Let's add logic to test increments and decrements
+```sh
+.........
+Finished in 0.1 seconds (0.04s async, 0.1s sync)
+9 tests, 0 failures
 
-```elixir
-  test "Increment", %{conn: conn} do
-    {:ok, view, html} = live(conn, "/")
-    current = Counter.Count.current()
-    assert html =~ "count is: #{current}"
-    assert render_click(view, :inc) =~ "count is: #{current + 1}"
-  end
-
-  test "Decrement", %{conn: conn} do
-    {:ok, view, html} = live(conn, "/")
-    current = Counter.Count.current()
-    assert html =~ "count is: #{current}"
-    assert render_click(view, :dec) =~ "count is: #{current - 1}"
-  end
-
+Randomized with seed 958121
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/counter.ex                                  9        0        0
+100.0% lib/counter/presence.ex                         5        0        0
+100.0% lib/counter_web/components/layouts.ex           5        0        0
+100.0% lib/counter_web/controllers/page_html.ex        5        0        0
+100.0% lib/counter_web/endpoint.ex                    46        0        0
+100.0% lib/counter_web/live/counter.ex                51       13        0
+100.0% lib/counter_web/live/counter_component.e       17        2        0
+100.0% lib/counter_web/live/counter_state.ex          53       12        0
+100.0% lib/counter_web/live/presence_component.        9        2        0
+[TOTAL] 100.0%
+----------------
 ```
-
-Some more tests for the logic when a new user is connected
-```elixir
-  test "handle_info/2 Count Update", %{conn: conn} do
-    {:ok, view, disconnected_html} = live(conn, "/")
-    current = Counter.Count.current()
-    assert disconnected_html =~ "count is: #{current}"
-    assert render(view) =~ "count is: #{current}"
-    send(view.pid, {:count, 2})
-    assert render(view) =~ "count is: 2"
-  end
-```
-
-And lastly the logic that follows presence
-
-```elixir
-
-  test "handle_info/2 Presence Update - Joiner", %{conn: conn} do
-    {:ok, view, html} = live(conn, "/")
-    assert html =~ "Current users: 1"
-    send(view.pid, %{
-      event: "presence_diff",
-      payload: %{joins: %{"phx-Fhb_dqdqsOCzKQAl" => %{metas: [%{phx_ref: "Fhb_dqdrwlCmfABl"}]}},
-                 leaves: %{}}})
-    assert render(view) =~ "Current users: 2"
-  end
-
-  test "handle_info/2 Presence Update - Leaver", %{conn: conn} do
-    {:ok, view, html} = live(conn, "/")
-    assert html =~ "Current users: 1"
-    send(view.pid, %{
-      event: "presence_diff",
-      payload: %{joins: %{},
-                 leaves: %{"phx-Fhb_dqdqsOCzKQAl" => %{metas: [%{phx_ref: "Fhb_dqdrwlCmfABl"}]}}}})
-    assert render(view) =~ "Current users: 0"
-  end
-```
-
 
 # _Done_! 🏁
-
 
 That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
