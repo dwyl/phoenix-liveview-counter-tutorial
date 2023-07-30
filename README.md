@@ -9,14 +9,14 @@
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-counter-tutorial.svg)](https://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
 
 **Build your _first_ App** using **Phoenix LiveView** 🥇<br />
-and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
+and **_understand_** all the concepts in **10 minutes** or _less_! 🚀 <br />
+Try it: [livecount.fly.dev](https://livecount.fly.dev/)
 
-<div>
-  <a href="https://livecount.fly.dev/">
-    <img src="https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/e61cf511-d1d8-4236-83b2-f9f45e06e710">
-  </a>
-</div>
-
+  <div>
+    <a href="https://livecount.fly.dev/">
+      <img src="https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/e61cf511-d1d8-4236-83b2-f9f45e06e710">
+    </a>
+  </div>
 </div>
 <br />
 
@@ -54,7 +54,7 @@ and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
     - [Create a `LiveView Component`](#create-a-liveview-component)
   - [Moving state out of the `LiveView`](#moving-state-out-of-the-liveview)
     - [Update the Tests for `GenServer` State](#update-the-tests-for-genserver-state)
-  - [How many \`people\`\` are using the Counter?](#how-many-people-are-using-the-counter)
+  - [How many `people` are viewing the Counter?](#how-many-people-are-viewing-the-counter)
   - [More Tests!](#more-tests)
 - [_Done_! 🏁](#done-)
 - [What's _Next_?](#whats-next)
@@ -176,7 +176,7 @@ Phoenix installer v1.7.7
 
 If you have an earlier version,
 definitely upgrade to get the _latest_ features! <br />
-If you have a _later_ version of `Phoenix``,
+If you have a _later_ version of `Phoenix`,
 and you get _stuck_ at any point,
 _please_
 [open an issue on GitHub!](https://github.com/dwyl/phoenix-liveview-counter-tutorial/issues)
@@ -204,8 +204,8 @@ We always
 so we recommend running the _finished_ app
 on your machine _before_ writing any code.
 
-> 💡 You can also try the version deployed to Heroku:
-> https://live-view-counter.herokuapp.com
+> 💡 You can also try the version deployed to Fly.io:
+> [livecount.fly.dev](https://livecount.fly.dev)
 
 <br />
 
@@ -257,9 +257,9 @@ in your web browser.
 > 💡 Open a _second_ browser window (_e.g. incognito mode_),
 > you will see the the counter updating in both places like magic!
 
-You should expect to see:
+You should expect to see something similar to the following:
 
-![phoenix-liveview-counter-start](https://user-images.githubusercontent.com/194400/76150696-2e3f6b80-60a5-11ea-8d65-1999a70bb40a.gif)
+![phoenix-liveview-counter-start](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/d473ce40-f0e6-4b30-af2f-d9902921a9ac)
 
 With the _finished_ version of the App running on your machine
 and a clear picture of where we are headed, it's time to _build_ it!
@@ -489,7 +489,7 @@ The `render/1` function renders the template included in the function.
 The `~H"""` syntax just means
 "_treat this multiline string as a LiveView template_"
 The `~H` 
-[`sigil``](https://elixir-lang.org/getting-started/sigils.html)
+[`sigil`](https://elixir-lang.org/getting-started/sigils.html)
 is a macro included when the `use Phoenix.LiveView` is invoked
 at the top of the file.
 
@@ -634,13 +634,14 @@ initialise, render and update the counter.
 Then we set the `live "/", Counter` route
 to invoke the `Counter` module in `router.ex`.
 
-In total our `counter`` App is **25 lines** of (relevant) code. 🤯
+In total our `counter` App is **25 lines** of (relevant) code. 🤯
 
 <br />
 
 One important thing to note is that
-the counter only maintains state for a _single_ web browser.
-Try opening a second browser window (_e.g: in "incognito mode"_)
+the counter only maintains state 
+for a _single_ web browser.
+Try opening a _second_ browser window (_e.g: in "incognito mode"_)
 and notice how the counter only updates in one window at a time:
 
 ![phoenix-liveview-counter-two-windows-independent-count](https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/7f8d0742-a295-4507-b7a2-fa2a281a32cb)
@@ -720,7 +721,7 @@ The second change is on
 [Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/664228ac564a79a0dd92d06857622c1ba22cda71/lib/counter_web/live/counter.exL7)
 where the
 [`mount/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/counter_web/live/counter.ex#L6)
-function now creates a subscription to the `@topic``:
+function now creates a subscription to the `@topic`:
 
 ```elixir
 CounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel topic
@@ -1151,9 +1152,9 @@ to make it easier to read and maintain.
 This is where 
 [`Phoenix.LiveComponent`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html)
 comes to the rescue!
-`LiveComponents`` are a mechanism 
+`LiveComponents` are a mechanism 
 to compartmentalize state, markup, 
-and events in `LiveView``.
+and events in `LiveView`.
 
 ### Create a `LiveView Component`
 
@@ -1166,14 +1167,19 @@ And type (or paste) the following code in it:
 defmodule CounterComponent do
   use Phoenix.LiveComponent
 
+  # Avoid duplicating Tailwind classes and show hot to inline a function call:
+  defp btn(color) do
+    "text-6xl pb-2 w-20 rounded-lg bg-#{color}-500 hover:bg-#{color}-600"
+  end
+
   def render(assigns) do
     ~H"""
     <div class="text-center">
       <h1 class="text-4xl font-bold text-center"> Counter: <%= @val %> </h1>
-      <button phx-click="dec" class="text-6xl pb-2 w-20 bg-red-500 hover:bg-red-600 rounded-lg">
+      <button phx-click="dec" class={btn("red")}>
         -
       </button>
-      <button phx-click="inc" class="text-6xl pb-2 w-20 bg-green-500 hover:bg-green-600 rounded-lg">
+      <button phx-click="inc" class={btn("green")}>
         +
       </button>
     </div>
@@ -1197,7 +1203,7 @@ update the `render/1` function to:
 > 🏁 Your `counter_component.ex` should look like this:
 [`lib/counter_web/live/counter_component.ex`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/92a25e41d52be7bbfd430b92181540806af64baa/lib/counter_web/live/counter_component.ex)
 
-The component's has an identical
+The component has a similar
 [`render/1`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/33e0e47fd379e1314dcba6509d214c9468632c77/lib/counter_web/live/counter.ex#L27-L34)
 function to what was in `counter.ex`.
 That's the point; we just want it in a separate file
@@ -1395,7 +1401,7 @@ end
 ```
 
 The initial state is retrieved from the
-shared Application `GenServer`` process 
+shared Application `GenServer` process 
 and the updates are being forwarded there
 via its API. 
 Finally, the `GenServer`
@@ -1501,16 +1507,20 @@ COV    FILE                                        LINES RELEVANT   MISSED
 
 
 
-## How many `people`` are using the Counter?
+## How many `people` are viewing the Counter?
 
-Phoenix has a very cool feature called
-[Presence](https://hexdocs.pm/phoenix/presence.html#content) 
+`Phoenix` has a very cool feature called
+[`Presence`](https://hexdocs.pm/phoenix/presence.html#content) 
 to track how many
-people are using our system. (It does a lot more than count users, but this is
-a counting app so...)
+`people` (connected clients) are using our system. 
+It does a lot more than count clients, 
+but this is a counting app so ...
 
-First of all we need to tell the Application we are going to use Presence.
-For this we need to create a `lib/counter/presence.ex` file like this:
+First of all we need to tell the `Application` 
+we are going to use `Presence`.
+For this we need to create a 
+`lib/counter/presence.ex` 
+file and add the following lines of code:
 
 ```elixir
 defmodule Counter.Presence do
@@ -1698,15 +1708,15 @@ COV    FILE                                        LINES RELEVANT   MISSED
 That's it for this tutorial. <br />
 We hope you enjoyed learning with us! <br />
 If you found this useful, 
-please ⭐️ and _share_ the `GitHub`` repo
+please ⭐️ and _share_ the `GitHub` repo
 so we know you like it!
--->
+
 
 <br />
 
 # What's _Next_?
 
-If you've enjoyed this basic `counter`` tutorial
+If you've enjoyed this basic `counter` tutorial
 and want something a bit more advanced,
 checkout our **`LiveView` _Chat_ Tutorial**:
 [github.com/dwyl/**phoenix-liveview-chat-example**](https://github.com/dwyl/phoenix-liveview-chat-example) 💬 <br />
@@ -1716,6 +1726,7 @@ including `Authentication` and some client-side `JS`,
 checkout our 
 **`MVP` App** 
 [/dwyl/**mvp**](https://github.com/dwyl/mvp/)
+📱⏳✅ ❤️ 
 
 
 <br /><br />
@@ -1769,6 +1780,7 @@ between this tutorial and Dennis' original post are:
    This is the true power and "WOW Moment" of `LiveView`!
 
 <br />
+
 
 ## `Phoenix LiveView` for Web Developers Who Don't know `Elixir`
 
