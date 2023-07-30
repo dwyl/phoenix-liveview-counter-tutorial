@@ -204,8 +204,8 @@ We always
 so we recommend running the _finished_ app
 on your machine _before_ writing any code.
 
-> 💡 You can also try the version deployed to Heroku:
-> https://live-view-counter.herokuapp.com
+> 💡 You can also try the version deployed to Fly.io:
+> [livecount.fly.dev](https://livecount.fly.dev)
 
 <br />
 
