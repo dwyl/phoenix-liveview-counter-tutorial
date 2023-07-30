@@ -9,7 +9,8 @@
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-counter-tutorial.svg)](https://hits.dwyl.io/dwyl/phoenix-liveview-counter-tutorial)
 
 **Build your _first_ App** using **Phoenix LiveView** 🥇<br />
-and **_understand_** all the concepts in **10 minutes** or _less_! 🚀
+and **_understand_** all the concepts in **10 minutes** or _less_! 🚀 <br />
+Try it: [livecount.fly.dev](https://livecount.fly.dev/)
 
   <div>
     <a href="https://livecount.fly.dev/">
