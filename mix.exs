@@ -55,7 +55,7 @@ defmodule Counter.MixProject do
       {:plug_cowboy, "~> 2.5"},
 
       # Track test coverage: github.com/parroty/excoveralls
-      {:excoveralls, "~> 0.16.0", only: [:test, :dev]},
+      {:excoveralls, "~> 0.17.0", only: [:test, :dev]},
     ]
   end
 
