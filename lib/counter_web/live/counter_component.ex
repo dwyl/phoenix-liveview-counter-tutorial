@@ -9,6 +9,7 @@ defmodule CounterComponent do
   def render(assigns) do
     ~H"""
     <div class="text-center">
+      <!-- bg-green-500 hover:bg-green-600 bg-red-500 hover:bg-red-600 -->
       <h1 class="text-4xl font-bold text-center">Counter: <%= @val %></h1>
       <button phx-click="dec" class={btn("red")}>
         -
