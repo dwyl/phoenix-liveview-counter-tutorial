@@ -10,6 +10,7 @@ import Config
 # Configures the endpoint
 config :counter, CounterWeb.Endpoint,
   url: [host: "localhost"],
+  adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: CounterWeb.ErrorHTML, json: CounterWeb.ErrorJSON],
     layout: false

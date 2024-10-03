@@ -146,16 +146,16 @@ When you run the command:
 elixir -v
 ```
 
-You should expect to see output similar to the following:
+At the time of writing, you should expect to see output similar to the following:
 
 ```elixir
-Elixir 1.15.4 (compiled with Erlang/OTP 26)
+Elixir 1.17.3 (compiled with Erlang/OTP 26)
 ```
 
-This informs us we are using `Elixir version 1.15.4`
+This informs us we are using `Elixir version 1.17.3`
 which is the _latest_ version at the time of writing.
 Some of the more advanced features of Phoenix 1.7 during compilation time require elixir 
-`1.14` although the code will work in previous versions.
+`1.17` although the code will work in previous versions.
 
 <br />
 
@@ -171,7 +171,7 @@ mix phx.new -v
 You should see something similar to the following:
 
 ```sh
-Phoenix installer v1.7.7
+Phoenix installer v1.7.14
 ```
 
 If you have an earlier version,
@@ -676,7 +676,9 @@ defmodule CounterWeb.Counter do
   @topic "live"
 
   def mount(_session, _params, socket) do
-    CounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
+    if connected?(socket) do
+      CounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel
+    end
     {:ok, assign(socket, :val, 0)}
   end
 
@@ -721,11 +723,27 @@ The second change is on
 [Line 7](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/664228ac564a79a0dd92d06857622c1ba22cda71/lib/counter_web/live/counter.exL7)
 where the
 [`mount/3`](https://github.com/dwyl/phoenix-liveview-counter-tutorial/blob/d3cddb14dff911a377d0e41b916cfe57b0557606/lib/counter_web/live/counter.ex#L6)
-function now creates a subscription to the `@topic`:
+function now creates a subscription to the `@topic` when the socket is connected:
 
 ```elixir
 CounterWeb.Endpoint.subscribe(@topic) # subscribe to the channel topic
 ```
+
+When the client (the browser) connects to the Phoenix server, 
+a websocket connection is established. 
+The interface is the `socket` and 
+we know that the socket is connected 
+when the [connected?/1](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#connected?/1) function returns `true`. 
+This is why we only subscribe to the channel 
+when the socket is connected.
+Why do we do this? 
+Because a websocket connection starts with an HTTP request 
+and HTTP is a stateless protocol. 
+So when the client connects to the server, 
+the server does not know if the client is already connected to the server. 
+Once the websocket connection is established, 
+the server knows that the client is connected, 
+thus `connected?(ocket) == true`.
 
 Each client connected to the App
 subscribes to the `@topic`
@@ -1371,8 +1389,9 @@ defmodule CounterWeb.Counter do
   @topic Count.topic
 
   def mount(_params, _session, socket) do
-    PubSub.subscribe(Counter.PubSub, @topic)
-
+    if connected?(socket) do
+      PubSub.subscribe(Counter.PubSub, @topic)
+    end
     {:ok, assign(socket, val: Count.current()) }
   end
 
@@ -1567,6 +1586,12 @@ but not here) so the rest of the code goes into
 2. We handle Presence updates and use the current count, adding joiners and
    subtracting leavers to calculate the current numbers 'present'. We do that
    in a pattern matched `handle_info`.
+   Notice that since we populate the socket's state in the `mount/3` callback,
+   and compute the Presence there, we need to remove the connected client
+   from the joins in the `handle_info` callback.
+   We use `Map.delete` to remove the client from the joins.
+   This works because the client is identified by the socket's `id` and Presence
+   process returns a map whose key value is the `socket.id`.
 3. We publish the additional data to the client in `render`
 
 ```diff
@@ -1580,14 +1605,19 @@ defmodule CounterWeb.Counter do
 + @presence_topic "presence"
 
   def mount(_params, _session, socket) do
-    PubSub.subscribe(Counter.PubSub, @topic)
 
-+   Presence.track(self(), @presence_topic, socket.id, %{})
-+   CounterWeb.Endpoint.subscribe(@presence_topic)
-+
 +   initial_present =
-+     Presence.list(@presence_topic)
-+     |> map_size
+      if connected?(socket) do
+        PubSub.subscribe(Counter.PubSub, @topic)
+
++       Presence.track(self(), @presence_topic, socket.id, %{})
++       CounterWeb.Endpoint.subscribe(@presence_topic)
++
++       Presence.list(@presence_topic)
++       |> map_size
++     else
++       0
++     end
 
 +   {:ok, assign(socket, val: Count.current(), present: initial_present) }
 -   {:ok, assign(socket, val: Count.current()) }
@@ -1609,6 +1639,7 @@ defmodule CounterWeb.Counter do
 +       %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
 +       %{assigns: %{present: present}} = socket
 +    ) do
++   {_, joins} = Map.pop!(joins, socket.id, %{})
 +   new_present = present + map_size(joins) - map_size(leaves)
 +
 +   {:noreply, assign(socket, :present, new_present)}

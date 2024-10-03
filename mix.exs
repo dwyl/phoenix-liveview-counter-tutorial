@@ -4,8 +4,8 @@ defmodule Counter.MixProject do
   def project do
     [
       app: :counter,
-      version: "1.7.7",
-      elixir: "~> 1.14",
+      version: "1.8.0",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -42,20 +42,29 @@ defmodule Counter.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.7"},
-      {:phoenix_html, "~> 4.0"},
+      {:phoenix, "~> 1.7.14"},
+      {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.0"},
+      # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
+      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
       {:floki, ">= 0.30.0", only: :test},
-      {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:heroicons,
+       github: "tailwindlabs/heroicons",
+       tag: "v2.1.1",
+       sparse: "optimized",
+       app: false,
+       compile: false,
+       depth: 1},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"},
+      {:dns_cluster, "~> 0.1.1"},
+      {:bandit, "~> 1.5"},
 
       # Track test coverage: github.com/parroty/excoveralls
-      {:excoveralls, "~> 0.18.0", only: [:test, :dev]},
+      {:excoveralls, "~> 0.16.0", only: [:test, :dev]}
     ]
   end
 
