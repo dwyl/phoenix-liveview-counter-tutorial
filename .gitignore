@@ -27,7 +27,7 @@ npm-debug.log
 /priv/static/cache_manifest.json
 
 # Ignore assets that are produced by build tools.
-/priv/static/*
+#/priv/static/*
 
 # Ignore this noise:
 .DS_Store

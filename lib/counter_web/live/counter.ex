@@ -4,20 +4,23 @@ defmodule CounterWeb.Counter do
   alias Phoenix.PubSub
   alias Counter.Presence
 
-  @topic Count.topic
+  @topic Count.topic()
+  
   @presence_topic "presence"
 
   def mount(_params, _session, socket) do
-    PubSub.subscribe(Counter.PubSub, @topic)
-    Presence.track(self(), @presence_topic, socket.id, %{})
-
     initial_present =
-      Presence.list(@presence_topic)
-      |> map_size
+      if connected?(socket) do
+        PubSub.subscribe(Counter.PubSub, @topic)
+        CounterWeb.Endpoint.subscribe(@presence_topic)
+        Presence.track(self(), @presence_topic, socket.id, %{})
 
-    CounterWeb.Endpoint.subscribe(@presence_topic)
+        Presence.list(@presence_topic) |> map_size()
+      else
+        0
+      end
 
-    {:ok, assign(socket, val:  Count.current(), present: initial_present) }
+    {:ok, assign(socket, val: Count.current(), present: initial_present)}
   end
 
   def handle_event("inc", _, socket) do
@@ -33,11 +36,13 @@ defmodule CounterWeb.Counter do
   end
 
   def handle_info(
-    %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
-    %{assigns: %{present: present}} = socket
-    ) do
-    new_present = present + map_size(joins) - map_size(leaves)
+        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
+        %{assigns: %{present: present}} = socket
+      ) do
+    {_, joins} = Map.pop(joins, socket.id, %{})
 
+    changes = map_size(joins) - map_size(leaves)
+    new_present = present + changes
 
     {:noreply, assign(socket, :present, new_present)}
   end
