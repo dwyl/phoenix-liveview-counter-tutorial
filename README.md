@@ -11,7 +11,6 @@
 **Build your _first_ App** using **Phoenix LiveView** 🥇<br />
 and **_understand_** all the concepts in **10 minutes** or _less_! 🚀 <br />
 Try it: [livecount.fly.dev](https://livecount.fly.dev/)
-F
   <div>
     <a href="https://livecount.fly.dev/">
       <img src="https://github.com/dwyl/phoenix-liveview-counter-tutorial/assets/194400/e61cf511-d1d8-4236-83b2-f9f45e06e710">
