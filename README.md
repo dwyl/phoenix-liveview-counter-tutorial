@@ -1588,10 +1588,11 @@ but not here) so the rest of the code goes into
    Notice that since we populate the socket's state in the `mount/3` callback,
    and compute the Presence there, we need to remove the connected client
    from the joins in the `handle_info` callback.
-   We use `Map.delete` to remove the client from the joins.
+   We use `Map.pop/3` to remove the client from the joins (note: `Math.pop/3` returns
+   a default map we parse in if `key` is not present in the map).
    This works because the client is identified by the socket's `id` and Presence
    process returns a map whose key value is the `socket.id`.
-3. We publish the additional data to the client in `render`
+4. We publish the additional data to the client in `render`
 
 ```diff
 defmodule CounterWeb.Counter do
@@ -1638,7 +1639,7 @@ defmodule CounterWeb.Counter do
 +       %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
 +       %{assigns: %{present: present}} = socket
 +    ) do
-+   {_, joins} = Map.pop!(joins, socket.id, %{})
++   {_, joins} = Map.pop(joins, socket.id, %{})
 +   new_present = present + map_size(joins) - map_size(leaves)
 +
 +   {:noreply, assign(socket, :present, new_present)}
