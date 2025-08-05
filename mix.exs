@@ -46,7 +46,7 @@ defmodule Counter.MixProject do
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
-      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
+      {:phoenix_live_view, "~> 1.1.2", override: true},
       {:floki, ">= 0.30.0", only: :test},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
@@ -64,7 +64,8 @@ defmodule Counter.MixProject do
       {:bandit, "~> 1.5"},
 
       # Track test coverage: github.com/parroty/excoveralls
-      {:excoveralls, "~> 0.18.3", only: [:test, :dev]}
+      {:excoveralls, "~> 0.18.3", only: [:test, :dev]},
+      {:lazy_html, ">= 0.1.0", only: :test}
     ]
   end
 
